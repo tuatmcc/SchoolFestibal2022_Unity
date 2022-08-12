@@ -1,19 +1,17 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(CinemachineDollyCart))]
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform[] CheckPoints;
-
     private PlayerInput CustomInput;
-    private Rigidbody Player;
-    private int CurrentPointIndex = 0;
+    private CinemachineDollyCart DollyCart;
+    private float SpeedUpPerTap = 5f;
+    private float SlowDownMultipler = 0.99f;
 
     private void Awake()
     {
@@ -23,30 +21,16 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Player = GetComponent<Rigidbody>();
-        transform.position = CheckPoints[0].position;
-        transform.forward = CheckPoints[1].position - CheckPoints[0].position;
+        DollyCart = GetComponent<CinemachineDollyCart>();
     }
 
     private void Update()
     {
-        if (CustomInput.Player.Accelerate.triggered)
+        if (CustomInput.Player.Accelerate.WasPerformedThisFrame())
         {
-            Player.AddForce((CheckPoints[CurrentPointIndex + 1].position - transform.position).normalized * 5f, ForceMode.VelocityChange);
-            transform.forward = Player.velocity;
+            DollyCart.m_Speed += SpeedUpPerTap;
         }
-
-        Player.AddForce(-Player.velocity * 0.1f);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        CurrentPointIndex++;
-        if (CurrentPointIndex >= CheckPoints.Length - 1)
-        {
-            CurrentPointIndex = 0;
-        }
-        Player.velocity = (CheckPoints[CurrentPointIndex + 1].position -
-                transform.position).normalized * Player.velocity.magnitude;
+        // Decrease speed every frame
+        DollyCart.m_Speed *= SlowDownMultipler;
     }
 }
