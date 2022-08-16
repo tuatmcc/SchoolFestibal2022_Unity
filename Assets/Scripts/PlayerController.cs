@@ -8,15 +8,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerInput CustomInput;
+    private PlayerInputAction PlayerInput;
     private CinemachineDollyCart DollyCart;
     private float SpeedUpPerTap = 5f;
     private float SlowDownMultipler = 0.99f;
 
     private void Awake()
     {
-        CustomInput = new PlayerInput();
-        CustomInput.Enable();
+        PlayerInput = new PlayerInputAction();
+        PlayerInput.Enable();
     }
 
     private void Start()
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (CustomInput.Player.Accelerate.WasPerformedThisFrame())
+        if (PlayerInput.Player.Accelerate.WasPerformedThisFrame())
         {
             DollyCart.m_Speed += SpeedUpPerTap;
         }
