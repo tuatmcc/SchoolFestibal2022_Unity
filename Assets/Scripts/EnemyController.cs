@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    // This paramater is related to an enemy level
     [SerializeField] private float EnemyTapFrequency = 0.01f;
     [SerializeField] private float MaxSpeedLimit = 20f;
 
@@ -21,6 +22,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        // Tap randomly
         float Rand = Random.value;
         if (Rand < EnemyTapFrequency && DollyCart.m_Speed < MaxSpeedLimit)
         {
