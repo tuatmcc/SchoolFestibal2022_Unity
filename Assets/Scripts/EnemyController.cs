@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CinemachineDollyCart))]
+[RequireComponent(typeof(Animator))]
 
 public class EnemyController : MonoBehaviour
 {
-    // This paramater is related to an enemy level
+    public string DisplayName = "‚¨‚¤‚Ü‚³‚ñ";
+
+    // Enemy Strength is dependent on these two parematers
     [SerializeField] private float EnemyTapFrequency = 0.01f;
     [SerializeField] private float MaxSpeedLimit = 20f;
 
@@ -17,7 +20,8 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        DollyCart = GetComponent<CinemachineDollyCart>();
+        TryGetComponent(out DollyCart);
+        DollyCart.m_Path = GameObject.FindGameObjectWithTag("Path").GetComponent<CinemachineSmoothPath>();
     }
 
     private void Update()
@@ -28,6 +32,8 @@ public class EnemyController : MonoBehaviour
         {
             DollyCart.m_Speed += SpeedUpPerTap;
         }
+
+        // Decrease speed every frame
         DollyCart.m_Speed *= SlowDownMultipler;
     }
 }
