@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "CustomInputAction",
     "maps": [
         {
             "name": "Player",
@@ -46,6 +46,54 @@
                     "processors": "",
                     "groups": "",
                     "action": "Accelerate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "2ea5d557-3e01-4c7d-bdf3-5c530d33b779",
+            "actions": [
+                {
+                    "name": "LoadMainScene",
+                    "type": "Button",
+                    "id": "69e1de7b-65dd-4f73-b5a2-706da0040473",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Confirm",
+                    "type": "Button",
+                    "id": "3a934dc0-d6d9-45f2-828f-2e6d86523522",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ae13a98c-2a29-44f6-bfaf-6e92934b9c73",
+                    "path": "<Keyboard>/numpad2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LoadMainScene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8975df15-494a-48cf-ab2f-d5010730c987",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
