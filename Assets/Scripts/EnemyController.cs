@@ -2,38 +2,34 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(CinemachineDollyCart))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(CharacterController))]
 
 public class EnemyController : MonoBehaviour
 {
-    public string DisplayName = "‚¨‚¤‚Ü‚³‚ñ";
-
     // Enemy Strength is dependent on these two parematers
-    [SerializeField] private float EnemyTapFrequency = 0.01f;
-    [SerializeField] private float MaxSpeedLimit = 20f;
+    public float EnemyTapFrequency = 0.01f;
+    public float MaxSpeedLimit = 20f;
 
+    private CharacterController Character;
     private CinemachineDollyCart DollyCart;
-    private float SpeedUpPerTap = 5f;
-    private float SlowDownMultipler = 0.99f;
 
     private void Start()
     {
         TryGetComponent(out DollyCart);
-        DollyCart.m_Path = GameObject.FindGameObjectWithTag("Path").GetComponent<CinemachineSmoothPath>();
+        TryGetComponent(out Character);
+
     }
 
     private void Update()
     {
-        // Tap randomly
+        // Accelerate randomly
         float Rand = Random.value;
         if (Rand < EnemyTapFrequency && DollyCart.m_Speed < MaxSpeedLimit)
         {
-            DollyCart.m_Speed += SpeedUpPerTap;
+            Character.Accelerate();
         }
-
-        // Decrease speed every frame
-        DollyCart.m_Speed *= SlowDownMultipler;
     }
 }
