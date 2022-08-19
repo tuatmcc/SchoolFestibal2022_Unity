@@ -5,10 +5,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 
-public class RankingManger : MonoBehaviour
+public class RaceManger : MonoBehaviour
 {
     [SerializeField] private CharacterController[] Characters;
     [SerializeField] private CinemachineSmoothPath Path;
+
+    private int StartFrame = 150;
+    private int CurrentFrame = 0;
+
+    public static bool IsRaceStarted { get; private set; } = false;
 
     private class Chara
     {
@@ -28,7 +33,14 @@ public class RankingManger : MonoBehaviour
 
     void Update()
     {
-        Charas.Sort((a, b) => (b.chara.Position).CompareTo(a.chara.Position));
+        CurrentFrame++;
+        if (CurrentFrame == StartFrame) IsRaceStarted = true;
+        else if (CurrentFrame > StartFrame) UpdateCurrentRanking();
+    }
+
+    private void UpdateCurrentRanking()
+    {
+        Charas.Sort((a, b) => (b.chara.Position * 100).CompareTo(a.chara.Position * 100));
 
         for (int i = 0; i < Charas.Count; i++)
         {

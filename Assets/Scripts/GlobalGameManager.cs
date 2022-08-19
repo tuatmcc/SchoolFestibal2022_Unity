@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GlobalGameManager : MonoBehaviour
 {
+    public AsyncOperation AsyncLoad;
     private string MainSceneName = "MainScene";
     private string TitleSceneName = "TitleScene";
 
@@ -23,8 +24,8 @@ public class GlobalGameManager : MonoBehaviour
         if (SceneManager.GetSceneByName(MainSceneName).isLoaded) return;
         if (SceneManager.GetSceneByName(TitleSceneName).isLoaded) return;
 
-        AsyncOperation asyncLoad =  SceneManager.LoadSceneAsync(TitleSceneName, LoadSceneMode.Additive);
-        asyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(TitleSceneName));
+        AsyncLoad =  SceneManager.LoadSceneAsync(TitleSceneName, LoadSceneMode.Additive);
+        AsyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(TitleSceneName));
     }
 
     void Update()
@@ -33,8 +34,8 @@ public class GlobalGameManager : MonoBehaviour
             !SceneManager.GetSceneByName(MainSceneName).IsValid())
         {
             SceneManager.UnloadSceneAsync(TitleSceneName);
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(MainSceneName, LoadSceneMode.Additive);
-            asyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(MainSceneName));
+            AsyncLoad = SceneManager.LoadSceneAsync(MainSceneName, LoadSceneMode.Additive);
+            AsyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(MainSceneName));
         }
     }
 

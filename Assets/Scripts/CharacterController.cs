@@ -11,7 +11,7 @@ using TMPro;
 
 public class CharacterController : MonoBehaviour
 {
-    public string DisplayName = "UMA";
+    public string DisplayName = "UMA (CP)";
     public float Position = 0;
     public int Rank = 0;
     public Texture CustomTexture;
@@ -39,11 +39,14 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        // Decrease speed every frame
-        DollyCart.m_Speed *= SlowDownMultipler;
-        Position = DollyCart.m_Position;
+        if (RaceManger.IsRaceStarted)
+        {
+            // Decrease speed every frame
+            DollyCart.m_Speed *= SlowDownMultipler;
+            Position = DollyCart.m_Position;
 
-        SetStatusPlate();
+            SetStatusPlate();
+        }
     }
 
     private void SetStatusPlate()

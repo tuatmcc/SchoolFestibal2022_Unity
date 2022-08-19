@@ -25,11 +25,14 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        // Accelerate randomly
-        float Rand = Random.value;
-        if (Rand < EnemyTapFrequency && DollyCart.m_Speed < MaxSpeedLimit)
+        if (RaceManger.IsRaceStarted)
         {
-            Character.Accelerate();
+            // Accelerate randomly
+            float Rand = Random.value;
+            if (Rand < EnemyTapFrequency && DollyCart.m_Speed < MaxSpeedLimit)
+            {
+                Character.Accelerate();
+            }
         }
     }
 }
