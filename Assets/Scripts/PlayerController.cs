@@ -30,9 +30,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (CustomInput.Player.Accelerate.WasPerformedThisFrame())
+        if (RaceManger.IsRaceStarted)
         {
-            Character.Accelerate();
+            if (CustomInput.Player.Accelerate.WasPerformedThisFrame())
+            {
+                Character.Accelerate();
+            }
         }
     }
 }

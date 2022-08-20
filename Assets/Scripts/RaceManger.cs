@@ -10,9 +10,7 @@ public class RaceManger : MonoBehaviour
     [SerializeField] private CharacterController[] Characters;
     [SerializeField] private CinemachineSmoothPath Path;
 
-    private int StartFrame = 150;
-    private int CurrentFrame = 0;
-
+    public float StartTime { get; private set; } = 4f;
     public static bool IsRaceStarted { get; private set; } = false;
 
     private class Chara
@@ -33,9 +31,9 @@ public class RaceManger : MonoBehaviour
 
     void Update()
     {
-        CurrentFrame++;
-        if (CurrentFrame == StartFrame) IsRaceStarted = true;
-        else if (CurrentFrame > StartFrame) UpdateCurrentRanking();
+        StartTime -= Time.deltaTime;
+        if (StartTime <= 0f) IsRaceStarted = true;
+        if (IsRaceStarted) UpdateCurrentRanking();
     }
 
     private void UpdateCurrentRanking()

@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Appearance:
     pathColor: {r: 0, g: 1, b: 0, a: 1}
     inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    width: 0.2
+    width: 0
   m_Looped: 0
   m_Waypoints:
   - position: {x: -26.86115, y: 0, z: -15.12599}
@@ -871,6 +871,7 @@ GameObject:
   - component: {fileID: 778217974}
   - component: {fileID: 778217976}
   - component: {fileID: 778217975}
+  - component: {fileID: 778217977}
   m_Layer: 5
   m_Name: CountDownImage
   m_TagString: Untagged
@@ -918,8 +919,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 15e277d6e5e88234d9ea7c28163e654a, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -936,6 +937,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778217973}
   m_CullTransparentMesh: 1
+--- !u!114 &778217977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778217973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99df893881fc21245a2ee3941c99c060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RManager: {fileID: 2120301345}
+  Number_1: {fileID: 21300000, guid: 15e277d6e5e88234d9ea7c28163e654a, type: 3}
+  Number_2: {fileID: 21300000, guid: e8b1a5434566016408f1212e4e48728a, type: 3}
+  Number_3: {fileID: 21300000, guid: ecb232fd7e7f4154c817379d1c1b3fbe, type: 3}
 --- !u!1 &852305049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,7 +1336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b3abcf35da95b4b9aca1299a39d356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTapFrequency: 0.04
+  EnemyTapFrequency: 0.06
   MaxSpeedLimit: 20
 --- !u!4 &1031461917
 Transform:
@@ -2029,7 +2046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b3abcf35da95b4b9aca1299a39d356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTapFrequency: 0.08
+  EnemyTapFrequency: 0.1
   MaxSpeedLimit: 20
 --- !u!4 &1428059258
 Transform:
@@ -2238,7 +2255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b3abcf35da95b4b9aca1299a39d356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTapFrequency: 0.06
+  EnemyTapFrequency: 0.04
   MaxSpeedLimit: 20
 --- !u!4 &1679352312
 Transform:
@@ -2520,7 +2537,7 @@ MonoBehaviour:
   m_Path: {fileID: 265619859}
   m_UpdateMethod: 0
   m_PositionUnits: 1
-  m_Speed: 1
+  m_Speed: 0
   m_Position: 0
 --- !u!95 &2032359225
 Animator:
