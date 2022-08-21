@@ -986,7 +986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyTapFrequency: 0.04
-  MaxSpeedLimit: 20
+  MaxSpeedLimit: 40
 --- !u!4 &852305052
 Transform:
   m_ObjectHideFlags: 0
@@ -1337,7 +1337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyTapFrequency: 0.06
-  MaxSpeedLimit: 20
+  MaxSpeedLimit: 40
 --- !u!4 &1031461917
 Transform:
   m_ObjectHideFlags: 0
@@ -2047,7 +2047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyTapFrequency: 0.1
-  MaxSpeedLimit: 20
+  MaxSpeedLimit: 40
 --- !u!4 &1428059258
 Transform:
   m_ObjectHideFlags: 0
@@ -2255,8 +2255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b3abcf35da95b4b9aca1299a39d356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTapFrequency: 0.04
-  MaxSpeedLimit: 20
+  EnemyTapFrequency: 0.08
+  MaxSpeedLimit: 40
 --- !u!4 &1679352312
 Transform:
   m_ObjectHideFlags: 0

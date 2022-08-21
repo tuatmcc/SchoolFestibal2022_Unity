@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private GlobalGameManager GameMemanager;
+    private GlobalDataManager GameMemanager;
     private CustomInputAction CustomInput;
     private CharacterController Character;
 

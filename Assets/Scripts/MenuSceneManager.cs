@@ -10,7 +10,7 @@ public class MenuSceneManager : MonoBehaviour
     public GameObject StartGameButton;
     public GameObject ConfirmPlayerNameButton;
 
-    private GlobalGameManager GameManager;
+    private GlobalDataManager GameManager;
     private CustomInputAction CustomInput;
     private TMP_InputField PlayerNameInputField;
 

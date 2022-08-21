@@ -10,8 +10,8 @@ using TMPro;
 public class EnemyController : MonoBehaviour
 {
     // Enemy Strength is dependent on these two parematers
-    public float EnemyTapFrequency = 0.01f;
-    public float MaxSpeedLimit = 20f;
+    [Range(0f, 1f)] public float EnemyTapFrequency = 0.01f;
+    public float MaxSpeedLimit = 30f;
 
     private CharacterController Character;
     private CinemachineDollyCart DollyCart;
