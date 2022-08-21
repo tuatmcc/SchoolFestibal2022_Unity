@@ -29,6 +29,8 @@ public class CharacterController : MonoBehaviour
 
     public RaceManager RManager;
 
+    public bool isPlayer { get; set; } = false;
+
     private void Start()
     {
         SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out RManager);

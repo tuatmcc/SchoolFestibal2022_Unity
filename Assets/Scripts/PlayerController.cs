@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
         // Set Player Name
         Character.DisplayName = RManager.PlayerDisplayName;
+        Character.isPlayer = true;
     }
 
     private void Update()

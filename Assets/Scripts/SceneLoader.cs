@@ -28,6 +28,7 @@ public class SceneLoader : MonoBehaviour
 
         if (SceneManager.GetSceneByName(SceneNames.MainScene).isLoaded) return;
         if (SceneManager.GetSceneByName(SceneNames.TitleScene).isLoaded) return;
+        if (SceneManager.GetSceneByName(SceneNames.ResultScene).isLoaded) return;
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneNames.TitleScene.ToString(), LoadSceneMode.Additive);
         asyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneNames.TitleScene));
@@ -35,10 +36,15 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadScene(string loadSceneName, string unloadSceneName)
     {
-        StartCoroutine(LoadAndUnloadScene(loadSceneName, unloadSceneName));
+        StartCoroutine(LoadSceneWithTransition(loadSceneName, unloadSceneName));
     }
 
-    private IEnumerator LoadAndUnloadScene(string loadceneName, string unLoadSceneName)
+    public void LoadSceneAdditive(string loadSceneName, string unloadSceneName)
+    {
+        SceneManager.LoadScene(loadSceneName, LoadSceneMode.Additive);
+    }
+
+    private IEnumerator LoadSceneWithTransition(string loadceneName, string unLoadSceneName)
     {
         LoadingUI.gameObject.SetActive(true);
         Cam.gameObject.SetActive(true);
@@ -71,5 +77,18 @@ public class SceneLoader : MonoBehaviour
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadceneName));
     }
 
+    private IEnumerator LoadSceneWithoutTransition(string loadceneName, string unLoadSceneName)
+    {
+        LoadingUI.gameObject.SetActive(false);
+        Cam.gameObject.SetActive(false);
+        FadingImage.gameObject.SetActive(false);
 
+        // Unload and load scenes
+
+        AsyncOperation loadAsync = SceneManager.LoadSceneAsync(loadceneName, LoadSceneMode.Additive);
+        yield return loadAsync;
+
+        // Done!
+        // SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadceneName));
+    }
 }

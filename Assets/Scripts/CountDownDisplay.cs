@@ -25,9 +25,9 @@ public class CountDownDisplay : MonoBehaviour
 
     void Update()
     {
-        if (RManager.StartTime <= 0) CountDownImage.gameObject.SetActive(false);
-        else if (RManager.StartTime <= 1) CountDownImage.sprite = Number_1;
-        else if (RManager.StartTime <= 2) CountDownImage.sprite = Number_2;
-        else if (RManager.StartTime <= 3) CountDownImage.sprite = Number_3;
+        if (RManager.CountDownTimer <= 0) CountDownImage.gameObject.SetActive(false);
+        else if (RManager.CountDownTimer <= 1) CountDownImage.sprite = Number_1;
+        else if (RManager.CountDownTimer <= 2) CountDownImage.sprite = Number_2;
+        else if (RManager.CountDownTimer <= 3) CountDownImage.sprite = Number_3;
     }
 }
