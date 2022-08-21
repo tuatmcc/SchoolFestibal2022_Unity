@@ -13,7 +13,6 @@ public class SceneLoader : MonoBehaviour
 
     private CustomInputAction CustomInput;
     private float FadeOutPerFrame = 0.01f;
-    private float Progress;
 
     private void Awake()
     {
@@ -26,39 +25,38 @@ public class SceneLoader : MonoBehaviour
         LoadingUI.gameObject.SetActive(false);
         Cam.gameObject.SetActive(false);
         FadingImage.gameObject.SetActive(false);
+
+        if (SceneManager.GetSceneByName(SceneNames.MainScene).isLoaded) return;
+        if (SceneManager.GetSceneByName(SceneNames.TitleScene).isLoaded) return;
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneNames.TitleScene.ToString(), LoadSceneMode.Additive);
+        asyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneNames.TitleScene));
     }
 
-    private void Update()
+    public void LoadScene(string loadSceneName, string unloadSceneName)
     {
-        if (CustomInput.UI.LoadMainScene.WasPerformedThisFrame() &&
-            !SceneManager.GetSceneByName(SceneNames.MainScene).isLoaded)
-        {
-            StartCoroutine(LoadAndUnloadScene(SceneNames.MainScene, SceneNames.TitleScene));
-        }
+        StartCoroutine(LoadAndUnloadScene(loadSceneName, unloadSceneName));
     }
-
 
     private IEnumerator LoadAndUnloadScene(string loadceneName, string unLoadSceneName)
     {
         LoadingUI.gameObject.SetActive(true);
         Cam.gameObject.SetActive(true);
         FadingImage.gameObject.SetActive(false);
-
+        
+        // Unload and load scenes
         AsyncOperation unloadAsync = SceneManager.UnloadSceneAsync(unLoadSceneName);
+        yield return unloadAsync;
         AsyncOperation loadAsync = SceneManager.LoadSceneAsync(loadceneName, LoadSceneMode.Additive);
-
-        while (!unloadAsync.isDone || !loadAsync.isDone)
-        {
-            Progress = (unloadAsync.progress + loadAsync.progress) * 0.5f;
-            Debug.Log(Progress);
-            yield return null;
-        }
-
+        yield return loadAsync;
         yield return Resources.UnloadUnusedAssets();
+
 
         LoadingUI.gameObject.SetActive(false);
         Cam.gameObject.SetActive(false);
 
+
+        // Fade out
         FadingImage.gameObject.SetActive(true);
         FadingImage.color = Color.black;
         while (FadingImage.color.a - FadeOutPerFrame >= 0)
@@ -69,6 +67,7 @@ public class SceneLoader : MonoBehaviour
         yield return null;
         FadingImage.gameObject.SetActive(false);
         
+        // Done!
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadceneName));
     }
 

@@ -4,6 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - RManager: {fileID: 6374258180772815659, guid: b11017a86dc976148820f610e1a9d253, type: 3}
   - Number_1: {fileID: 2800000, guid: 15e277d6e5e88234d9ea7c28163e654a, type: 3}
   - Number_2: {fileID: 2800000, guid: e8b1a5434566016408f1212e4e48728a, type: 3}
   - Number_3: {fileID: 2800000, guid: ecb232fd7e7f4154c817379d1c1b3fbe, type: 3}

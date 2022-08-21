@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 [RequireComponent(typeof(CinemachineDollyCart))]
@@ -13,11 +14,13 @@ public class EnemyController : MonoBehaviour
     [Range(0f, 1f)] public float EnemyTapFrequency = 0.01f;
     public float MaxSpeedLimit = 30f;
 
+    private RaceManager RManager;
     private CharacterController Character;
     private CinemachineDollyCart DollyCart;
 
     private void Start()
     {
+        SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out RManager);
         TryGetComponent(out DollyCart);
         TryGetComponent(out Character);
 
@@ -25,7 +28,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        if (RaceManger.IsRaceStarted)
+        if (RManager.RaceStarted)
         {
             // Accelerate randomly
             float Rand = Random.value;

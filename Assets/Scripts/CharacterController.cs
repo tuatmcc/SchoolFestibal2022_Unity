@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 [RequireComponent(typeof(CinemachineDollyCart))]
@@ -26,8 +27,13 @@ public class CharacterController : MonoBehaviour
     private float SpeedUpPerTap = 3f;
     private float SlowDownMultipler = 0.99f;
 
+    public RaceManager RManager;
+
     private void Start()
     {
+        SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out RManager);
+        RManager.Characters.Add(this);
+
         TryGetComponent(out DollyCart);
         MainCam = Camera.main.transform;
 
@@ -39,7 +45,7 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        if (RaceManger.IsRaceStarted)
+        if (RManager.RaceStarted)
         {
             // Decrease speed every frame
             DollyCart.m_Speed *= SlowDownMultipler;
