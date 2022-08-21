@@ -10,11 +10,17 @@ public class RaceManager : MonoBehaviour
     [SerializeField] private CinemachineSmoothPath Path;
 
     public string PlayerDisplayName { get; set; } = "Nameless";
-    public float StartTime { get; private set; } = 5f;
+    public float CountDownTimer { get; private set; } = 5f;
     public bool RaceStarted { get; private set; } = false;
     public bool RaceEnded { get; private set; } = false;
     public List<CharacterController> Characters { get; set; } = new List<CharacterController>();
 
+    private SceneLoader SceneLoadManager;
+
+    private void Start()
+    {
+        TryGetComponent(out SceneLoadManager);
+    }
 
     void Update()
     {        
@@ -22,8 +28,8 @@ public class RaceManager : MonoBehaviour
 
         if (!RaceStarted)
         {
-            StartTime -= Time.deltaTime;
-            RaceStarted = StartTime <= 0 ? true : false;
+            CountDownTimer -= Time.deltaTime;
+            RaceStarted = CountDownTimer <= 0 ? true : false;
         }
         else if (!RaceEnded)
         {
@@ -44,9 +50,10 @@ public class RaceManager : MonoBehaviour
             Characters[i].Rank = i + 1;
         }
 
-        if (Characters[Characters.Count-1].Position == Path.MaxPos)
+        if (Characters[Characters.Count-1].Position == Path.PathLength)
         {
             RaceEnded = true;
+            SceneLoadManager.LoadSceneAdditive(SceneNames.ResultScene, SceneNames.MainScene);
         }
     }
 }
