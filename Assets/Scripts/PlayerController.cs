@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private GlobalGameManager GameMemanager;
+    private RaceManager RManager;
     private CustomInputAction CustomInput;
     private CharacterController Character;
 
@@ -21,18 +21,21 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        SceneManager.GetSceneByName("ManagerScene").GetRootGameObjects()[0].TryGetComponent(out GameMemanager);
+        SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out RManager);
         TryGetComponent(out Character);
 
         // Set Player Name
-        Character.DisplayName = GameMemanager.PlayerName;
+        Character.DisplayName = RManager.PlayerDisplayName;
     }
 
     private void Update()
     {
-        if (CustomInput.Player.Accelerate.WasPerformedThisFrame())
+        if (RManager.RaceStarted)
         {
-            Character.Accelerate();
+            if (CustomInput.Player.Accelerate.WasPerformedThisFrame())
+            {
+                Character.Accelerate();
+            }
         }
     }
 }
