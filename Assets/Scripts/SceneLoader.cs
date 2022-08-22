@@ -10,6 +10,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private Image LoadingUI;
     [SerializeField] private Camera Cam;
     [SerializeField] private Image FadingImage;
+    [SerializeField] private float FadeOutAnimationTime = 1;
 
     private CustomInputAction CustomInput;
     private float FadeOutPerFrame = 0.01f;
@@ -64,14 +65,12 @@ public class SceneLoader : MonoBehaviour
 
         // Fade out
         FadingImage.gameObject.SetActive(true);
-        FadingImage.color = Color.black;
-        while (FadingImage.color.a - FadeOutPerFrame >= 0)
+        float animationTime = 0;
+        while (animationTime < FadeOutAnimationTime)
         {
-            FadingImage.color = new Color(0, 0, 0, FadingImage.color.a - FadeOutPerFrame);
+            animationTime += Time.deltaTime;
             yield return null;
         }
-        yield return null;
-        FadingImage.gameObject.SetActive(false);
         
         // Done!
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadceneName));
