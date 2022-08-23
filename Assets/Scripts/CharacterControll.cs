@@ -10,9 +10,9 @@ using TMPro;
 
 // This Component needs to be controlled by PlayerController or EnemyController
 
-public class CharacterController : MonoBehaviour
+public class CharacterControll : MonoBehaviour
 {
-    public string DisplayName = "UMA (CP)";
+    public string DisplayName = "Horse (CP)";
     public float Position = 0;
     public int Rank = 0;
     public Texture CustomTexture;
@@ -43,6 +43,9 @@ public class CharacterController : MonoBehaviour
         {
             SetCustomTexture(CustomTexture, CustomShader);
         }
+
+        StatusPlate.transform.forward = MainCam.forward;
+        NameTextField.text = DisplayName;
     }
 
     private void Update()
