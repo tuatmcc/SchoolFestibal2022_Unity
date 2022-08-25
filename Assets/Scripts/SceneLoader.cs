@@ -10,10 +10,9 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private Image LoadingUI;
     [SerializeField] private Camera Cam;
     [SerializeField] private Image FadingImage;
-    [SerializeField] private float FadeOutAnimationTime = 1;
+    [SerializeField] private float FadeOutAnimationDuration = 1;
 
     private CustomInputAction CustomInput;
-    private float FadeOutPerFrame = 0.01f;
 
     private void Awake()
     {
@@ -66,7 +65,7 @@ public class SceneLoader : MonoBehaviour
         // Fade out
         FadingImage.gameObject.SetActive(true);
         float animationTime = 0;
-        while (animationTime < FadeOutAnimationTime)
+        while (animationTime < FadeOutAnimationDuration)
         {
             animationTime += Time.deltaTime;
             yield return null;

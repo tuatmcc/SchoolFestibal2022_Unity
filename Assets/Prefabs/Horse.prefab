@@ -291,9 +291,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1524078466828311294, guid: 38a520e900d24d14baba49774c8c5430, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1524078466828311294, guid: 38a520e900d24d14baba49774c8c5430, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1524078466828311294, guid: 38a520e900d24d14baba49774c8c5430, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4745101588423452087, guid: 38a520e900d24d14baba49774c8c5430, type: 3}
       propertyPath: m_Name
       value: StatusPlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528815973657692834, guid: 38a520e900d24d14baba49774c8c5430, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38a520e900d24d14baba49774c8c5430, type: 3}

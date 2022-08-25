@@ -13,7 +13,7 @@ public class RaceManager : MonoBehaviour
     public float CountDownTimer { get; private set; } = 5f;
     public bool RaceStarted { get; private set; } = false;
     public bool RaceEnded { get; private set; } = false;
-    public List<CharacterController> Characters { get; set; } = new List<CharacterController>();
+    public List<CharacterControll> Characters { get; set; } = new List<CharacterControll>();
 
     private SceneLoader SceneLoadManager;
 

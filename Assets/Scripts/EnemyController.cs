@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 [RequireComponent(typeof(CinemachineDollyCart))]
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CharacterControll))]
 
 public class EnemyController : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     public float MaxSpeedLimit = 30f;
 
     private RaceManager RManager;
-    private CharacterController Character;
+    private CharacterControll Character;
     private CinemachineDollyCart DollyCart;
 
     private void Start()

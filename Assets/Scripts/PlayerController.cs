@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CharacterControll))]
 
 public class PlayerController : MonoBehaviour
 {
     private RaceManager RManager;
     private CustomInputAction CustomInput;
-    private CharacterController Character;
+    private CharacterControll Character;
 
     private void Awake()
     {
