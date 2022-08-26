@@ -7,8 +7,6 @@ using Cinemachine;
 
 public class RaceManager : MonoBehaviour
 {
-    [SerializeField] private CinemachineSmoothPath Path;
-
     public string PlayerDisplayName { get; set; } = "Nameless";
     public float CountDownTimer { get; private set; } = 5f;
     public bool RaceStarted { get; private set; } = false;
@@ -16,6 +14,8 @@ public class RaceManager : MonoBehaviour
     public List<CharacterControll> Characters { get; set; } = new List<CharacterControll>();
 
     private SceneLoader SceneLoadManager;
+    private CinemachineSmoothPath Path;
+
 
     private void Start()
     {
@@ -25,6 +25,8 @@ public class RaceManager : MonoBehaviour
     void Update()
     {        
         if (SceneManager.GetActiveScene().name != SceneNames.MainScene) return;
+
+        SceneManager.GetActiveScene().GetRootGameObjects()[0].TryGetComponent(out Path);
 
         if (!RaceStarted)
         {
