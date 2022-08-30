@@ -1,41 +1,37 @@
-using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(CharacterControll))]
+[RequireComponent(typeof(CharacterController))]
 
 public class PlayerController : MonoBehaviour
 {
-    private RaceManager RManager;
-    private CustomInputAction CustomInput;
-    private CharacterControll Character;
+    private RaceManager _rManager;
+    private CustomInputAction _customInput;
+    private CharacterController _character;
 
     private void Awake()
     {
-        CustomInput = new CustomInputAction();
-        CustomInput.Enable();
+        _customInput = new CustomInputAction();
+        _customInput.Enable();
     }
 
     private void Start()
     {
-        SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out RManager);
-        TryGetComponent(out Character);
+        SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out _rManager);
+        TryGetComponent(out _character);
 
         // Set Player Name
-        Character.DisplayName = RManager.PlayerDisplayName;
-        Character.isPlayer = true;
+        _character.displayName = _rManager.PlayerDisplayName;
+        _character.IsPlayer = true;
     }
 
     private void Update()
     {
-        if (RManager.RaceStarted)
+        if (_rManager.RaceStarted)
         {
-            if (CustomInput.Player.Accelerate.WasPerformedThisFrame())
+            if (_customInput.Player.Accelerate.WasPerformedThisFrame())
             {
-                Character.Accelerate();
+                _character.Accelerate();
             }
         }
     }

@@ -1,45 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class MenuSceneManager : MonoBehaviour
 {
-    public GameObject StartGameButton;
-    public GameObject ConfirmPlayerNameButton;
+    public GameObject startGameButton;
+    public GameObject confirmPlayerNameButton;
 
-    private SceneLoader SceneLoadManager;
-    private RaceManager RManager;
-    private CustomInputAction CustomInput;
-    private TMP_InputField PlayerNameInputField;
+    private SceneLoader _sceneLoadManager;
+    private RaceManager _rManager;
+    private CustomInputAction _customInput;
+    private TMP_InputField _playerNameInputField;
 
-    void Start()
+    private void Start()
     {
-        GameObject rootGO = SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0];
-        rootGO.TryGetComponent(out SceneLoadManager);
-        rootGO.TryGetComponent(out RManager);
-        TryGetComponent(out PlayerNameInputField);
+        var rootGo = SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0];
+        rootGo.TryGetComponent(out _sceneLoadManager);
+        rootGo.TryGetComponent(out _rManager);
+        TryGetComponent(out _playerNameInputField);
 
-        CustomInput = new CustomInputAction();
-        CustomInput.Enable();
+        _customInput = new CustomInputAction();
+        _customInput.Enable();
 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (CustomInput.UI.Confirm.WasPerformedThisFrame())
+        if (_customInput.UI.Confirm.WasPerformedThisFrame())
         {
-            RManager.PlayerDisplayName = PlayerNameInputField.text;
-            ConfirmPlayerNameButton.SetActive(false);
+            _rManager.PlayerDisplayName = _playerNameInputField.text;
+            confirmPlayerNameButton.SetActive(false);
         }
 
-        if (CustomInput.UI.LoadMainScene.WasPerformedThisFrame() &&
+        if (_customInput.UI.LoadMainScene.WasPerformedThisFrame() &&
             !SceneManager.GetSceneByName(SceneNames.MainScene).isLoaded)
         {
-            SceneLoadManager.LoadScene(SceneNames.MainScene, SceneNames.TitleScene);
+            _sceneLoadManager.LoadScene(SceneNames.MainScene, SceneNames.TitleScene);
         }
     }
 }

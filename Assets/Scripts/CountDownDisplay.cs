@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -9,25 +7,25 @@ using UnityEngine.SceneManagement;
 
 public class CountDownDisplay : MonoBehaviour
 {
-    [SerializeField] private Sprite Number_1;
-    [SerializeField] private Sprite Number_2;
-    [SerializeField] private Sprite Number_3;
+    [SerializeField] private Sprite number1;
+    [SerializeField] private Sprite number2;
+    [SerializeField] private Sprite number3;
 
-    private RaceManager RManager;
-    private Image CountDownImage;
+    private RaceManager _rManager;
+    private Image _countDownImage;
 
 
-    void Start()
+    private void Start()
     {
-        SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out RManager);
-        TryGetComponent(out CountDownImage);
+        SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out _rManager);
+        TryGetComponent(out _countDownImage);
     }
 
-    void Update()
+    private void Update()
     {
-        if (RManager.CountDownTimer <= 0) CountDownImage.gameObject.SetActive(false);
-        else if (RManager.CountDownTimer <= 1) CountDownImage.sprite = Number_1;
-        else if (RManager.CountDownTimer <= 2) CountDownImage.sprite = Number_2;
-        else if (RManager.CountDownTimer <= 3) CountDownImage.sprite = Number_3;
+        if (_rManager.CountDownTimer <= 0) _countDownImage.gameObject.SetActive(false);
+        else if (_rManager.CountDownTimer <= 1) _countDownImage.sprite = number1;
+        else if (_rManager.CountDownTimer <= 2) _countDownImage.sprite = number2;
+        else if (_rManager.CountDownTimer <= 3) _countDownImage.sprite = number3;
     }
 }

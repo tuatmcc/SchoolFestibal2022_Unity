@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,27 +5,27 @@ using Cinemachine;
 
 public class GeneratePathMesh : MonoBehaviour
 {
-    [SerializeField] private bool GenerateMesh = false;
-    [SerializeField] private CinemachineSmoothPath Path;
-    [SerializeField] private float Width = 5;
-    [SerializeField] private Material MeshMaterial;
+    [SerializeField] private bool generateMesh = false;
+    [SerializeField] private CinemachineSmoothPath path;
+    [SerializeField] private float width = 5;
+    [SerializeField] private Material meshMaterial;
 
-    private CinemachinePathBase.PositionUnits Units = CinemachinePathBase.PositionUnits.PathUnits;
+    private CinemachinePathBase.PositionUnits _units = CinemachinePathBase.PositionUnits.PathUnits;
 
     private void OnValidate()
     {
-        if (!GenerateMesh) return;
+        if (!generateMesh) return;
         Generate();
-        GenerateMesh = false;
+        generateMesh = false;
     }
 
     private void Generate()
     {
-        Mesh mesh = new Mesh();
+        var mesh = new Mesh();
 
         mesh.vertices = CalculateAllVerticles();
         mesh.triangles = CalculateTriangles(mesh.vertices.Length);
-        mesh.uv = CaluculateUV(mesh.vertices);
+        mesh.uv = CalculateUV(mesh.vertices);
 
         mesh.RecalculateNormals();
         MeshFilter filter;
@@ -34,16 +33,16 @@ public class GeneratePathMesh : MonoBehaviour
         if (TryGetComponent(out filter) && TryGetComponent(out renderer))
         {
             filter.mesh = mesh;
-            renderer.material = MeshMaterial;
+            renderer.material = meshMaterial;
         }
 
     }
 
     private Vector3[] CalculateAllVerticles()
     {
-        List<Vector3> allVertices = new List<Vector3>();
+        var allVertices = new List<Vector3>();
 
-        for (int i = 0; i < Path.m_Waypoints.Length; i++)
+        for (var i = 0; i < path.m_Waypoints.Length; i++)
         {
             allVertices = allVertices.Concat(CalculateVerticlesInPart(i)).ToList();
         }
@@ -53,15 +52,15 @@ public class GeneratePathMesh : MonoBehaviour
 
     private IEnumerable<Vector3> CalculateVerticlesInPart(int part)
     {
-        List<Vector3> vertices = new List<Vector3>();
+        var vertices = new List<Vector3>();
 
-        for (float i = 0; i < Path.DistanceCacheSampleStepsPerSegment; i++)
+        for (float i = 0; i < path.DistanceCacheSampleStepsPerSegment; i++)
         {
-            float posOnPath = part + (i / Path.DistanceCacheSampleStepsPerSegment);
-            Vector3 worldPos = Path.EvaluatePositionAtUnit(posOnPath, Units);
-            Vector3 localPos = transform.InverseTransformPoint(worldPos);
-            Quaternion rot = Path.EvaluateOrientationAtUnit(posOnPath, Units);
-            Vector3 r = (rot * Vector3.right) * Width * 0.5f;
+            var posOnPath = part + (i / path.DistanceCacheSampleStepsPerSegment);
+            var worldPos = path.EvaluatePositionAtUnit(posOnPath, _units);
+            var localPos = transform.InverseTransformPoint(worldPos);
+            var rot = path.EvaluateOrientationAtUnit(posOnPath, _units);
+            var r = (rot * Vector3.right) * width * 0.5f;
             vertices.Add(localPos + r);
             vertices.Add(localPos - r);
         }
@@ -71,9 +70,9 @@ public class GeneratePathMesh : MonoBehaviour
 
     private int[] CalculateTriangles(int verticesLength)
     {
-        List<int> triangles = new List<int>();
+        var triangles = new List<int>();
 
-        for (int i = 0; i < verticesLength - 2; i += 2)
+        for (var i = 0; i < verticesLength - 2; i += 2)
         {
             triangles.Add(i);
             triangles.Add(i + 2);
@@ -86,10 +85,10 @@ public class GeneratePathMesh : MonoBehaviour
         return triangles.ToArray();
     }
 
-    private Vector2[] CaluculateUV(Vector3[] vertices)
+    private Vector2[] CalculateUV(Vector3[] vertices)
     {
-        Vector2[] uvs = new Vector2[vertices.Length];
-        for (int i = 0; i < uvs.Length; i++)
+        var uvs = new Vector2[vertices.Length];
+        for (var i = 0; i < uvs.Length; i++)
         {
             uvs[i] = new Vector2(vertices[i].x, vertices[i].z);
         }

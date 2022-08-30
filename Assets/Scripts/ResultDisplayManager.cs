@@ -1,31 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class ResultDisplayManager : MonoBehaviour
 {
-    [SerializeField] private TMP_Text[] RankTexts;
+    [SerializeField] private TMP_Text[] rankTexts;
 
-    private RaceManager RManager;
+    private RaceManager _rManager;
 
-    void Start()
+    private void Start()
     {
-        SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out RManager);
+        SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out _rManager);
 
-        for (int i = 0; i < RManager.Characters.Count; i++)
+        for (var i = 0; i < _rManager.Characters.Count; i++)
         {
-            RankTexts[i].text = i + 1 +". " + RManager.Characters[i].DisplayName;
-            if (RManager.Characters[i].isPlayer)
+            rankTexts[i].text = i + 1 +". " + _rManager.Characters[i].displayName;
+            if (_rManager.Characters[i].IsPlayer)
             {
-                RankTexts[i].color = Color.green;
+                rankTexts[i].color = Color.green;
             }
         }
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }

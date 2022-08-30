@@ -1,36 +1,34 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] private Image LoadingUI;
-    [SerializeField] private Camera Cam;
-    [SerializeField] private Image FadingImage;
-    [SerializeField] private float FadeOutAnimationDuration = 1;
+    [SerializeField] private Image loadingUI;
+    [SerializeField] private Camera cam;
+    [SerializeField] private Image fadingImage;
+    [SerializeField] private float fadeOutAnimationDuration = 1;
 
-    private CustomInputAction CustomInput;
+    private CustomInputAction _customInput;
 
     private void Awake()
     {
-        CustomInput = new CustomInputAction();
-        CustomInput.Enable();
+        _customInput = new CustomInputAction();
+        _customInput.Enable();
     }
 
-    void Start()
+    private void Start()
     {
-        LoadingUI.gameObject.SetActive(false);
-        Cam.gameObject.SetActive(false);
-        FadingImage.gameObject.SetActive(false);
+        loadingUI.gameObject.SetActive(false);
+        cam.gameObject.SetActive(false);
+        fadingImage.gameObject.SetActive(false);
 
         if (SceneManager.GetSceneByName(SceneNames.MainScene).isLoaded) return;
         if (SceneManager.GetSceneByName(SceneNames.TitleScene).isLoaded) return;
         if (SceneManager.GetSceneByName(SceneNames.ResultScene).isLoaded) return;
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneNames.TitleScene.ToString(), LoadSceneMode.Additive);
+        var asyncLoad = SceneManager.LoadSceneAsync(SceneNames.TitleScene.ToString(), LoadSceneMode.Additive);
         asyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneNames.TitleScene));
     }
 
@@ -46,26 +44,26 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator LoadSceneWithTransition(string loadceneName, string unLoadSceneName)
     {
-        LoadingUI.gameObject.SetActive(true);
-        Cam.gameObject.SetActive(true);
-        FadingImage.gameObject.SetActive(false);
+        loadingUI.gameObject.SetActive(true);
+        cam.gameObject.SetActive(true);
+        fadingImage.gameObject.SetActive(false);
         
         // Unload and load scenes
-        AsyncOperation unloadAsync = SceneManager.UnloadSceneAsync(unLoadSceneName);
+        var unloadAsync = SceneManager.UnloadSceneAsync(unLoadSceneName);
         yield return unloadAsync;
-        AsyncOperation loadAsync = SceneManager.LoadSceneAsync(loadceneName, LoadSceneMode.Additive);
+        var loadAsync = SceneManager.LoadSceneAsync(loadceneName, LoadSceneMode.Additive);
         yield return loadAsync;
         yield return Resources.UnloadUnusedAssets();
 
 
-        LoadingUI.gameObject.SetActive(false);
-        Cam.gameObject.SetActive(false);
+        loadingUI.gameObject.SetActive(false);
+        cam.gameObject.SetActive(false);
 
 
         // Fade out
-        FadingImage.gameObject.SetActive(true);
+        fadingImage.gameObject.SetActive(true);
         float animationTime = 0;
-        while (animationTime < FadeOutAnimationDuration)
+        while (animationTime < fadeOutAnimationDuration)
         {
             animationTime += Time.deltaTime;
             yield return null;
@@ -77,13 +75,13 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator LoadSceneWithoutTransition(string loadceneName, string unLoadSceneName)
     {
-        LoadingUI.gameObject.SetActive(false);
-        Cam.gameObject.SetActive(false);
-        FadingImage.gameObject.SetActive(false);
+        loadingUI.gameObject.SetActive(false);
+        cam.gameObject.SetActive(false);
+        fadingImage.gameObject.SetActive(false);
 
         // Unload and load scenes
 
-        AsyncOperation loadAsync = SceneManager.LoadSceneAsync(loadceneName, LoadSceneMode.Additive);
+        var loadAsync = SceneManager.LoadSceneAsync(loadceneName, LoadSceneMode.Additive);
         yield return loadAsync;
 
         // Done!
