@@ -556,8 +556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eed359b511baf64ebc6fb2d1959e438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartGameButton: {fileID: 1379769256}
-  ConfirmPlayerNameButton: {fileID: 2075174339}
+  startGameButton: {fileID: 0}
+  confirmPlayerNameButton: {fileID: 0}
 --- !u!1 &673004720
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,7 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5dbc23a520e6f40b54098e91c1baef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoAnimator: {fileID: 864023141}
+  logoAnimator: {fileID: 864023141}
 --- !u!1 &947130055
 GameObject:
   m_ObjectHideFlags: 0

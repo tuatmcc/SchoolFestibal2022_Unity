@@ -10,7 +10,7 @@ public class GeneratePathMesh : MonoBehaviour
     [SerializeField] private float width = 5;
     [SerializeField] private Material meshMaterial;
 
-    private CinemachinePathBase.PositionUnits _units = CinemachinePathBase.PositionUnits.PathUnits;
+    private readonly CinemachinePathBase.PositionUnits _units = CinemachinePathBase.PositionUnits.PathUnits;
 
     private void OnValidate()
     {

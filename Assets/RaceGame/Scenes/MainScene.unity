@@ -273,32 +273,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8523369049279805418, guid: 6123efe2456d7854da235465ebc93238, type: 3}
+      propertyPath: m_fontSize
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523369049279805418, guid: 6123efe2456d7854da235465ebc93238, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523369049279805418, guid: 6123efe2456d7854da235465ebc93238, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6123efe2456d7854da235465ebc93238, type: 3}
 --- !u!4 &251868634 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7760857938377935386, guid: 6123efe2456d7854da235465ebc93238, type: 3}
-  m_PrefabInstance: {fileID: 251868633}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &251868635 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8523369049279805418, guid: 6123efe2456d7854da235465ebc93238, type: 3}
-  m_PrefabInstance: {fileID: 251868633}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!223 &251868636 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 8015653627119772162, guid: 6123efe2456d7854da235465ebc93238, type: 3}
-  m_PrefabInstance: {fileID: 251868633}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &251868637 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1199446252442083798, guid: 6123efe2456d7854da235465ebc93238, type: 3}
   m_PrefabInstance: {fileID: 251868633}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &265619859 stripped
@@ -374,7 +365,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284115695}
-  m_LocalRotation: {x: 0.1325048, y: -0.4047737, z: 0.059408166, w: 0.9028131}
+  m_LocalRotation: {x: 0.13250484, y: -0.40477374, z: 0.059408166, w: 0.9028131}
   m_LocalPosition: {x: -19.395014, y: 3.1, z: -21.778568}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -415,17 +406,6 @@ Transform:
   m_Father: {fileID: 2120301344}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &317919259 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5058928950941696358, guid: c094b13cc1257194fb1a36bab17b00b0, type: 3}
-  m_PrefabInstance: {fileID: 1534387851}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &430642056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 493900722774938137, guid: 627618f9e59a8f84482c012ba79ffb58, type: 3}
@@ -847,9 +827,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99df893881fc21245a2ee3941c99c060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Number_1: {fileID: 21300000, guid: 15e277d6e5e88234d9ea7c28163e654a, type: 3}
-  Number_2: {fileID: 21300000, guid: e8b1a5434566016408f1212e4e48728a, type: 3}
-  Number_3: {fileID: 21300000, guid: ecb232fd7e7f4154c817379d1c1b3fbe, type: 3}
+  number1: {fileID: 0}
+  number2: {fileID: 0}
+  number3: {fileID: 0}
 --- !u!1 &836094801 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8686983895550286885, guid: 210bd054dd8d68a44a69faac0e68bb92, type: 3}
@@ -917,10 +897,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fed12ceb8820464c91b4d3c15dcb34c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GenerateMesh: 0
-  Path: {fileID: 265619859}
-  Width: 3
-  MeshMaterial: {fileID: 2100000, guid: 32d33ed8f28d2ff42b0684cc30746455, type: 2}
+  generateMesh: 0
+  path: {fileID: 0}
+  width: 5
+  meshMaterial: {fileID: 0}
 --- !u!1 &852305049
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,8 +933,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b3abcf35da95b4b9aca1299a39d356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTapFrequency: 0.04
-  MaxSpeedLimit: 50
+  enemyTapFrequency: 0.01
+  maxSpeedLimit: 30
 --- !u!4 &852305052
 Transform:
   m_ObjectHideFlags: 0
@@ -1021,25 +1001,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e42751c85298f0478d38c6797ed6895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayName: UMA
-  Position: 0
-  Rank: 0
-  CustomTexture: {fileID: 0}
-  CustomShader: {fileID: 0}
-  CustomTextureBase: {fileID: 0}
-  StatusPlate: {fileID: 1596345134}
-  NameTextField: {fileID: 1785274276}
-  RManager: {fileID: 0}
---- !u!223 &856078186 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 3193074254648738249, guid: b50386f6b061af34db8bafc78ae5b125, type: 3}
-  m_PrefabInstance: {fileID: 908736863}
-  m_PrefabAsset: {fileID: 0}
---- !u!223 &884160513 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 8015653627119772162, guid: 6123efe2456d7854da235465ebc93238, type: 3}
-  m_PrefabInstance: {fileID: 1911021478}
-  m_PrefabAsset: {fileID: 0}
+  displayName: Horse (CP)
+  position: 0
+  rank: 0
+  customTexture: {fileID: 0}
+  customShader: {fileID: 0}
+  customTextureBase: {fileID: 0}
+  statusPlate: {fileID: 0}
+  nameTextField: {fileID: 0}
+  raceManager: {fileID: 0}
 --- !u!1001 &908736863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1215,7 +1185,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.1325048, y: -0.4047737, z: 0.059408166, w: 0.9028131}
+  m_LocalRotation: {x: 0.13250484, y: -0.40477374, z: 0.059408166, w: 0.9028131}
   m_LocalPosition: {x: -19.395014, y: 3.1, z: -21.778568}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1306,8 +1276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b3abcf35da95b4b9aca1299a39d356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTapFrequency: 0.06
-  MaxSpeedLimit: 35
+  enemyTapFrequency: 0.01
+  maxSpeedLimit: 30
 --- !u!4 &1031461917
 Transform:
   m_ObjectHideFlags: 0
@@ -1357,15 +1327,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e42751c85298f0478d38c6797ed6895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayName: UMA
-  Position: 0
-  Rank: 0
-  CustomTexture: {fileID: 0}
-  CustomShader: {fileID: 0}
-  CustomTextureBase: {fileID: 0}
-  StatusPlate: {fileID: 1204343933}
-  NameTextField: {fileID: 317919259}
-  RManager: {fileID: 0}
+  displayName: Horse (CP)
+  position: 0
+  rank: 0
+  customTexture: {fileID: 0}
+  customShader: {fileID: 0}
+  customTextureBase: {fileID: 0}
+  statusPlate: {fileID: 0}
+  nameTextField: {fileID: 0}
+  raceManager: {fileID: 0}
 --- !u!1 &1046958994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,11 +1729,6 @@ Transform:
   m_Father: {fileID: 493937863}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!223 &1204343933 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 6863672127396762766, guid: c094b13cc1257194fb1a36bab17b00b0, type: 3}
-  m_PrefabInstance: {fileID: 1534387851}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1224706314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2239,8 +2204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b3abcf35da95b4b9aca1299a39d356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTapFrequency: 0.1
-  MaxSpeedLimit: 35
+  enemyTapFrequency: 0.01
+  maxSpeedLimit: 30
 --- !u!4 &1428059258
 Transform:
   m_ObjectHideFlags: 0
@@ -2290,26 +2255,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e42751c85298f0478d38c6797ed6895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayName: UMA
-  Position: 0
-  Rank: 0
-  CustomTexture: {fileID: 0}
-  CustomShader: {fileID: 0}
-  CustomTextureBase: {fileID: 0}
-  StatusPlate: {fileID: 856078186}
-  NameTextField: {fileID: 1689156354}
-  RManager: {fileID: 0}
---- !u!114 &1437165138 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8523369049279805418, guid: 6123efe2456d7854da235465ebc93238, type: 3}
-  m_PrefabInstance: {fileID: 1911021478}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  displayName: Horse (CP)
+  position: 0
+  rank: 0
+  customTexture: {fileID: 0}
+  customShader: {fileID: 0}
+  customTextureBase: {fileID: 0}
+  statusPlate: {fileID: 0}
+  nameTextField: {fileID: 0}
+  raceManager: {fileID: 0}
 --- !u!1001 &1534387851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2396,11 +2350,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2288315649848187721, guid: c094b13cc1257194fb1a36bab17b00b0, type: 3}
   m_PrefabInstance: {fileID: 1534387851}
   m_PrefabAsset: {fileID: 0}
---- !u!223 &1596345134 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 8015653627119772162, guid: 6123efe2456d7854da235465ebc93238, type: 3}
-  m_PrefabInstance: {fileID: 81778824}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1679352309
 GameObject:
   m_ObjectHideFlags: 0
@@ -2450,8 +2399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b3abcf35da95b4b9aca1299a39d356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTapFrequency: 0.08
-  MaxSpeedLimit: 35
+  enemyTapFrequency: 0.01
+  maxSpeedLimit: 30
 --- !u!4 &1679352312
 Transform:
   m_ObjectHideFlags: 0
@@ -2501,26 +2450,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e42751c85298f0478d38c6797ed6895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayName: UMA
-  Position: 0
-  Rank: 0
-  CustomTexture: {fileID: 0}
-  CustomShader: {fileID: 0}
-  CustomTextureBase: {fileID: 0}
-  StatusPlate: {fileID: 884160513}
-  NameTextField: {fileID: 1437165138}
-  RManager: {fileID: 0}
---- !u!114 &1689156354 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3829273962477687841, guid: b50386f6b061af34db8bafc78ae5b125, type: 3}
-  m_PrefabInstance: {fileID: 908736863}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  displayName: Horse (CP)
+  position: 0
+  rank: 0
+  customTexture: {fileID: 0}
+  customShader: {fileID: 0}
+  customTextureBase: {fileID: 0}
+  statusPlate: {fileID: 0}
+  nameTextField: {fileID: 0}
+  raceManager: {fileID: 0}
 --- !u!1 &1740277749 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 717168739295311991, guid: e049d59114f282646918e05b55409544, type: 3}
@@ -2543,17 +2481,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 717168739295311995, guid: e049d59114f282646918e05b55409544, type: 3}
   m_PrefabInstance: {fileID: 604295522}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1785274276 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8523369049279805418, guid: 6123efe2456d7854da235465ebc93238, type: 3}
-  m_PrefabInstance: {fileID: 81778824}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1911021478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2640,6 +2567,10 @@ PrefabInstance:
     - target: {fileID: 7760857938377935386, guid: 6123efe2456d7854da235465ebc93238, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523369049279805418, guid: 6123efe2456d7854da235465ebc93238, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6123efe2456d7854da235465ebc93238, type: 3}
@@ -2777,15 +2708,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e42751c85298f0478d38c6797ed6895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayName: UMA
-  Position: 0
-  Rank: 0
-  CustomTexture: {fileID: 2800000, guid: 70d7a9daeb70f2f4abe2ed57a9f62e49, type: 3}
-  CustomShader: {fileID: 4800000, guid: 60737d9e76e6bad438501fda8d1232a7, type: 3}
-  CustomTextureBase: {fileID: 251868637}
-  StatusPlate: {fileID: 251868636}
-  NameTextField: {fileID: 251868635}
-  RManager: {fileID: 0}
+  displayName: Horse (CP)
+  position: 0
+  rank: 0
+  customTexture: {fileID: 0}
+  customShader: {fileID: 0}
+  customTextureBase: {fileID: 0}
+  statusPlate: {fileID: 0}
+  nameTextField: {fileID: 0}
+  raceManager: {fileID: 0}
 --- !u!1 &2120301340
 GameObject:
   m_ObjectHideFlags: 0

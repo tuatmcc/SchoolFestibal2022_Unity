@@ -23,8 +23,8 @@ public class CharacterController : MonoBehaviour
     private CinemachineDollyCart _dollyCart;
     private Transform _mainCamera;
     
-    private float _speedUpPerTap = 3f;
-    private float _slowDownMultiplier = 0.99f;
+    private readonly float _speedUpPerTap = 3f;
+    private readonly float _slowDownMultiplier = 0.99f;
 
     public RaceManager raceManager;
 
