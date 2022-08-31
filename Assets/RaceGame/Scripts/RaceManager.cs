@@ -1,59 +1,83 @@
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 
-public class RaceManager : MonoBehaviour
+namespace RaceGame.Scripts
 {
-    public string PlayerDisplayName { get; set; } = "Nameless";
-    public float CountDownTimer { get; private set; } = 5f;
-    public bool RaceStarted { get; private set; } = false;
-    public bool RaceEnded { get; private set; } = false;
-    public List<CharacterController> Characters { get; set; } = new List<CharacterController>();
-
-    private SceneLoader _sceneLoadManager;
-    private CinemachineSmoothPath _path;
-
-
-    private void Start()
+    public class RaceManager : MonoBehaviour
     {
-        TryGetComponent(out _sceneLoadManager);
-    }
+        [SerializeField] private CinemachineSmoothPath path;
+        public string PlayerDisplayName { get; set; } = "Nameless";
+        public float CountDownTimer { get; private set; } = 5f;
 
-    private void Update()
-    {        
-        if (SceneManager.GetActiveScene().name != SceneNames.MainScene) return;
+        public RaceStates CurrentRaceState { get; private set; } = RaceStates.StandingBy;
+        public List<Character> Characters { get; set; } = new List<Character>();
 
-        SceneManager.GetActiveScene().GetRootGameObjects()[0].TryGetComponent(out _path);
-
-        if (!RaceStarted)
+        public enum RaceStates
         {
-            CountDownTimer -= Time.deltaTime;
-            RaceStarted = CountDownTimer <= 0 ? true : false;
-        }
-        else if (!RaceEnded)
-        {
-            UpdateCurrentRanking();
-        }
-        else
-        {
-            
-        }
-    }
-
-    private void UpdateCurrentRanking()
-    {
-        Characters.Sort((a, b) => (b.position * 100).CompareTo(a.position * 100));
-
-        for (var i = 0; i < Characters.Count; i++)
-        {
-            Characters[i].rank = i + 1;
+            StandingBy,
+            Started,
+            Ended
         }
 
-        if (Characters[Characters.Count-1].position == _path.PathLength)
+        // シングルトン？
+        public static RaceManager Instance { get; private set; }
+
+        private void Awake()
         {
-            RaceEnded = true;
-            _sceneLoadManager.LoadSceneAdditive(SceneNames.ResultScene, SceneNames.MainScene);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+        }
+
+
+        private void Start()
+        {
+        }
+
+        private void Update()
+        {
+            if (SceneManager.GetActiveScene().name != SceneNames.MainScene) return;
+
+            switch (CurrentRaceState)
+            {
+                case RaceStates.StandingBy:
+                {
+                    CountDownTimer -= Time.deltaTime;
+                    CurrentRaceState = CountDownTimer <= 0 ? RaceStates.Started : CurrentRaceState;
+                    return;
+                }
+                case RaceStates.Started:
+                {
+                    UpdateCurrentRanking();
+                    break;
+                }
+                case RaceStates.Ended:
+                {
+                    break;
+                }
+            }
+        }
+
+        private void UpdateCurrentRanking()
+        {
+            // 位置の差を小数点以下2桁までで比較する
+            Characters.Sort((a, b) => (b.position * 100).CompareTo(a.position * 100));
+
+            for (var i = 0; i < Characters.Count; i++)
+            {
+                Characters[i].rank = i + 1;
+            }
+
+            if (Characters[Characters.Count - 1].position == path.PathLength)
+            {
+                CurrentRaceState = RaceStates.Ended;
+                SceneLoader.Instance.ToResultScene();
+            }
         }
     }
 }

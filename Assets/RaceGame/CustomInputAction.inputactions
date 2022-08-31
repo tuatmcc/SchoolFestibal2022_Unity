@@ -56,7 +56,7 @@
             "id": "2ea5d557-3e01-4c7d-bdf3-5c530d33b779",
             "actions": [
                 {
-                    "name": "LoadMainScene",
+                    "name": "ToMainScene",
                     "type": "Button",
                     "id": "69e1de7b-65dd-4f73-b5a2-706da0040473",
                     "expectedControlType": "Button",
@@ -82,7 +82,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LoadMainScene",
+                    "action": "ToMainScene",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

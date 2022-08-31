@@ -1,41 +1,36 @@
+using RaceGame.Scripts;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
-public class MenuSceneManager : MonoBehaviour
+namespace RaceGame.Scripts
 {
-    public GameObject startGameButton;
-    public GameObject confirmPlayerNameButton;
-
-    private SceneLoader _sceneLoadManager;
-    private RaceManager _rManager;
-    private CustomInputAction _customInput;
-    private TMP_InputField _playerNameInputField;
-
-    private void Start()
+    public class MenuSceneManager : MonoBehaviour
     {
-        var rootGo = SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0];
-        rootGo.TryGetComponent(out _sceneLoadManager);
-        rootGo.TryGetComponent(out _rManager);
-        TryGetComponent(out _playerNameInputField);
+        public TMP_InputField playerNameInputField;
+        public GameObject startGameButton;
+        public GameObject confirmNameButton;
 
-        _customInput = new CustomInputAction();
-        _customInput.Enable();
+        private CustomInputAction _customInput;
 
-    }
-
-    private void Update()
-    {
-        if (_customInput.UI.Confirm.WasPerformedThisFrame())
+        private void Start()
         {
-            _rManager.PlayerDisplayName = _playerNameInputField.text;
-            confirmPlayerNameButton.SetActive(false);
+            _customInput = new CustomInputAction();
+            _customInput.Enable();
+            _customInput.UI.Confirm.canceled += ConfirmPlayerName;
+            _customInput.UI.ToMainScene.canceled += ToMainScene;
+        }
+        
+
+        private void ConfirmPlayerName(InputAction.CallbackContext context)
+        {
+            RaceManager.Instance.PlayerDisplayName = playerNameInputField.text;
+            confirmNameButton.SetActive(false);
         }
 
-        if (_customInput.UI.LoadMainScene.WasPerformedThisFrame() &&
-            !SceneManager.GetSceneByName(SceneNames.MainScene).isLoaded)
+        private void ToMainScene(InputAction.CallbackContext context)
         {
-            _sceneLoadManager.LoadScene(SceneNames.MainScene, SceneNames.TitleScene);
+            SceneLoader.Instance.ToMainScene();
         }
     }
 }

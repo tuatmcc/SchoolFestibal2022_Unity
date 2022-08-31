@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 95244047}
   - component: {fileID: 95244046}
   m_Layer: 5
-  m_Name: BackGround
+  m_Name: TitleBackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -367,9 +367,8 @@ GameObject:
   - component: {fileID: 635263993}
   - component: {fileID: 635263992}
   - component: {fileID: 635263991}
-  - component: {fileID: 635263994}
   m_Layer: 5
-  m_Name: PlayerNameSpace
+  m_Name: PlayerNameInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -475,19 +474,7 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11500000, guid: 7eed359b511baf64ebc6fb2d1959e438, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: set_name
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: OnValueChanged
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -544,20 +531,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635263989}
   m_CullTransparentMesh: 1
---- !u!114 &635263994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635263989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eed359b511baf64ebc6fb2d1959e438, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startGameButton: {fileID: 0}
-  confirmPlayerNameButton: {fileID: 0}
 --- !u!1 &673004720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,7 +1138,7 @@ GameObject:
   - component: {fileID: 1379769259}
   - component: {fileID: 1379769258}
   m_Layer: 5
-  m_Name: StartButton
+  m_Name: StartGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1299,6 +1272,7 @@ GameObject:
   - component: {fileID: 1383407192}
   - component: {fileID: 1383407191}
   - component: {fileID: 1383407190}
+  - component: {fileID: 1383407194}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1389,6 +1363,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1383407194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383407189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eed359b511baf64ebc6fb2d1959e438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNameInputField: {fileID: 635263991}
+  startGameButton: {fileID: 1379769256}
+  confirmNameButton: {fileID: 2075174339}
 --- !u!1 &1430145982
 GameObject:
   m_ObjectHideFlags: 0

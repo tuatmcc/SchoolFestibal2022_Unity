@@ -1,30 +1,28 @@
+using RaceGame.Scripts;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
-public class ResultDisplayManager : MonoBehaviour
+namespace RaceGame.Scripts
 {
-    [SerializeField] private TMP_Text[] rankTexts;
-
-    private RaceManager _rManager;
-
-    private void Start()
+    public class ResultDisplayManager : MonoBehaviour
     {
-        SceneManager.GetSceneByName(SceneNames.ManagerScene).GetRootGameObjects()[0].TryGetComponent(out _rManager);
+        [SerializeField] private TMP_Text[] rankTexts;
 
-        for (var i = 0; i < _rManager.Characters.Count; i++)
+        private void Start()
         {
-            rankTexts[i].text = i + 1 +". " + _rManager.Characters[i].displayName;
-            if (_rManager.Characters[i].IsPlayer)
+            for (var i = 0; i < RaceManager.Instance.Characters.Count; i++)
             {
-                rankTexts[i].color = Color.green;
+                rankTexts[i].text = i + 1 + ". " + RaceManager.Instance.Characters[i].displayName;
+                if (RaceManager.Instance.Characters[i].IsPlayer)
+                {
+                    rankTexts[i].color = Color.green;
+                }
             }
         }
-    }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        
+        // Update is called once per frame
+        private void Update()
+        {
+        }
     }
 }

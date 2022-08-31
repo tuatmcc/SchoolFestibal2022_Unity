@@ -3,88 +3,108 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SceneLoader : MonoBehaviour
+namespace RaceGame.Scripts
 {
-    [SerializeField] private Image loadingUI;
-    [SerializeField] private Camera cam;
-    [SerializeField] private Image fadingImage;
-    [SerializeField] private float fadeOutAnimationDuration = 1;
-
-    private CustomInputAction _customInput;
-
-    private void Awake()
+    public class SceneLoader : MonoBehaviour
     {
-        _customInput = new CustomInputAction();
-        _customInput.Enable();
-    }
 
-    private void Start()
-    {
-        loadingUI.gameObject.SetActive(false);
-        cam.gameObject.SetActive(false);
-        fadingImage.gameObject.SetActive(false);
+        [SerializeField] private Image loadingUI;
+        [SerializeField] private Camera cam;
+        [SerializeField] private Image loadFadingImage;
+        [SerializeField] private float fadeOutAnimationDuration = 1;
 
-        if (SceneManager.GetSceneByName(SceneNames.MainScene).isLoaded) return;
-        if (SceneManager.GetSceneByName(SceneNames.TitleScene).isLoaded) return;
-        if (SceneManager.GetSceneByName(SceneNames.ResultScene).isLoaded) return;
+        private CustomInputAction _customInput;
 
-        var asyncLoad = SceneManager.LoadSceneAsync(SceneNames.TitleScene.ToString(), LoadSceneMode.Additive);
-        asyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneNames.TitleScene));
-    }
-
-    public void LoadScene(string loadSceneName, string unloadSceneName)
-    {
-        StartCoroutine(LoadSceneWithTransition(loadSceneName, unloadSceneName));
-    }
-
-    public void LoadSceneAdditive(string loadSceneName, string unloadSceneName)
-    {
-        SceneManager.LoadScene(loadSceneName, LoadSceneMode.Additive);
-    }
-
-    private IEnumerator LoadSceneWithTransition(string loadceneName, string unLoadSceneName)
-    {
-        loadingUI.gameObject.SetActive(true);
-        cam.gameObject.SetActive(true);
-        fadingImage.gameObject.SetActive(false);
-        
-        // Unload and load scenes
-        var unloadAsync = SceneManager.UnloadSceneAsync(unLoadSceneName);
-        yield return unloadAsync;
-        var loadAsync = SceneManager.LoadSceneAsync(loadceneName, LoadSceneMode.Additive);
-        yield return loadAsync;
-        yield return Resources.UnloadUnusedAssets();
-
-
-        loadingUI.gameObject.SetActive(false);
-        cam.gameObject.SetActive(false);
-
-
-        // Fade out
-        fadingImage.gameObject.SetActive(true);
-        float animationTime = 0;
-        while (animationTime < fadeOutAnimationDuration)
+        public static SceneLoader Instance { get; private set; }
+        private void Awake()
         {
-            animationTime += Time.deltaTime;
-            yield return null;
+            // シングルトン......のつもり
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+
+            _customInput = new CustomInputAction();
+            _customInput.Enable();
         }
-        
-        // Done!
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadceneName));
-    }
 
-    private IEnumerator LoadSceneWithoutTransition(string loadceneName, string unLoadSceneName)
-    {
-        loadingUI.gameObject.SetActive(false);
-        cam.gameObject.SetActive(false);
-        fadingImage.gameObject.SetActive(false);
 
-        // Unload and load scenes
+        private void Start()
+        {
+            loadingUI.gameObject.SetActive(false);
+            cam.gameObject.SetActive(false);
+            loadFadingImage.gameObject.SetActive(false);
 
-        var loadAsync = SceneManager.LoadSceneAsync(loadceneName, LoadSceneMode.Additive);
-        yield return loadAsync;
+            if (SceneManager.GetSceneByName(SceneNames.MainScene).isLoaded) return;
+            if (SceneManager.GetSceneByName(SceneNames.TitleScene).isLoaded) return;
+            if (SceneManager.GetSceneByName(SceneNames.ResultScene).isLoaded) return;
 
-        // Done!
-        // SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadceneName));
+            var asyncLoad = SceneManager.LoadSceneAsync(SceneNames.TitleScene.ToString(), LoadSceneMode.Additive);
+            asyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneNames.TitleScene));
+        }
+
+        public void ToMainScene()
+        {
+            string loadSceneName = SceneNames.MainScene;
+            string unloadSceneName = SceneNames.TitleScene;
+            StartCoroutine(LoadSceneWithTransition(loadSceneName, unloadSceneName));
+        }
+
+        public void ToResultScene()
+        {
+            SceneManager.LoadScene(SceneNames.ResultScene, LoadSceneMode.Additive);
+        }
+
+        public void LoadSceneAdditive(string loadSceneName, string unloadSceneName="")
+        {
+            SceneManager.LoadScene(loadSceneName, LoadSceneMode.Additive);
+        }
+
+        private IEnumerator LoadSceneWithTransition(string loadSceneName, string unLoadSceneName)
+        {
+            loadingUI.gameObject.SetActive(true);
+            cam.gameObject.SetActive(true);
+            loadFadingImage.gameObject.SetActive(false);
+
+            // Unload and load scenes
+            var unloadAsync = SceneManager.UnloadSceneAsync(unLoadSceneName);
+            yield return unloadAsync;
+            var loadAsync = SceneManager.LoadSceneAsync(loadSceneName, LoadSceneMode.Additive);
+            yield return loadAsync;
+            yield return Resources.UnloadUnusedAssets();
+
+
+            loadingUI.gameObject.SetActive(false);
+            cam.gameObject.SetActive(false);
+
+
+            // Fade out
+            loadFadingImage.gameObject.SetActive(true);
+            float animationTime = 0;
+            while (animationTime < fadeOutAnimationDuration)
+            {
+                animationTime += Time.deltaTime;
+                yield return null;
+            }
+
+            // Done!
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadSceneName));
+        }
+
+        private IEnumerator LoadSceneWithoutTransition(string loadSceneName, string unLoadSceneName)
+        {
+            loadingUI.gameObject.SetActive(false);
+            cam.gameObject.SetActive(false);
+            loadFadingImage.gameObject.SetActive(false);
+
+            // Unload and load scenes
+
+            var loadAsync = SceneManager.LoadSceneAsync(loadSceneName, LoadSceneMode.Additive);
+            yield return loadAsync;
+
+            // Done!
+            // SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadceneName));
+        }
     }
 }

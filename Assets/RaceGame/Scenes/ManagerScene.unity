@@ -287,8 +287,8 @@ GameObject:
   - component: {fileID: 1070659354}
   - component: {fileID: 1070659353}
   - component: {fileID: 1070659352}
-  - component: {fileID: 6384618966616788401}
   - component: {fileID: 6384618966616788402}
+  - component: {fileID: 6384618966616788403}
   m_Layer: 5
   m_Name: SceneTransition Manager
   m_TagString: Untagged
@@ -612,18 +612,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6384618966616788401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070659351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa060660bfe37e49afea6700c7206f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6384618966616788402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,5 +626,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingUI: {fileID: 671578987}
   cam: {fileID: 184458959}
-  fadingImage: {fileID: 3600277164585786078}
+  loadFadingImage: {fileID: 3600277164585786078}
   fadeOutAnimationDuration: 1
+--- !u!114 &6384618966616788403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070659351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa060660bfe37e49afea6700c7206f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: {fileID: 8686983895550286887, guid: 210bd054dd8d68a44a69faac0e68bb92, type: 3}

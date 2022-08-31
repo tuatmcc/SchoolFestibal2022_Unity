@@ -1,20 +1,22 @@
 using UnityEngine;
 
-public class LogoDisplay : MonoBehaviour
+namespace RaceGame.Scripts
 {
-    [SerializeField] private Animator logoAnimator;
-
-    private void Start()
+    public class LogoDisplay : MonoBehaviour
     {
+        [SerializeField] private Animator logoAnimator;
 
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        if (logoAnimator.GetCurrentAnimatorStateInfo(0).IsName("Do Nothing"))
+        private void Start()
         {
-            gameObject.SetActive(false);
+        }
+
+        private void Update()
+        {
+            // アニメーションが終わり次第非アクティブ化
+            if (logoAnimator.GetCurrentAnimatorStateInfo(0).IsName("Do Nothing"))
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }
