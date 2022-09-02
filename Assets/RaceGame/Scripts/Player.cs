@@ -23,11 +23,13 @@ namespace RaceGame.Scripts
             _character.displayName = RaceManager.Instance.PlayerDisplayName;
             _character.IsPlayer = true;
 
+            
             _customInput.Player.Accelerate.started += AcceleratePlayer;
         }
 
         private void AcceleratePlayer(InputAction.CallbackContext context)
         {
+            if (RaceManager.Instance.CurrentRaceState != RaceManager.RaceStates.Started) return;
             _character.Accelerate();
         }
     }

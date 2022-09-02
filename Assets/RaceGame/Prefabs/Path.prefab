@@ -137,6 +137,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generateMesh: 0
-  path: {fileID: 0}
   width: 5
-  meshMaterial: {fileID: 0}
+  meshMaterial: {fileID: 2100000, guid: 32d33ed8f28d2ff42b0684cc30746455, type: 2}

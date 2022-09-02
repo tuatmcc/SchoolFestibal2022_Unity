@@ -49,7 +49,7 @@ namespace RaceGame.Scripts
                 {
                     CountDownTimer -= Time.deltaTime;
                     CurrentRaceState = CountDownTimer <= 0 ? RaceStates.Started : CurrentRaceState;
-                    return;
+                    break;
                 }
                 case RaceStates.Started:
                 {
@@ -57,9 +57,9 @@ namespace RaceGame.Scripts
                     break;
                 }
                 case RaceStates.Ended:
-                {
                     break;
-                }
+                default:
+                    break;
             }
         }
 

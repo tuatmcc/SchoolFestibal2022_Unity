@@ -74,6 +74,7 @@ namespace RaceGame.Scripts
 
         public void Accelerate()
         {
+            if (RaceManager.Instance.CurrentRaceState != RaceManager.RaceStates.Started) return;
             _dollyCart.m_Speed += _speedUpPerTap;
         }
     }
