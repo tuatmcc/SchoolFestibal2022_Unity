@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
@@ -8,19 +9,15 @@ namespace RaceGame.Scripts
 {
     public class RaceManager : MonoBehaviour
     {
-        [SerializeField] private CinemachineSmoothPath path;
-        public string PlayerDisplayName { get; set; } = "Nameless";
+        [SerializeField] private Character[] characters;
         public float CountDownTimer { get; private set; } = 5f;
+        
 
         public RaceStates CurrentRaceState { get; private set; } = RaceStates.StandingBy;
-        public List<Character> Characters { get; set; } = new List<Character>();
+        public List<Character> Characters { get; private set; } = new List<Character>();
 
-        public enum RaceStates
-        {
-            StandingBy,
-            Started,
-            Ended
-        }
+        private CinemachineSmoothPath _path;
+        
 
         // シングルトン？
         public static RaceManager Instance { get; private set; }
@@ -32,11 +29,15 @@ namespace RaceGame.Scripts
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
+            
+            Characters = characters.ToList();
         }
 
 
         private void Start()
         {
+
+            _path =  GameObject.FindGameObjectWithTag("Path").GetComponent<CinemachineSmoothPath>();
         }
 
         private void Update()
@@ -73,11 +74,22 @@ namespace RaceGame.Scripts
                 Characters[i].rank = i + 1;
             }
 
-            if (Characters[Characters.Count - 1].position == path.PathLength)
+            if ((int)Characters[Characters.Count - 1].position == (int)_path.PathLength)
             {
                 CurrentRaceState = RaceStates.Ended;
                 SceneLoader.Instance.ToResultScene();
             }
+        }
+
+        private IEnumerator CountDown()
+        {
+            while (CountDownTimer > 0)
+            {
+                CountDownTimer--;
+                yield return new WaitForSeconds(1);
+            }
+
+            CurrentRaceState = RaceStates.Started;
         }
     }
 }

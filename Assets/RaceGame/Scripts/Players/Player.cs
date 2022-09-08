@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace RaceGame.Scripts
+namespace RaceGame.Scripts.Players
 {
     [RequireComponent(typeof(Character))]
     public class Player : MonoBehaviour
@@ -13,14 +13,14 @@ namespace RaceGame.Scripts
         {
             _customInput = new CustomInputAction();
             _customInput.Enable();
+            
+            _character = GetComponent<Character>();
         }
 
         private void Start()
         {
-            _character = GetComponent<Character>();
-
             // Set Player Name
-            _character.displayName = RaceManager.Instance.PlayerDisplayName;
+            _character.displayName = PlayerInfo.Instance.displayName;
             _character.IsPlayer = true;
 
             
@@ -29,7 +29,7 @@ namespace RaceGame.Scripts
 
         private void AcceleratePlayer(InputAction.CallbackContext context)
         {
-            if (RaceManager.Instance.CurrentRaceState != RaceManager.RaceStates.Started) return;
+            if (RaceManager.Instance.CurrentRaceState != RaceStates.Started) return;
             _character.Accelerate();
         }
     }

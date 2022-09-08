@@ -42,14 +42,13 @@ namespace RaceGame.Scripts
                 SetCustomTexture(customTexture, customShader);
             }
 
-            RaceManager.Instance.Characters.Add(this);
             statusPlate.transform.forward = _mainCamera.forward;
             nameTextField.text = displayName;
         }
 
         private void Update()
         {
-            if (RaceManager.Instance.CurrentRaceState == RaceManager.RaceStates.Started)
+            if (RaceManager.Instance.CurrentRaceState == RaceStates.Started)
             {
                 // Decrease speed every frame
                 _dollyCart.m_Speed *= _slowDownMultiplier;
@@ -74,7 +73,7 @@ namespace RaceGame.Scripts
 
         public void Accelerate()
         {
-            if (RaceManager.Instance.CurrentRaceState != RaceManager.RaceStates.Started) return;
+            if (RaceManager.Instance.CurrentRaceState != RaceStates.Started) return;
             _dollyCart.m_Speed += _speedUpPerTap;
         }
     }

@@ -2,10 +2,11 @@ using RaceGame.Scripts;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using RaceGame.Scripts.Players;
 
 namespace RaceGame.Scripts
 {
-    public class MenuSceneManager : MonoBehaviour
+    public class TitleManager : MonoBehaviour
     {
         public TMP_InputField playerNameInputField;
         public GameObject startGameButton;
@@ -17,15 +18,18 @@ namespace RaceGame.Scripts
         {
             _customInput = new CustomInputAction();
             _customInput.Enable();
+            
             _customInput.UI.Confirm.canceled += ConfirmPlayerName;
-            _customInput.UI.ToMainScene.canceled += ToMainScene;
         }
         
 
         private void ConfirmPlayerName(InputAction.CallbackContext context)
         {
-            RaceManager.Instance.PlayerDisplayName = playerNameInputField.text;
+            PlayerInfo.Instance.displayName = playerNameInputField.text;
             confirmNameButton.SetActive(false);
+            
+            // ここでメインシーンへの遷移イベントを追加
+            _customInput.UI.ToMainScene.canceled += ToMainScene;
         }
 
         private void ToMainScene(InputAction.CallbackContext context)

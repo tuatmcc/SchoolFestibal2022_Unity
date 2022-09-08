@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Attach this to the Image object
-// This script will stop running after it is disactivated.
+// This script will stop running after it is inactivated.
 
 namespace RaceGame.Scripts
 {

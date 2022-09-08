@@ -10,15 +10,15 @@ namespace RaceGame.Scripts
 
         [SerializeField] private Image loadingUI;
         [SerializeField] private Camera cam;
-        [SerializeField] private Image loadFadingImage;
-        [SerializeField] private float fadeOutAnimationDuration = 1;
+        [SerializeField] private Image loadFadeOutImage;
+        [SerializeField] private Animator fadeOutAnimator;
 
         private CustomInputAction _customInput;
 
         public static SceneLoader Instance { get; private set; }
         private void Awake()
         {
-            // シングルトン......のつもり
+            // シングルトンのつもり
             if (Instance == null)
             {
                 Instance = this;
@@ -32,9 +32,10 @@ namespace RaceGame.Scripts
 
         private void Start()
         {
+            // UIをオフ
             loadingUI.gameObject.SetActive(false);
             cam.gameObject.SetActive(false);
-            loadFadingImage.gameObject.SetActive(false);
+            loadFadeOutImage.gameObject.SetActive(false);
 
             if (SceneManager.GetSceneByName(SceneNames.MainScene).isLoaded) return;
             if (SceneManager.GetSceneByName(SceneNames.TitleScene).isLoaded) return;
@@ -63,30 +64,32 @@ namespace RaceGame.Scripts
 
         private IEnumerator LoadSceneWithTransition(string loadSceneName, string unLoadSceneName)
         {
+            // ローディングUIオン
             loadingUI.gameObject.SetActive(true);
             cam.gameObject.SetActive(true);
-            loadFadingImage.gameObject.SetActive(false);
+            loadFadeOutImage.gameObject.SetActive(false);
 
-            // Unload and load scenes
+            // 前シーンをアンロード
             var unloadAsync = SceneManager.UnloadSceneAsync(unLoadSceneName);
             yield return unloadAsync;
+            yield return Resources.UnloadUnusedAssets();
+            
+            // 次シーンをロード
             var loadAsync = SceneManager.LoadSceneAsync(loadSceneName, LoadSceneMode.Additive);
             yield return loadAsync;
-            yield return Resources.UnloadUnusedAssets();
-
-
+            
+            //　ローディングUIオフ
             loadingUI.gameObject.SetActive(false);
             cam.gameObject.SetActive(false);
 
 
-            // Fade out
-            loadFadingImage.gameObject.SetActive(true);
-            float animationTime = 0;
-            while (animationTime < fadeOutAnimationDuration)
+            // フェードアウト開始
+            loadFadeOutImage.gameObject.SetActive(true);
+            while (!fadeOutAnimator.GetCurrentAnimatorStateInfo(0).IsName("Do Nothing"))
             {
-                animationTime += Time.deltaTime;
                 yield return null;
             }
+            loadFadeOutImage.gameObject.SetActive(false);
 
             // Done!
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadSceneName));
@@ -96,7 +99,7 @@ namespace RaceGame.Scripts
         {
             loadingUI.gameObject.SetActive(false);
             cam.gameObject.SetActive(false);
-            loadFadingImage.gameObject.SetActive(false);
+            loadFadeOutImage.gameObject.SetActive(false);
 
             // Unload and load scenes
 

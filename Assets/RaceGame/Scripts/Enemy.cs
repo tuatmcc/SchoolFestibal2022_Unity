@@ -22,7 +22,7 @@ namespace RaceGame.Scripts
 
         private void Update()
         {
-            if (RaceManager.Instance.CurrentRaceState == RaceManager.RaceStates.Started)
+            if (RaceManager.Instance.CurrentRaceState == RaceStates.Started)
             {
                 // 確率で加速
                 var rand = Random.value;
