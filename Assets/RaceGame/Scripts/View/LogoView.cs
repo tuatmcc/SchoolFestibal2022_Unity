@@ -1,14 +1,10 @@
 using UnityEngine;
 
-namespace RaceGame.Scripts
+namespace RaceGame.View
 {
-    public class LogoDisplay : MonoBehaviour
+    public class LogoView : MonoBehaviour
     {
         [SerializeField] private Animator logoAnimator;
-
-        private void Start()
-        {
-        }
 
         private void Update()
         {

@@ -1,7 +1,9 @@
 using Cinemachine;
+using RaceGame.Constant;
+using RaceGame.Manager;
 using UnityEngine;
 
-namespace RaceGame.Scripts
+namespace RaceGame.Players
 {
     [RequireComponent(typeof(CinemachineDollyCart))]
     [RequireComponent(typeof(Character))]
@@ -22,7 +24,7 @@ namespace RaceGame.Scripts
 
         private void Update()
         {
-            if (RaceManager.Instance.CurrentRaceState == RaceStates.Started)
+            if (RaceManager.Instance.CurrentRaceState == RaceState.Started)
             {
                 // 確率で加速
                 var rand = Random.value;

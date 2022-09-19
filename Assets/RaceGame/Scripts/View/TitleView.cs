@@ -1,12 +1,12 @@
-using RaceGame.Scripts;
-using UnityEngine;
+using RaceGame.Players;
+using RaceGame.Scene;
 using TMPro;
+using UnityEngine;
 using UnityEngine.InputSystem;
-using RaceGame.Scripts.Players;
 
-namespace RaceGame.Scripts
+namespace RaceGame.View
 {
-    public class TitleManager : MonoBehaviour
+    public class TitleView : MonoBehaviour
     {
         public TMP_InputField playerNameInputField;
         public GameObject startGameButton;
@@ -25,7 +25,7 @@ namespace RaceGame.Scripts
 
         private void ConfirmPlayerName(InputAction.CallbackContext context)
         {
-            PlayerInfo.Instance.displayName = playerNameInputField.text;
+            PlayerInfo.Instance.DisplayName = playerNameInputField.text;
             confirmNameButton.SetActive(false);
             
             // ここでメインシーンへの遷移イベントを追加

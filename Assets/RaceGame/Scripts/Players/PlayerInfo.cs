@@ -1,13 +1,12 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace RaceGame.Scripts.Players
+namespace RaceGame.Players
 {
     public class PlayerInfo
     {
-        public string displayName;
-        public int playerId;
-        public Texture customTexture;
+        public string DisplayName;
+        public int PlayerId;
+        public Texture CustomTexture;
 
         private static PlayerInfo _instance;
         public static PlayerInfo Instance

@@ -1,17 +1,17 @@
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using Cinemachine;
+using UnityEngine;
 
-namespace RaceGame.Scripts
+namespace RaceGame.Misc
 {
+    /// <summary>
+    /// CinemachineSmoothPathを元にメッシュを作成する
+    /// </summary>
     [RequireComponent(typeof(CinemachineSmoothPath))]
     [RequireComponent(typeof(LineRenderer))]
-    public class GeneratePathMesh : MonoBehaviour
+    public class PathMeshGenerator : MonoBehaviour
     {
-        // trigger to start generating mesh
-        [SerializeField] private bool generateMesh = false;
-        
         [SerializeField] private float width = 5;
         [SerializeField] private Material meshMaterial;
 
@@ -20,21 +20,18 @@ namespace RaceGame.Scripts
 
         private readonly CinemachinePathBase.PositionUnits _units = CinemachinePathBase.PositionUnits.PathUnits;
 
-        private void OnValidate()
+        [ContextMenu(nameof(GeneratePathMesh))]
+        private void GeneratePathMesh()
         {
-            if (!generateMesh) return;
             if (meshMaterial == null)
             {
-                Debug.LogError(typeof(Material) + "がありません!!");
+                Debug.LogError($"{typeof(Material)} がありません!!");
                 return;
             }
 
             _path = GetComponent<CinemachineSmoothPath>();
             _lineRenderer = GetComponent<LineRenderer>();
-            // Generate();
             GenerateLine();
-            
-            generateMesh = false;
         }
 
         private Vector3[] CalculateAllVertex()
@@ -55,7 +52,7 @@ namespace RaceGame.Scripts
 
             for (float i = 0; i < _path.DistanceCacheSampleStepsPerSegment; i++)
             {
-                var posOnPath = part + (i / _path.DistanceCacheSampleStepsPerSegment);
+                var posOnPath = part + i / _path.DistanceCacheSampleStepsPerSegment;
                 var worldPos = _path.EvaluatePositionAtUnit(posOnPath, _units);
                 var localPos = transform.InverseTransformPoint(worldPos);
                 var height = new Vector3(0, width * 0.5f, 0);

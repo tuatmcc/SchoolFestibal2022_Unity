@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RaceGame.Scripts
+namespace RaceGame.Scene
 {
     public class ManagerSceneAutoLoader : MonoBehaviour
     {
@@ -9,8 +9,8 @@ namespace RaceGame.Scripts
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void LoadManagerScene()
         {
-            if (SceneManager.GetSceneByName(SceneNames.ManagerScene).IsValid()) return;
-            SceneManager.LoadSceneAsync(SceneNames.ManagerScene, LoadSceneMode.Additive).allowSceneActivation = false;
+            if (SceneManager.GetSceneByName(SceneName.ManagerScene).IsValid()) return;
+            SceneManager.LoadSceneAsync(SceneName.ManagerScene, LoadSceneMode.Additive).allowSceneActivation = false;
         }
     }
 }

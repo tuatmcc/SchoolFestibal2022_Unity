@@ -1,6 +1,6 @@
-namespace RaceGame.Scripts
+namespace RaceGame.Scene
 {
-    public static class SceneNames
+    public static class SceneName
     {
         public const string ManagerScene = "ManagerScene";
         public const string TitleScene = "TitleScene";

@@ -1,6 +1,6 @@
-﻿namespace RaceGame.Scripts
+﻿namespace RaceGame.Constant
 {
-    public enum RaceStates
+    public enum RaceState
     {
         StandingBy,
         Started,

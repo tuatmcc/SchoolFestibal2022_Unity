@@ -1,13 +1,13 @@
 using System.Collections;
+using RaceGame.Extension;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace RaceGame.Scripts
+namespace RaceGame.Scene
 {
-    public class SceneLoader : MonoBehaviour
+    public class SceneLoader : SingletonMonoBehaviour<SceneLoader>
     {
-
         [SerializeField] private Image loadingUI;
         [SerializeField] private Camera cam;
         [SerializeField] private Image loadFadeOutImage;
@@ -15,46 +15,34 @@ namespace RaceGame.Scripts
 
         private CustomInputAction _customInput;
 
-        public static SceneLoader Instance { get; private set; }
-        private void Awake()
-        {
-            // シングルトンのつもり
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-
-            _customInput = new CustomInputAction();
-            _customInput.Enable();
-        }
-
-
         private void Start()
         {
+            _customInput = new CustomInputAction();
+            _customInput.Enable();
+            
             // UIをオフ
             loadingUI.gameObject.SetActive(false);
             cam.gameObject.SetActive(false);
             loadFadeOutImage.gameObject.SetActive(false);
 
-            if (SceneManager.GetSceneByName(SceneNames.MainScene).isLoaded) return;
-            if (SceneManager.GetSceneByName(SceneNames.TitleScene).isLoaded) return;
-            if (SceneManager.GetSceneByName(SceneNames.ResultScene).isLoaded) return;
+            if (SceneManager.GetSceneByName(SceneName.MainScene).isLoaded) return;
+            if (SceneManager.GetSceneByName(SceneName.TitleScene).isLoaded) return;
+            if (SceneManager.GetSceneByName(SceneName.ResultScene).isLoaded) return;
 
-            var asyncLoad = SceneManager.LoadSceneAsync(SceneNames.TitleScene.ToString(), LoadSceneMode.Additive);
-            asyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneNames.TitleScene));
+            var asyncLoad = SceneManager.LoadSceneAsync(SceneName.TitleScene, LoadSceneMode.Additive);
+            asyncLoad.completed += e => SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneName.TitleScene));
         }
 
         public void ToMainScene()
         {
-            string loadSceneName = SceneNames.MainScene;
-            string unloadSceneName = SceneNames.TitleScene;
+            var loadSceneName = SceneName.MainScene;
+            var unloadSceneName = SceneName.TitleScene;
             StartCoroutine(LoadSceneWithTransition(loadSceneName, unloadSceneName));
         }
 
         public void ToResultScene()
         {
-            SceneManager.LoadScene(SceneNames.ResultScene, LoadSceneMode.Additive);
+            SceneManager.LoadScene(SceneName.ResultScene, LoadSceneMode.Additive);
         }
 
         public void LoadSceneAdditive(string loadSceneName, string unloadSceneName="")

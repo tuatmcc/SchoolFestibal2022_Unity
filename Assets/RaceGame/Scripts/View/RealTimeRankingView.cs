@@ -1,40 +1,40 @@
-﻿using System;
+﻿using RaceGame.Constant;
+using RaceGame.Manager;
 using TMPro;
 using UnityEngine;
 
-namespace RaceGame.Scripts
+namespace RaceGame.View
 {
-    public class RealTimeRankingUI : MonoBehaviour
+    public class RealTimeRankingView : MonoBehaviour
     {
         [SerializeField] private TMP_Text[] rankingNameTexts;
 
-
         private void Start()
         {
-            var characters = RaceManager.Instance.Characters;
+            var characters = RaceManager.Instance.OrderedCharacters;
             if (rankingNameTexts.Length != characters.Count)
             {
                 Debug.LogError("リアルタイムランキングの character 数があっていません");
                 return;
             }
             
-            for (int i = 0; i < characters.Count; i++)
+            for (var i = 0; i < characters.Count; i++)
             {
-                rankingNameTexts[i].text = "" + characters[i].displayName;
+                rankingNameTexts[i].text = characters[i].displayName;
             }
         }
 
         private void Update()
         {
-            if (RaceManager.Instance.CurrentRaceState == RaceStates.Started)
+            if (RaceManager.Instance.CurrentRaceState == RaceState.Started)
             {
-                var characters = RaceManager.Instance.Characters;
-                for (int i = 0; i < characters.Count; i++)
+                var characters = RaceManager.Instance.OrderedCharacters;
+                for (var i = 0; i < characters.Count; i++)
                 {
-                    rankingNameTexts[i].text = characters[i].rank + ". " + characters[i].displayName;
+                    rankingNameTexts[i].text = $"{characters[i].rank}. {characters[i].displayName}";
                 }
             }
-            else if (RaceManager.Instance.CurrentRaceState == RaceStates.Ended)
+            else if (RaceManager.Instance.CurrentRaceState == RaceState.Ended)
             {
                 foreach (var textField in rankingNameTexts)
                 {

@@ -1,16 +1,23 @@
 using Cinemachine;
-using UnityEngine;
+using RaceGame.Constant;
+using RaceGame.Manager;
 using TMPro;
+using UnityEngine;
 
-namespace RaceGame.Scripts
+namespace RaceGame.Players
 {
     [RequireComponent(typeof(CinemachineDollyCart))]
     [RequireComponent(typeof(Animator))]
     public class Character : MonoBehaviour
     {
         public string displayName = "Horse (CP)";
-        public float position = 0;
-        public int rank = 0;
+        public float position;
+        
+        /// <summary>
+        /// 順位
+        /// </summary>
+        public int rank;
+        
         public Texture customTexture;
         public Shader customShader;
 
@@ -24,7 +31,7 @@ namespace RaceGame.Scripts
         private readonly float _speedUpPerTap = 3f;
         private readonly float _slowDownMultiplier = 0.99f;
         
-        public bool IsPlayer { get; set; } = false;
+        public bool IsPlayer { get; set; }
 
         private void Start()
         {
@@ -33,7 +40,7 @@ namespace RaceGame.Scripts
 
             if (_dollyCart.m_Path == null)
             {
-                _dollyCart.m_Path = Transform.FindObjectOfType<CinemachineSmoothPath>();
+                _dollyCart.m_Path = FindObjectOfType<CinemachineSmoothPath>();
             }
 
             if (customTextureBase != null && customTextureBase != null && customTexture != null)
@@ -48,7 +55,7 @@ namespace RaceGame.Scripts
 
         private void Update()
         {
-            if (RaceManager.Instance.CurrentRaceState == RaceStates.Started)
+            if (RaceManager.Instance.CurrentRaceState == RaceState.Started)
             {
                 // Decrease speed every frame
                 _dollyCart.m_Speed *= _slowDownMultiplier;
@@ -61,7 +68,7 @@ namespace RaceGame.Scripts
         private void SetStatusPlate()
         {
             statusPlate.transform.forward = _mainCamera.forward;
-            nameTextField.text = rank + ". " + displayName;
+            nameTextField.text = $"{rank}. {displayName}";
         }
 
         public void SetCustomTexture(Texture customTexture, Shader customShader)
@@ -73,7 +80,7 @@ namespace RaceGame.Scripts
 
         public void Accelerate()
         {
-            if (RaceManager.Instance.CurrentRaceState != RaceStates.Started) return;
+            if (RaceManager.Instance.CurrentRaceState != RaceState.Started) return;
             _dollyCart.m_Speed += _speedUpPerTap;
         }
     }
