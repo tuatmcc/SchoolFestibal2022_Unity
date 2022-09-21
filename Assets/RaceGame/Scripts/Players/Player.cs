@@ -1,8 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace RaceGame.Scripts.Players
+using RaceGame.Constant;
+using RaceGame.Manager;
+
+namespace RaceGame.Players
 {
+    /// <summary>
+    /// クリック入力を受け取り、プレイヤーを操作する。
+    /// </summary>
     [RequireComponent(typeof(Character))]
     public class Player : MonoBehaviour
     {
@@ -19,17 +25,16 @@ namespace RaceGame.Scripts.Players
 
         private void Start()
         {
-            // Set Player Name
-            _character.displayName = PlayerInfo.Instance.displayName;
+            // プレイヤー名を取得
+            _character.displayName = RaceManager.Instance.PlayerName;
             _character.IsPlayer = true;
-
             
             _customInput.Player.Accelerate.started += AcceleratePlayer;
         }
 
         private void AcceleratePlayer(InputAction.CallbackContext context)
         {
-            if (RaceManager.Instance.CurrentRaceState != RaceStates.Started) return;
+            if (RaceManager.Instance.CurrentRaceState != RaceState.Started) return;
             _character.Accelerate();
         }
     }
