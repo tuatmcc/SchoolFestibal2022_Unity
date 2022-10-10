@@ -1,9 +1,6 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using RaceGame.Manager;
-
-using RaceGame.Constant;
 
 namespace RaceGame.View
 {
@@ -14,7 +11,6 @@ namespace RaceGame.View
     {
         [SerializeField] private TMP_Text[] rankingNameTexts;
 
-
         private void Start()
         {
             var characters = RaceManager.Instance.OrderedCharacters;
@@ -24,27 +20,34 @@ namespace RaceGame.View
                 return;
             }
             
-            for (int i = 0; i < characters.Count; i++)
+            for (var i = 0; i < characters.Count; i++)
             {
-                rankingNameTexts[i].text = characters[i].displayName;
+                rankingNameTexts[i].text = characters[i].playerName;
             }
         }
 
         private void Update()
         {
-            if (RaceManager.Instance.CurrentRaceState == RaceState.Started)
+            switch (RaceManager.Instance.CurrentRaceState)
             {
-                var characters = RaceManager.Instance.OrderedCharacters;
-                for (int i = 0; i < characters.Count; i++)
+                case RaceState.Racing:
                 {
-                    rankingNameTexts[i].text = $"{characters[i].rank}. {characters[i].displayName}";
+                    var characters = RaceManager.Instance.OrderedCharacters;
+                    for (var i = 0; i < characters.Count; i++)
+                    {
+                        rankingNameTexts[i].text = $"{characters[i].rank}. {characters[i].playerName}";
+                    }
+
+                    break;
                 }
-            }
-            else if (RaceManager.Instance.CurrentRaceState == RaceState.Ended)
-            {
-                foreach (var textField in rankingNameTexts)
+                case RaceState.Ended:
                 {
-                    textField.gameObject.SetActive(false);
+                    foreach (var textField in rankingNameTexts)
+                    {
+                        textField.gameObject.SetActive(false);
+                    }
+
+                    break;
                 }
             }
         }

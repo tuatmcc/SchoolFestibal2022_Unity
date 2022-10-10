@@ -1,4 +1,3 @@
-using RaceGame.Scene;
 using UnityEngine;
 using TMPro;
 
@@ -17,8 +16,8 @@ namespace RaceGame.View
         {
             for (var i = 0; i < RaceManager.Instance.OrderedCharacters.Count; i++)
             {
-                rankTexts[i].text = $"{i + 1}. {RaceManager.Instance.OrderedCharacters[i].displayName}";
-                if (RaceManager.Instance.OrderedCharacters[i].IsPlayer)
+                rankTexts[i].text = $"{i + 1}. {RaceManager.Instance.OrderedCharacters[i].playerName}";
+                if (RaceManager.Instance.OrderedCharacters[i].isLocalPlayer)
                 {
                     rankTexts[i].color = Color.green;
                 }

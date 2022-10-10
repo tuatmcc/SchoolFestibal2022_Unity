@@ -1,12 +1,15 @@
 fileFormatVersion: 2
-guid: f068d9d4e72b3be4c8460abd47eabf1a
+guid: 1e42751c85298f0478d38c6797ed6895
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - RManager: {fileID: 6374258180772815659, guid: b11017a86dc976148820f610e1a9d253, type: 3}
   - CustomTexture: {instanceID: 0}
-  - CustomShader: {fileID: 4800000, guid: 60737d9e76e6bad438501fda8d1232a7, type: 3}
-  - CustomTextureFace: {instanceID: 0}
+  - CustomShader: {instanceID: 0}
+  - CustomTextureBase: {instanceID: 0}
+  - StatusPlate: {instanceID: 0}
+  - NameTextField: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

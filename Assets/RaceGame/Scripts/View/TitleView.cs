@@ -1,10 +1,10 @@
-using RaceGame.Manager;
+using Mirror;
+using RaceGame.Players;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 
 using RaceGame.Scene;
-using RaceGame.Players;
 
 namespace RaceGame.View
 {
@@ -13,7 +13,7 @@ namespace RaceGame.View
     /// </summary>
     public class TitleView : MonoBehaviour
     {
-        public TMP_InputField playerNameInputField;
+        [SerializeField] private TMP_InputField playerNameInputField;
         public GameObject startGameButton;
         public GameObject confirmNameButton;
 
@@ -27,10 +27,10 @@ namespace RaceGame.View
             _customInput.UI.Confirm.canceled += ConfirmPlayerName;
         }
         
-
         private void ConfirmPlayerName(InputAction.CallbackContext context)
         {
-            RaceManager.Instance.PlayerName = playerNameInputField.text;
+            var localPlayer = NetworkClient.localPlayer.GetComponent<Player>();
+            localPlayer.playerName = playerNameInputField.text;
             confirmNameButton.SetActive(false);
             
             // メインシーンへの遷移イベントを追加
@@ -39,7 +39,7 @@ namespace RaceGame.View
 
         private void ToMainScene(InputAction.CallbackContext context)
         {
-            SceneLoader.Instance.ToMainScene();
+            ((RaceGameNetworkManager)NetworkManager.singleton).ToMainScene();
         }
     }
 }

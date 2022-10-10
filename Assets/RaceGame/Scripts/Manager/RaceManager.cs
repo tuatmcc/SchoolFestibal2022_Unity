@@ -1,86 +1,74 @@
 using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
-using RaceGame.Constant;
-using RaceGame.Misc;
+using Mirror;
+using RaceGame.Extension;
 using RaceGame.Players;
 using RaceGame.Scene;
-using UnityEditor.Callbacks;
 
 namespace RaceGame.Manager
 {
-    public class RaceManager
+    public class RaceManager : SingletonMonoBehaviour<RaceManager>
     {
-        // Characterをインスペクターからアタッチできないし、GameObject.FindObjectsOfTypeできない
-        // PathをGameObject.FindGameObjectWithTagできない :(
-        // なのでMainScene上のRaceManagerTriggerから受け取る
-        public Character[] Characters;
-        public CinemachineSmoothPath Path;
+        /// <summary>
+        /// 最初から置いてあるCPU Player
+        /// Playerの数によって減らす
+        /// </summary>
+        [SerializeField]
+        private Player[] enemies;
+        
+        private List<Player> _players = new();
+        
+        private List<Player> AllPlayers => _players.Concat(enemies.Where(x=>x.gameObject.activeSelf)).ToList();
 
-        public string PlayerName;
-        public int PlayerId;
-        public Texture PlayerCustomTexture;
-
+        public CinemachineSmoothPath path;
         public event Action<int> OnCountDownTimerChanged;
-
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         public RaceState CurrentRaceState { get; private set; } = RaceState.StandingBy;
 
-        public List<Character> OrderedCharacters { get; private set; } = new List<Character>();
+        public List<Player> OrderedCharacters { get; private set; } = new();
 
-
-        private static RaceManager _instance;
-        public static RaceManager Instance
+        public void AddPlayer(Player player)
         {
-            get
-            {
-                _instance = _instance ?? new RaceManager();
-                return _instance;
-            }
         }
         
-        public void StandByForRace()
+        public void Start()
         {
-            
-            OrderedCharacters = Characters.ToList();
+            OrderedCharacters = AllPlayers.ToList();
 
-            RaceLogic(_cancellationTokenSource.Token).Forget();
+            RaceLogic(this.GetCancellationTokenOnDestroy()).Forget();
         }
 
         private async UniTask RaceLogic(CancellationToken token)
         {
-            
             CurrentRaceState = RaceState.StandingBy;
 
+            // レース開始までのカウントダウン
             for (var i = 5; i > 0; i--)
             {
                 OnCountDownTimerChanged?.Invoke(i);
-                await UniTask.Delay(1000, false, PlayerLoopTiming.Update, token);
+                await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
             }
 
             OnCountDownTimerChanged?.Invoke(0);
 
-            CurrentRaceState = RaceState.Started;
+            CurrentRaceState = RaceState.Racing;
 
-            while (CurrentRaceState == RaceState.Started)
+            while (CurrentRaceState == RaceState.Racing)
             {
                 UpdateCurrentRanking();
-                await UniTask.Yield(PlayerLoopTiming.Update, token);
+                await UniTask.Yield(cancellationToken: token);
             }
         }
-        
 
         private void UpdateCurrentRanking()
         {
             // 降順に並び替え
-            OrderedCharacters = OrderedCharacters.OrderByDescending(x => x.position).ToList();
+            OrderedCharacters = OrderedCharacters.OrderByDescending(x => x.Position).ToList();
             
             for (var i = 0; i < OrderedCharacters.Count; i++)
             {
@@ -88,13 +76,11 @@ namespace RaceGame.Manager
             }
 
             // 全員がゴールしたとき
-            if (OrderedCharacters.Last().position == Path.PathLength)
+            if (OrderedCharacters.Last().Position >= path.PathLength)
             {
                 CurrentRaceState = RaceState.Ended;
-                
-                // UniTaskをキャンセル
-                _cancellationTokenSource.Cancel();
-                SceneLoader.Instance.ToResultScene();
+
+                ((RaceGameNetworkManager)NetworkManager.singleton).ToResultScene();
             }
         }
     }

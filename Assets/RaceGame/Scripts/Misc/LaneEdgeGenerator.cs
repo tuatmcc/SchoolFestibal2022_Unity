@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
@@ -99,13 +97,13 @@ namespace RaceGame.Misc
 			var lane1Vertices = new List<Vector3>();
 			var lane2Vertices = new List<Vector3>();
 
-			for (int i = 0; i < smoothPath.DistanceCacheSampleStepsPerSegment; i++)
+			for (var i = 0; i < smoothPath.DistanceCacheSampleStepsPerSegment; i++)
 			{
-				float pos = part + (float) i / smoothPath.DistanceCacheSampleStepsPerSegment;
-				Vector3 point = smoothPath.EvaluatePositionAtUnit(pos, Units);
-				Vector3 loaclPoint = transform.InverseTransformPoint(point);
-				Quaternion rot = smoothPath.EvaluateOrientationAtUnit(pos, Units);
-				Vector3 r = (rot * Vector3.right) * width / 2;
+				var pos = part + (float) i / smoothPath.DistanceCacheSampleStepsPerSegment;
+				var point = smoothPath.EvaluatePositionAtUnit(pos, Units);
+				var loaclPoint = transform.InverseTransformPoint(point);
+				var rot = smoothPath.EvaluateOrientationAtUnit(pos, Units);
+				var r = (rot * Vector3.right) * width / 2;
 				
 				lane1Vertices.Add(loaclPoint + (width / 2 - thickness + offset) * r);
 				lane1Vertices.Add(loaclPoint + (width / 2 + thickness + offset) * r);
@@ -121,7 +119,7 @@ namespace RaceGame.Misc
 		{
 			var triangles = new List<int>();
 
-			for (int pointNum = 0; pointNum < verticesLength - 2; pointNum += 2)
+			for (var pointNum = 0; pointNum < verticesLength - 2; pointNum += 2)
 			{
 				triangles.Add(pointNum);
 				triangles.Add(pointNum + 2);
@@ -137,7 +135,7 @@ namespace RaceGame.Misc
 		private Vector2[] CaleUvs(Vector3[] vertices)
 		{
 			var uvs = new Vector2[vertices.Length];
-			for(int i = 0; i < uvs.Length; i++)
+			for(var i = 0; i < uvs.Length; i++)
 			{
 				uvs[i] = new Vector2(vertices[i].x, vertices[i].z);
 			}
