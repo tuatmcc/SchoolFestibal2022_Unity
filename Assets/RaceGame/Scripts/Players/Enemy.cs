@@ -29,7 +29,7 @@ namespace RaceGame.Players
             _character = GetComponent<Character>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (RaceManager.Instance.CurrentRaceState == RaceState.Started)
             {
