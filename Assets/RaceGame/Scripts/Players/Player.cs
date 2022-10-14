@@ -80,6 +80,11 @@ namespace RaceGame.Players
         {
             base.OnStartClient();
             RaceManager.Instance.AddPlayer(this);
+            if (isLocalPlayer)
+            {
+                RaceManager.Instance.localPlayer = this;
+            }
+            playerName = $"{playerName} ID : {netId}";
         }
 
         private void OnPositionChanged(float _, float newPosition)
@@ -90,10 +95,10 @@ namespace RaceGame.Players
         private void Update()
         {
             _cart.m_Position = _position;
+            SetStatusPlate();
             if (RaceManager.Instance.CurrentRaceState == RaceState.Racing)
             {
                 UpdatePosition();
-                SetStatusPlate();
             }
         }
 

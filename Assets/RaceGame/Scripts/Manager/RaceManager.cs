@@ -16,6 +16,7 @@ namespace RaceGame.Manager
     {
         private List<Player> _players = new();
         public List<Player> Players => _players;
+        public Player localPlayer;
 
         public bool startFromTitle;
 
