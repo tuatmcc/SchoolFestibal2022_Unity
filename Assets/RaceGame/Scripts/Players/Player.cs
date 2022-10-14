@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Cinemachine;
 using Mirror;
 using UnityEngine;
@@ -55,6 +57,8 @@ namespace RaceGame.Players
 
         private readonly float _speedUpPerTap = 3f;
         private readonly float _slowDownMultiplier = 0.99f;
+        
+        public int xPosition;
 
         private void Start()
         {
@@ -65,17 +69,27 @@ namespace RaceGame.Players
                 _cart.m_Path = FindObjectOfType<CinemachineSmoothPath>();
             }
 
-            statusPlate.transform.forward = _mainCamera.forward;
+            _lookType = PlayerLookType.Horse;
+
+            _mainCamera = Camera.main.transform;
+            OnLookTypeChanged(_lookType, _lookType);
             nameTextField.text = playerName;
         }
-        
+
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+            RaceManager.Instance.AddPlayer(this);
+        }
+
         private void OnPositionChanged(float _, float newPosition)
         {
-            _cart.m_Position = newPosition;
+            _position = newPosition;
         }
 
         private void Update()
         {
+            _cart.m_Position = _position;
             if (RaceManager.Instance.CurrentRaceState == RaceState.Racing)
             {
                 UpdatePosition();
@@ -83,9 +97,16 @@ namespace RaceGame.Players
             }
         }
 
+        private void LateUpdate()
+        {
+            RaceManager.Instance.Players.OrderBy(x => x.netId).Select((x, index) => x.xPosition = index).ToArray();
+            transform.position += transform.right * xPosition;
+        }
+
         private void SetStatusPlate()
         {
             nameTextField.text = $"{rank}. {playerName}";
+            statusPlate.transform.forward = _mainCamera.forward;
         }
         
         /// <summary>

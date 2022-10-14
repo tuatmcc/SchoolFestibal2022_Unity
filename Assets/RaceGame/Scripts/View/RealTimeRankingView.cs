@@ -11,21 +11,6 @@ namespace RaceGame.View
     {
         [SerializeField] private TMP_Text[] rankingNameTexts;
 
-        private void Start()
-        {
-            var characters = RaceManager.Instance.OrderedCharacters;
-            if (rankingNameTexts.Length != characters.Count)
-            {
-                Debug.LogError($"リアルタイムランキングの character 数({rankingNameTexts.Length})が、シーンの character 数({characters.Count})とあっていません");
-                return;
-            }
-            
-            for (var i = 0; i < characters.Count; i++)
-            {
-                rankingNameTexts[i].text = characters[i].playerName;
-            }
-        }
-
         private void Update()
         {
             switch (RaceManager.Instance.CurrentRaceState)

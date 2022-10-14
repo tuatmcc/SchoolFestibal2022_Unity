@@ -95,6 +95,8 @@ GameObject:
   - component: {fileID: 476562183636694452}
   - component: {fileID: 476562183636694455}
   - component: {fileID: 476562183636694411}
+  - component: {fileID: 8834223645241414203}
+  - component: {fileID: 8595141666477219382}
   m_Layer: 5
   m_Name: RaceUI
   m_TagString: Untagged
@@ -204,6 +206,39 @@ MonoBehaviour:
   - {fileID: 1022092723775135389}
   - {fileID: 6476695815134683047}
   - {fileID: 3514553308607773038}
+--- !u!114 &8834223645241414203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476562183636694454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 7feb222e9d760634e9f8d7884ea25765
+  hasSpawned: 0
+--- !u!114 &8595141666477219382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476562183636694454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa060660bfe37e49afea6700c7206f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  startFromTitle: 0
+  path: {fileID: 0}
 --- !u!1001 &233837604770570728
 PrefabInstance:
   m_ObjectHideFlags: 0

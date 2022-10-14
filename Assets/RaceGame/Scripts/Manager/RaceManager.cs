@@ -2,28 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using UnityEngine;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
 using Mirror;
 using RaceGame.Extension;
 using RaceGame.Players;
 using RaceGame.Scene;
+using UnityEngine;
 
 namespace RaceGame.Manager
 {
-    public class RaceManager : SingletonMonoBehaviour<RaceManager>
+    public class RaceManager : SingletonNetworkBehaviour<RaceManager>
     {
-        /// <summary>
-        /// 最初から置いてあるCPU Player
-        /// Playerの数によって減らす
-        /// </summary>
-        [SerializeField]
-        private Player[] enemies;
-        
         private List<Player> _players = new();
-        
-        private List<Player> AllPlayers => _players.Concat(enemies.Where(x=>x.gameObject.activeSelf)).ToList();
+        public List<Player> Players => _players;
+
+        public bool startFromTitle;
 
         public CinemachineSmoothPath path;
         public event Action<int> OnCountDownTimerChanged;
@@ -34,12 +28,29 @@ namespace RaceGame.Manager
 
         public void AddPlayer(Player player)
         {
+            _players.Add(player);
+            Debug.Log($"AddPlayer: {_players.Count}");
+            if (_players.Count >= 3)
+            {
+                CmdGameStart();
+            }
         }
         
         public void Start()
         {
-            OrderedCharacters = AllPlayers.ToList();
+            OrderedCharacters = _players.ToList();
+        }
+        
+        [Server]
+        [Command(requiresAuthority = false)]
+        private void CmdGameStart()
+        {
+            RpcGameStart();
+        }
 
+        [ClientRpc]
+        private void RpcGameStart()
+        {
             RaceLogic(this.GetCancellationTokenOnDestroy()).Forget();
         }
 
@@ -68,7 +79,7 @@ namespace RaceGame.Manager
         private void UpdateCurrentRanking()
         {
             // 降順に並び替え
-            OrderedCharacters = OrderedCharacters.OrderByDescending(x => x.Position).ToList();
+            OrderedCharacters = _players.OrderByDescending(x => x.Position).ToList();
             
             for (var i = 0; i < OrderedCharacters.Count; i++)
             {

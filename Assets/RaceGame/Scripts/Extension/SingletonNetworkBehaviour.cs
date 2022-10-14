@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 namespace RaceGame.Extension
@@ -7,7 +8,7 @@ namespace RaceGame.Extension
     /// ref : https://qiita.com/okuhiiro/items/3d69c602b8538c04a479
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class SingletonNetworkBehaviour<T> : NetworkBehaviour where T : NetworkBehaviour
     {
         private static T _instance;
         public static T Instance
@@ -41,9 +42,6 @@ namespace RaceGame.Extension
                     " は既に他のGameObjectにアタッチされているため、コンポーネントを破棄しました." +
                     " アタッチされているGameObjectは " + Instance.gameObject.name + " です.");
             }
-
-            DontDestroyOnLoad(gameObject);
         }
-
     }
 }

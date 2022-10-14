@@ -28,6 +28,7 @@ namespace RaceGame.Players
 
         private void AcceleratePlayer(InputAction.CallbackContext context)
         {
+            if (!_player.isLocalPlayer) return;
             switch (RaceManager.Instance.CurrentRaceState)
             {
                 case RaceState.Racing:
