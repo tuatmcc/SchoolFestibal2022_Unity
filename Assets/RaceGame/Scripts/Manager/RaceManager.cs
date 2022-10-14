@@ -30,7 +30,7 @@ namespace RaceGame.Manager
         {
             _players.Add(player);
             Debug.Log($"AddPlayer: {_players.Count}");
-            if (_players.Count >= 3)
+            if (_players.Count >= 5)
             {
                 CmdGameStart();
             }
