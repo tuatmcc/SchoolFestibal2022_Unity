@@ -40,7 +40,19 @@ namespace RaceGame.Title
         private void OnMultiStartButtonClick()
         {
             _gameSetting.PlayType = PlayType.Multi;
-            NetworkManager.singleton.StartHost();
+            StartMulti();
+        }
+
+        private void StartMulti()
+        {
+            if (!ParrelSync.ClonesManager.IsClone())
+            {
+                NetworkManager.singleton.StartHost();
+            }
+            else
+            {
+                NetworkManager.singleton.StartClient();
+            }
         }
     }
 }
