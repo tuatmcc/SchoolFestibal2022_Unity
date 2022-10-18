@@ -10,20 +10,19 @@ namespace RaceGame.Race
     /// </summary>
     public class RaceOnlyTester : MonoBehaviour
     {
-        [Inject] private ISceneManager _sceneManager;
-        [Inject] private NetworkManager _networkManager;
-        
+        [Inject] private IGameSetting _gameSetting;
+
         private void Start()
         {
-            if (_sceneManager.StartFromTitle) return;
+            if (_gameSetting.StartFromTitle) return;
             
             if (!ParrelSync.ClonesManager.IsClone())
             {
-                _networkManager.StartHost();
+                NetworkManager.singleton.StartHost();
             }
             else
             {
-                _networkManager.StartClient();
+                NetworkManager.singleton.StartClient();
             }
         }
     }

@@ -5,9 +5,11 @@ using System.Threading;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
 using Mirror;
+using RaceGame.Core.Interface;
 using RaceGame.Race.Interface;
 using RaceGame.Race.Network;
 using UnityEngine;
+using Zenject;
 
 namespace RaceGame.Race
 {
@@ -30,18 +32,25 @@ namespace RaceGame.Race
         
         private void SetOrderedPlayers(List<Player> orderedPlayers)
         {
-            for (var i = 0; i < orderedPlayers.Count; i++)
+            if (orderedPlayers.Count != _orderedPlayers.Count)
             {
-                if (orderedPlayers[i] != _orderedPlayers[i])
+                OnPlayerOrderChanged?.Invoke(_orderedPlayers);
+            }
+            else
+            {
+                for (var i = 0; i < orderedPlayers.Count; i++)
                 {
-                    OnPlayerOrderChanged?.Invoke(_orderedPlayers);
-                    break;
+                    if (orderedPlayers[i] != _orderedPlayers[i])
+                    {
+                        OnPlayerOrderChanged?.Invoke(_orderedPlayers);
+                        break;
+                    }
                 }
             }
-            
+
             _orderedPlayers = orderedPlayers;
         }
-        
+
         public void AddPlayer(Player player)
         {
             RaceState = RaceState.Finished;

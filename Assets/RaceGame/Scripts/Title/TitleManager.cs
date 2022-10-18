@@ -1,4 +1,5 @@
 using Mirror;
+using RaceGame.Core;
 using RaceGame.Core.Interface;
 using RaceGame.Race.Network;
 using TMPro;
@@ -18,15 +19,19 @@ namespace RaceGame.Title
         [SerializeField] private GameObject startGameButton;
         [SerializeField] private GameObject confirmNameButton;
 
+        [Inject] private IGameSetting _gameSetting;
+        
         private CustomInputAction _customInput;
-
-        [Inject] private ISceneManager _sceneManager;
 
         private void Start()
         {
+            _gameSetting.StartFromTitle = true;
+            
             _customInput = new CustomInputAction();
             _customInput.Enable();
             
+            // ToRaceScene();
+            // NetworkManager.singleton.StartHost();
             _customInput.UI.Confirm.canceled += ConfirmPlayerName;
         }
         
@@ -37,12 +42,17 @@ namespace RaceGame.Title
             confirmNameButton.SetActive(false);
             
             // メインシーンへの遷移イベントを追加
-            _customInput.UI.ToMainScene.canceled += ToRaceScene;
+            _customInput.UI.ToMainScene.canceled += OnToRaceSceneClicked;
         }
 
-        private void ToRaceScene(InputAction.CallbackContext context)
+        private void ToRaceScene()
         {
-            _sceneManager.ToRace();
+            NetworkManager.singleton.ServerChangeScene(SceneName.Race.ToString());
+        }
+
+        private void OnToRaceSceneClicked(InputAction.CallbackContext context)
+        {
+            ToRaceScene();
         }
     }
 }

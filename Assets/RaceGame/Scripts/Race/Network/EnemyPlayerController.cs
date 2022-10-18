@@ -1,6 +1,8 @@
+using System;
 using RaceGame.Race.Interface;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace RaceGame.Race.Network
 {
@@ -22,7 +24,22 @@ namespace RaceGame.Race.Network
         public float maxSpeedLimit = 30f;
 
         [Inject] private IRaceManager _raceManager;
-        [SerializeReference] private IPlayer _player;
+        [Inject] private IPlayer _player;
+
+        private void Start()
+        {
+            // 急ぎで雑なやり方
+            // 本来であればFactoryPattern等で対応する
+            if (_player == null)
+            {
+                _player = GetComponent<Player>();
+            }
+
+            if (_raceManager == null)
+            {
+                _raceManager = FindObjectOfType<RaceManager>();
+            }
+        }
 
         private void Update()
         {

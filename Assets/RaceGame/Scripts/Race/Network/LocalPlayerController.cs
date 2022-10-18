@@ -16,15 +16,23 @@ namespace RaceGame.Race.Network
         
         private CustomInputAction _customInput;
 
-        private void Awake()
+        private void Start()
         {
             _customInput = new CustomInputAction();
             _customInput.Enable();
-        }
-
-        private void Start()
-        {
             _customInput.Player.Accelerate.started += AcceleratePlayer;
+            
+            // 急ぎで雑なやり方
+            // 本来であればFactoryPattern等で対応する
+            if (_player == null)
+            {
+                _player = GetComponent<Player>();
+            }
+
+            if (_raceManager == null)
+            {
+                _raceManager = FindObjectOfType<RaceManager>();
+            }
         }
 
         private void AcceleratePlayer(InputAction.CallbackContext context)

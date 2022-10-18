@@ -15,8 +15,7 @@ namespace RaceGame.Race.DI
                 .Bind<IPlayer>()
                 .To<Player>()
                 .FromInstance(raceManager)
-                .AsSingle()
-                .NonLazy();
+                .AsSingle();
         }
     }
 }

@@ -49,8 +49,8 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/RaceGame/Scenes/Title.unity
+  onlineScene: Assets/RaceGame/Scenes/Race.unity
   transport: {fileID: 7768640984277820497}
   networkAddress: localhost
   maxConnections: 100

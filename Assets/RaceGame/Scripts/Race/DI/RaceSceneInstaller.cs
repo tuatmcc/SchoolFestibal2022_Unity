@@ -17,8 +17,7 @@ namespace RaceGame.Race.DI
                 .Bind<IRaceManager>()
                 .To<RaceManager>()
                 .FromInstance(raceManager)
-                .AsSingle()
-                .NonLazy();
+                .AsSingle();
         }
     }
 }

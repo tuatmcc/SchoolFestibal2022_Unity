@@ -14,10 +14,12 @@ namespace RaceGame.Race.View
     {
         [SerializeField] private TMP_Text[] rankTexts;
         
-        [Inject] private IRaceManager _raceManager;
-
-        private void Start()
+        private IRaceManager _raceManager;
+        
+        [Inject]
+        private void Construct(IRaceManager raceManager)
         {
+            _raceManager = raceManager;
             _raceManager.OnPlayerOrderChanged += OnPlayerOrderChanged;
             _raceManager.OnRaceFinished += OnRaceFinished;
         }

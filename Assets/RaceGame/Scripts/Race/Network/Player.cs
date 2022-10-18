@@ -77,12 +77,23 @@ namespace RaceGame.Race.Network
             _mainCamera = Camera.main.transform;
             OnLookTypeChanged(_lookType, _lookType);
             nameTextField.text = playerName;
+
+            // 急ぎで雑なやり方
+            // 本来であればFactoryPattern等で対応する
+            if (_raceManager == null)
+            {
+                _raceManager = FindObjectOfType<RaceManager>();
+            }
         }
 
         public override void OnStartClient()
         {
             base.OnStartClient();
             
+            if (_raceManager == null)
+            {
+                _raceManager = FindObjectOfType<RaceManager>();
+            }
             _raceManager.AddPlayer(this);
             playerName = $"{playerName} ID : {netId}";
         }
