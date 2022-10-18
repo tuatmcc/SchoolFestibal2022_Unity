@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/RaceGame/Scenes/TitleScene.unity
     guid: 6fc899a00ee6d6a4a9518c4b05264477
   - enabled: 1
-    path: Assets/RaceGame/Scenes/MainScene.unity
+    path: Assets/RaceGame/Scenes/RaceScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/RaceGame/Scenes/ResultScene.unity

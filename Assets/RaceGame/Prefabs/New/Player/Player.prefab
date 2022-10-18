@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7073432507421373731}
   - component: {fileID: 7073432507421373730}
   - component: {fileID: 7073432507421373741}
+  - component: {fileID: 5452507484763906182}
+  - component: {fileID: 1053837450395324441}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -111,6 +113,39 @@ MonoBehaviour:
   playerLookManager: {fileID: 5353034891906465702}
   statusPlate: {fileID: 3499019505010596214}
   nameTextField: {fileID: 3900472092117013949}
+  xPosition: 0
+--- !u!114 &5452507484763906182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073432507421373743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 1053837450395324441}
+  _installerPrefabs: []
+  _findSiblingMonoInstallers: 0
+  _autoRun: 1
+  _kernel: {fileID: 0}
+--- !u!114 &1053837450395324441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073432507421373743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7fbded81254a6dbb71ca2001420169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raceManager: {fileID: 7073432507421373741}
 --- !u!1001 &4046325001618799493
 PrefabInstance:
   m_ObjectHideFlags: 0
