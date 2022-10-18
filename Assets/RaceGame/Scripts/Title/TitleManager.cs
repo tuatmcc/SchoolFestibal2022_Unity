@@ -26,25 +26,19 @@ namespace RaceGame.Title
             _customInput = new CustomInputAction();
             _customInput.Enable();
             
-            // NetworkManager.singleton.StartHost();
-            soloStartButton.onClick.AddListener(OnSoloStartButtonClick);
-            multiStartButton.onClick.AddListener(OnMultiStartButtonClick);
+            soloStartButton.onClick.AddListener(StartSolo);
+            multiStartButton.onClick.AddListener(StartMulti);
         }
 
-        private void OnSoloStartButtonClick()
+        private void StartSolo()
         {
             _gameSetting.PlayType = PlayType.Solo;
             NetworkManager.singleton.StartHost();
         }
 
-        private void OnMultiStartButtonClick()
-        {
-            _gameSetting.PlayType = PlayType.Multi;
-            StartMulti();
-        }
-
         private void StartMulti()
         {
+            _gameSetting.PlayType = PlayType.Multi;
             if (!ParrelSync.ClonesManager.IsClone())
             {
                 NetworkManager.singleton.StartHost();
