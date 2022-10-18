@@ -5,6 +5,7 @@ using System.Threading;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
 using Mirror;
+using RaceGame.Core;
 using RaceGame.Core.Interface;
 using RaceGame.Race.Interface;
 using RaceGame.Race.Network;
@@ -27,6 +28,8 @@ namespace RaceGame.Race
         public Player LocalPlayer { get; private set; }
         
         [SerializeField] private CinemachineSmoothPath path;
+        
+        [Inject] private IGameSetting _gameSetting;
         
         private List<Player> _orderedPlayers;
         
@@ -59,12 +62,13 @@ namespace RaceGame.Race
             {
                 LocalPlayer = LocalPlayer;
             }
-            if (Players.Count >= 5)
+
+            if (_gameSetting.PlayType == PlayType.Solo || Players.Count >= 5)
             {
                 CmdGameStart();
             }
         }
-        
+
         private void Start()
         {
             _orderedPlayers = Players.ToList();

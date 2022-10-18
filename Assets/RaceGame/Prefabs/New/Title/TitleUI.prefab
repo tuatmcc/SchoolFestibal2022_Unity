@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u307F\u3093\u306A\u3068"
+  m_text: "\u307F\u3093\u306A\u3067"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -283,7 +283,6 @@ GameObject:
   - component: {fileID: 3036273348813892329}
   - component: {fileID: 3036273348813892328}
   - component: {fileID: 3036273348813892324}
-  - component: {fileID: 2476264726191225488}
   m_Layer: 5
   m_Name: TitleUI
   m_TagString: Untagged
@@ -386,35 +385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eed359b511baf64ebc6fb2d1959e438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNameInputField: {fileID: 0}
-  startGameButton: {fileID: 3036273348817530646}
-  confirmNameButton: {fileID: 3036273349212508541}
---- !u!114 &2476264726191225488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3036273348813892331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  soloStartButton: {fileID: 3036273348817530645}
+  multiStartButton: {fileID: 3036273349212508536}
 --- !u!1 &3036273348817530646
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +399,6 @@ GameObject:
   - component: {fileID: 3036273348817530643}
   - component: {fileID: 3036273348817530642}
   - component: {fileID: 3036273348817530645}
-  - component: {fileID: 3036273348817530644}
   m_Layer: 5
   m_Name: SoloPlay
   m_TagString: Untagged
@@ -538,19 +509,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3036273348817530644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3036273348817530646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ControlPath: <Keyboard>/numpad2
 --- !u!1 &3036273349212508541
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +521,6 @@ GameObject:
   - component: {fileID: 3036273349212508534}
   - component: {fileID: 3036273349212508537}
   - component: {fileID: 3036273349212508536}
-  - component: {fileID: 3036273349212508539}
   m_Layer: 5
   m_Name: MultiPlay
   m_TagString: Untagged
@@ -674,19 +631,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3036273349212508539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3036273349212508541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ControlPath: <Keyboard>/enter
 --- !u!1 &3036273349581994930
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,7 +668,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -887,7 +831,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3036273350407309020
 RectTransform:
   m_ObjectHideFlags: 0
@@ -904,10 +848,10 @@ RectTransform:
   m_Father: {fileID: 3036273348813892327}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 360}
-  m_SizeDelta: {x: 1280, y: 720}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3036273350407309018
 CanvasRenderer:

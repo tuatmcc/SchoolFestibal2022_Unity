@@ -2006,16 +2006,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: RaceUI
       objectReference: {fileID: 0}
-    - target: {fileID: 8595141666477219382, guid: 7feb222e9d760634e9f8d7884ea25765, type: 3}
+    - target: {fileID: 0}
       propertyPath: path
       value: 
       objectReference: {fileID: 64996316}
-    - target: {fileID: 8834223645241414203, guid: 7feb222e9d760634e9f8d7884ea25765, type: 3}
+    - target: {fileID: 0}
       propertyPath: sceneId
       value: 983332416
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8595141666477219382, guid: 7feb222e9d760634e9f8d7884ea25765, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7feb222e9d760634e9f8d7884ea25765, type: 3}
 --- !u!1001 &2342074373649384381
 PrefabInstance:

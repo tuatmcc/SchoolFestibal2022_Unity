@@ -1,4 +1,3 @@
-using System;
 using RaceGame.Race.Interface;
 using UnityEngine;
 using Zenject;
