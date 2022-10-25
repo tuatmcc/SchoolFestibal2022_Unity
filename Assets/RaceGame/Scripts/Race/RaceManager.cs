@@ -60,7 +60,8 @@ namespace RaceGame.Race
             Players.Add(player);
             if (player.isLocalPlayer)
             {
-                LocalPlayer = LocalPlayer;
+                LocalPlayer = player;
+                player.playerID = _gameSetting.LocalPlayerID;
             }
 
             if (_gameSetting.PlayType == PlayType.Solo || Players.Count >= 5)

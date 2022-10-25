@@ -1110,6 +1110,51 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1097588801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1097588802}
+  - component: {fileID: 1097588803}
+  m_Layer: 0
+  m_Name: PlayerIDDebugger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1097588802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097588801}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1097588803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097588801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6da5aca042d0824ca18482b2e916e75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPlayerID: 1370
 --- !u!1 &1113870638
 GameObject:
   m_ObjectHideFlags: 3
@@ -2005,14 +2050,6 @@ PrefabInstance:
     - target: {fileID: 476562183636694454, guid: 7feb222e9d760634e9f8d7884ea25765, type: 3}
       propertyPath: m_Name
       value: RaceUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: path
-      value: 
-      objectReference: {fileID: 64996316}
-    - target: {fileID: 0}
-      propertyPath: sceneId
-      value: 983332416
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7feb222e9d760634e9f8d7884ea25765, type: 3}

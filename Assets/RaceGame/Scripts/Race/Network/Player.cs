@@ -1,6 +1,7 @@
 using System.Linq;
 using Cinemachine;
 using Mirror;
+using RaceGame.Core.Interface;
 using RaceGame.Race.Interface;
 using TMPro;
 using UnityEngine;
@@ -22,7 +23,6 @@ namespace RaceGame.Race.Network
         [SyncVar]
         public string playerName = "CPU";
 
-        [SyncVar(hook = nameof(OnLookTypeChanged))]
         private PlayerLookType _lookType;
 
         [SyncVar(hook = nameof(OnPositionChanged))]
@@ -30,6 +30,9 @@ namespace RaceGame.Race.Network
 
         [SyncVar]
         public int laneNumber;
+
+        [SyncVar(hook = nameof(OnPlayerIDChanged))]
+        public int playerID;
 
         public bool IsLocalPlayer => isLocalPlayer;
         public float Speed { get; private set; }
@@ -45,9 +48,21 @@ namespace RaceGame.Race.Network
         
         [Inject] private IRaceManager _raceManager;
 
-        private void OnLookTypeChanged(PlayerLookType _, PlayerLookType newLookType)
+        private void OnLookTypeChanged(PlayerLookType newLookType)
         {
             playerLookManager.ChangeLookType(newLookType);
+        }
+        
+        private void OnPlayerIDChanged(int _, int newPlayerID)
+        {
+            Debug.Log($"{nameof(OnPlayerIDChanged)} : {_} -> {newPlayerID}");
+            // ここにテクスチャを取得する処理を書く
+            // ChangeTexture的なメソッドを作ってここで呼ぶのが良さそう
+            // 取得したテクスチャをSetCustomTextureに渡す
+            // playerLookManager.SetCustomTexture();
+            
+            // PlayerLookTypeを変更する処理を書く（ここはmkc担当）
+            // OnLookTypeChanged(LookType);
         }
 
         [SerializeField] private Canvas statusPlate;
@@ -75,7 +90,7 @@ namespace RaceGame.Race.Network
             _lookType = PlayerLookType.Horse;
 
             _mainCamera = Camera.main.transform;
-            OnLookTypeChanged(_lookType, _lookType);
+            OnLookTypeChanged(_lookType);
             nameTextField.text = playerName;
 
             // 急ぎで雑なやり方
@@ -94,6 +109,7 @@ namespace RaceGame.Race.Network
             {
                 _raceManager = FindObjectOfType<RaceManager>();
             }
+
             _raceManager.AddPlayer(this);
             playerName = $"{playerName} ID : {netId}";
         }
