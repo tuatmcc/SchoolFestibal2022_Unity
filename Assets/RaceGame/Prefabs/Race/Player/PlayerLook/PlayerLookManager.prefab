@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLooks:
   - {fileID: 1936789635062826662}
-  - {fileID: 8428269454468413322}
+  - {fileID: 7462276206037393701}
   - {fileID: 2120630215060857466}
 --- !u!1001 &7177089875171715115
 PrefabInstance:
@@ -58,6 +58,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1439728066234142712}
     m_Modifications:
+    - target: {fileID: 294266261701708046, guid: 6332c3d759d318344aae217bee2c30cb, type: 3}
+      propertyPath: customTextureRenderer
+      value: 
+      objectReference: {fileID: 6937205546011511983}
     - target: {fileID: 7410544180471165363, guid: 6332c3d759d318344aae217bee2c30cb, type: 3}
       propertyPath: m_Name
       value: Car
@@ -113,9 +117,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7898286835965766409, guid: 6332c3d759d318344aae217bee2c30cb, type: 3}
   m_PrefabInstance: {fileID: 7177089875171715115}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8428269454468413322 stripped
+--- !u!23 &6937205546011511983 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 279155588561855620, guid: 6332c3d759d318344aae217bee2c30cb, type: 3}
+  m_PrefabInstance: {fileID: 7177089875171715115}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7462276206037393701 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1688039927317847969, guid: 6332c3d759d318344aae217bee2c30cb, type: 3}
+  m_CorrespondingSourceObject: {fileID: 294266261701708046, guid: 6332c3d759d318344aae217bee2c30cb, type: 3}
   m_PrefabInstance: {fileID: 7177089875171715115}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
