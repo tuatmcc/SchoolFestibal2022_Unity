@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using ZXing;
 
-namespace ReadQR
+namespace RaceGame.Title
 {
     public class ReadQR : MonoBehaviour
     {
@@ -21,16 +22,12 @@ namespace ReadQR
 
         // 結果保存用変数
         private ZXing.Result _result, _pre_result;
-        public ZXing.Result result;
+        public int result;
         private int count = 0;
         [SerializeField] private static int check_count = 5; 
 
-        private Manager _manager;
-
         void Start()
         {
-            _manager = GetComponent<Manager>();
-            _manager.state = ReadQRstate.ReadingQR;
             try
             {
                 //使用可能なデバイスの取得
@@ -38,7 +35,7 @@ namespace ReadQR
                 //オブジェクト生成
                 webcamTexture = new WebCamTexture(devices[cam_number].name, this.width, this.height, this.fps);
                 //テクスチャ反映
-                cam_target.GetComponent<Renderer> ().material.mainTexture = webcamTexture;
+                cam_target.GetComponent<RawImage>().texture = webcamTexture;
                 //カメラの起動
                 webcamTexture.Play();
             }
@@ -46,6 +43,8 @@ namespace ReadQR
             {
                 Debug.LogError("カメラを正常に起動できませんでした");
             }
+            // 未読み取りなら-1
+            result = -1;
         }
 
         void Update()
@@ -65,10 +64,9 @@ namespace ReadQR
                     count += (count == 0 ?  1 : (_result.Text == _pre_result.Text ? 1 : -count));
                 else
                 {
-                    // カメラを停止してManagerに結果を渡す
+                    // カメラを停止して結果を保存
                     webcamTexture.Stop();
-                    _manager.player_id = _result.Text;
-                    _manager.state = ReadQRstate.ReadedQR;
+                    result = int.Parse(_result.Text);
                 }
                 Debug.Log(_result.Text);
                 _pre_result = _result;

@@ -1,4 +1,4 @@
-namespace ReadQR
+namespace QRreader
 {
     public enum ReadQRstate
     {
