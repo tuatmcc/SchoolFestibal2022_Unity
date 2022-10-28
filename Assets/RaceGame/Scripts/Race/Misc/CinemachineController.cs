@@ -51,7 +51,7 @@ namespace RaceGame.Race.Misc
                     var target = new CinemachineTargetGroup.Target();
                     target.target = player.transform;
                     // localPlayerのウェイトだけ重くしようとしたが、判別できていない？
-                    target.weight = (player == _raceManager.LocalPlayer) ? localPlayerWeight : playerWeight;
+                    target.weight = player.IsLocalPlayer ? localPlayerWeight : playerWeight;
                     target.radius = playerRadius;
                     targets.Add(target);
                 }
