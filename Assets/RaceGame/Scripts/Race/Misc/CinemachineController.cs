@@ -5,6 +5,7 @@ using RaceGame.Race.Interface;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
+using Object = System.Object;
 
 namespace RaceGame.Race.Misc
 {
@@ -24,35 +25,30 @@ namespace RaceGame.Race.Misc
 
         private void Update()
         {
+            // Startだと早すぎる
+            // 下のlocalPlayerが常にnullを返しているっぽいのでとりあえずそれより前に書いておく
             AddTargets();
+
             var localPlayer = _raceManager.LocalPlayer;
             if (localPlayer == null) return;
-
-            // var localPlayerTransform = localPlayer.transform;
-            //
-            // _virtualCamera.Follow = localPlayerTransform;
-            // _virtualCamera.LookAt = localPlayerTransform;
         }
 
         /// <summary>
-        /// CinemachineTargetGroupにプレイヤーを追加
+        /// CinemachineTargetGroupにPlayersを追加する。VirtualCameraはこのTargetGroupを追う。
         /// </summary>
         private void AddTargets()
         {
-            // Start内だと早すぎる模様
+            // Players を全員確実に追加するための苦肉の策. 人数が揃うまで繰り返し呼ばれてしまう
             if (_targetGroup.m_Targets.Length < _raceManager.Players.Count)
             {
-                var playerWeight = 1f;
-                var localPlayerWeight = 4f;
-                var playerRadius = 3f;
                 var targets = new List<CinemachineTargetGroup.Target>();
                 foreach (var player in _raceManager.Players)
                 {
                     var target = new CinemachineTargetGroup.Target();
                     target.target = player.transform;
-                    // localPlayerのウェイトだけ重くしようとしたが、判別できていない？
-                    target.weight = player.IsLocalPlayer ? localPlayerWeight : playerWeight;
-                    target.radius = playerRadius;
+                    // localPlayerのウェイトを大きくする
+                    target.weight = player.IsLocalPlayer ? 4f : 1f;
+                    target.radius = 3f;
                     targets.Add(target);
                 }
 
