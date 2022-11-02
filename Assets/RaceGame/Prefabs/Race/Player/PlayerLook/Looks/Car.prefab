@@ -57,17 +57,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1378fcba8ae2bc4eb8f5093b25227bc, type: 3}
---- !u!23 &279155588561855620 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7622661218638243942, guid: d1378fcba8ae2bc4eb8f5093b25227bc, type: 3}
-  m_PrefabInstance: {fileID: 7644547533743541474}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7410544180471165363 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d1378fcba8ae2bc4eb8f5093b25227bc, type: 3}
   m_PrefabInstance: {fileID: 7644547533743541474}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1688039927317847969
+--- !u!114 &294266261701708046
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,4 +75,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLookType: 1
-  customTextureRenderer: {fileID: 279155588561855620}
+  customTextureRenderer: {fileID: 0}
