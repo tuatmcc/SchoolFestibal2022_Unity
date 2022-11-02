@@ -20,10 +20,10 @@ namespace RaceGame.Race.Misc
         private void Start()
         {
             _virtualCamera = GetComponent<CinemachineVirtualCamera>();
+            _raceManager.OnRaceStart += OnRaceStart;
         }
 
-
-        private void Update()
+        private void OnRaceStart()
         {
             // Startだと早すぎる
             // 下のlocalPlayerが常にnullを返しているっぽいのでとりあえずそれより前に書いておく
