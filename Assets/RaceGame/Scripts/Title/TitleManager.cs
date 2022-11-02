@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -16,13 +15,11 @@ namespace RaceGame.Title
     /// </summary>
     public class TitleManager : MonoBehaviour
     {
-        public TextureData PlayerTexture;
-        public List<TextureData> CPUTextures = new();
-        
-        [SerializeField] public int cpuNum = 4;
-        
+        public TextureData PlayerTexture { get; private set; }
+        public List<TextureData> CPUTextures { get; private set; }
+
+        [SerializeField] public int cpuCount = 4;
         [SerializeField] private QRCodeReader qrCodeReader;
-        [SerializeField] private TextureDownloader _textureDownloader;
         
         [SerializeField] private Button soloStartButton;
         [SerializeField] private Button multiStartButton;
@@ -31,14 +28,9 @@ namespace RaceGame.Title
 
         [Inject] private IGameSetting _gameSetting;
         
-        private CustomInputAction _customInput;
-        
         private void Start()
         {
             _gameSetting.StartFromTitle = true;
-            
-            _customInput = new CustomInputAction();
-            _customInput.Enable();
             
             soloStartButton.onClick.AddListener(StartSolo);
             multiStartButton.onClick.AddListener(StartMulti);
@@ -46,20 +38,21 @@ namespace RaceGame.Title
             titleBackGround.SetActive(false);
             qrCodeBackGround.SetActive(true);
 
-            qrCodeReader.OnReadQRCode+= OnReadQRCode;
+            qrCodeReader.OnReadQRCode += OnReadQRCode;
         }
 
         private void OnReadQRCode(int result)
         {
-            _gameSetting.LocalPlayerID = result;
-            
-            DownloadTextures(this.GetCancellationTokenOnDestroy()).Forget();
+            DownloadTextures(result, this.GetCancellationTokenOnDestroy()).Forget();
         }
 
-        private async UniTaskVoid DownloadTextures(CancellationToken cancellationToken)
+        private async UniTaskVoid DownloadTextures(int localPlayerID, CancellationToken cancellationToken)
         {
-            PlayerTexture = await _textureDownloader.DownloadPlayerImage(_gameSetting.LocalPlayerID, cancellationToken);
-            CPUTextures = await _textureDownloader.DownloadCPUImage(_gameSetting.LocalPlayerID, cpuNum, cancellationToken);
+            _gameSetting.LocalPlayerID = localPlayerID;
+            
+            var downloader = new TextureDownloader();
+            PlayerTexture = await downloader.DownloadPlayerTexture(localPlayerID, cancellationToken);
+            CPUTextures = await downloader.DownloadCPUImageTextures(localPlayerID, cpuCount, cancellationToken);
             
             qrCodeBackGround.SetActive(false);
             titleBackGround.SetActive(true);

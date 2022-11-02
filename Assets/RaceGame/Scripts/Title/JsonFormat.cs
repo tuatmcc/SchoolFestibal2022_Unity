@@ -1,13 +1,13 @@
-namespace json
+namespace RaceGame.Title
 {
     [System.Serializable]
-    public struct Jsondata
+    public struct JsonData
     {
         public string status;
-        public Imagedata[] data;
+        public ImageData[] data;
 
         [System.Serializable]
-        public struct Imagedata
+        public struct ImageData
         {
             public int id;
             public string URL;

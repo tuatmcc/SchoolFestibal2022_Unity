@@ -5,7 +5,6 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using RaceGame.Race.Network;
-using json;
 
 namespace RaceGame.Title
 {
@@ -19,18 +18,18 @@ namespace RaceGame.Title
         
         private const int NetworkRetryWaitSeconds = 5;
         
-        public Jsondata JsonObj;
+        public JsonData JsonObj;
 
         /// <summary>
         /// 指定されたIDの画像をダウンロードして情報をtexturesに追加
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
-        public async UniTask<TextureData> DownloadPlayerImage(int id, CancellationToken cancellationToken)
+        public async UniTask<TextureData> DownloadPlayerTexture(int id, CancellationToken cancellationToken)
         {
             await WaitForOnline(cancellationToken);
 
-            var request = new UnityWebRequest($"{ImageGetURL}{id.ToString()}");
+            var request = new UnityWebRequest($"{ImageGetURL}{id}");
             var handler = new DownloadHandlerTexture(true);
             request.downloadHandler = handler;
             
@@ -38,7 +37,7 @@ namespace RaceGame.Title
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("ダウンロードした ID:" + id.ToString());
+                Debug.Log($"ダウンロードした ID:{id}");
                 return new TextureData() { ID = id, Texture = handler.texture, PlayerLookType = GetLookType(id) };
             }
             else
@@ -54,8 +53,7 @@ namespace RaceGame.Title
         /// </summary>
         /// <param name="id"></param>
         /// <param name="num"></param>
-        /// <param name="textures"></param>
-        public async UniTask<List<TextureData>> DownloadCPUImage(int id, int num, CancellationToken cancellationToken)
+        public async UniTask<List<TextureData>> DownloadCPUImageTextures(int id, int num, CancellationToken cancellationToken)
         {
             await WaitForOnline(cancellationToken);
 
@@ -65,14 +63,14 @@ namespace RaceGame.Title
             await request.SendWebRequest().ToUniTask(cancellationToken: cancellationToken);
 
             // json形式から構造体に変換
-            var jsonObj = JsonUtility.FromJson<Jsondata>(request.downloadHandler.text);
+            var jsonObj = JsonUtility.FromJson<JsonData>(request.downloadHandler.text);
 
             Debug.Log(request.downloadHandler.text);
             
             var textures = new List<TextureData>();
             foreach (var _ in jsonObj.data)
             {
-                textures.Add(await DownloadPlayerImage(id, cancellationToken));
+                textures.Add(await DownloadPlayerTexture(id, cancellationToken));
             }
 
             return textures;
