@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Mirror;
 using RaceGame.Core;
 using RaceGame.Core.Interface;
@@ -11,25 +14,24 @@ namespace RaceGame.Title
     /// <summary>
     /// TitleSceneを動かし、プレイヤー名を受け取る。
     /// </summary>
-
     public class TitleManager : MonoBehaviour
     {
-        private GameObject _titleBackGround;
-        private GameObject _qrCodeBackGround;
-
-        public List<TextureData> player_texture = new List<TextureData>();
-        public List<TextureData> cpu_textures = new List<TextureData>();
-
+        public TextureData PlayerTexture;
+        public List<TextureData> CPUTextures = new();
+        
+        [SerializeField] public int cpuNum = 4;
+        
+        [SerializeField] private QRCodeReader qrCodeReader;
+        [SerializeField] private TextureDownloader _textureDownloader;
+        
         [SerializeField] private Button soloStartButton;
         [SerializeField] private Button multiStartButton;
+        [SerializeField] private GameObject titleBackGround;
+        [SerializeField] private GameObject qrCodeBackGround;
 
         [Inject] private IGameSetting _gameSetting;
-        [SerializeField] public int cpu_num = 4;
-        [SerializeField] private bool ReadedQR = false;
         
         private CustomInputAction _customInput;
-        private ReadQR _readQR;
-        private GetImage _getImage;
         
         private void Start()
         {
@@ -41,34 +43,26 @@ namespace RaceGame.Title
             soloStartButton.onClick.AddListener(StartSolo);
             multiStartButton.onClick.AddListener(StartMulti);
 
-            _titleBackGround = transform.Find("TitleBackGround").gameObject;
-            _titleBackGround.SetActive(false);
+            titleBackGround.SetActive(false);
+            qrCodeBackGround.SetActive(true);
 
-            _qrCodeBackGround = transform.Find("QRCodeBackGround").gameObject;
-
-            _getImage = GetComponentInChildren(typeof(GetImage)) as GetImage;
-            _readQR = GetComponentInChildren(typeof(ReadQR)) as ReadQR;
+            qrCodeReader.OnReadQRCode+= OnReadQRCode;
         }
 
-        private void Update() 
+        private void OnReadQRCode(int result)
         {
-            // 1度のみ実行QRコードの読み取りが終わっていたら画像ダウンロード
-            if(!ReadedQR && _readQR.result != -1) 
-            {
-                ReadedQR = true;
-                
-                Debug.Log(_readQR.result);
-                _gameSetting.LocalPlayerID = _readQR.result;
+            _gameSetting.LocalPlayerID = result;
+            
+            DownloadTextures(this.GetCancellationTokenOnDestroy()).Forget();
+        }
 
-                _getImage.DownloadPlayerImage(_gameSetting.LocalPlayerID, player_texture);
-                _getImage.DownloadCPUImage(_gameSetting.LocalPlayerID, cpu_num, cpu_textures);
-            }
-            // 画像ダウンロードが終わっていたらUI切り替え
-            if(player_texture != null && cpu_textures.Count == cpu_num && !_titleBackGround.activeSelf)
-            {
-                _qrCodeBackGround.SetActive(false);
-                _titleBackGround.SetActive(true);
-            }
+        private async UniTaskVoid DownloadTextures(CancellationToken cancellationToken)
+        {
+            PlayerTexture = await _textureDownloader.DownloadPlayerImage(_gameSetting.LocalPlayerID, cancellationToken);
+            CPUTextures = await _textureDownloader.DownloadCPUImage(_gameSetting.LocalPlayerID, cpuNum, cancellationToken);
+            
+            qrCodeBackGround.SetActive(false);
+            titleBackGround.SetActive(true);
         }
 
         private void StartSolo()
