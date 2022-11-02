@@ -19,6 +19,7 @@ namespace RaceGame.Race
         public bool StartFromTitle { get; set; }
         
         public event Action OnRaceFinished;
+        public event Action OnRaceStart;
         public event Action<int> OnCountDownTimerChanged;
         public event Action<List<Player>> OnPlayerOrderChanged;
 
@@ -85,6 +86,7 @@ namespace RaceGame.Race
         private void RpcGameStart()
         {
             RaceLogic(this.GetCancellationTokenOnDestroy()).Forget();
+            OnRaceStart?.Invoke();
         }
 
         private async UniTask RaceLogic(CancellationToken token)
