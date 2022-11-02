@@ -923,6 +923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 963194225}
   _bgmClip: {fileID: 8300000, guid: e422917ae7d336847b72797a21d7e992, type: 3}
+  _startSeClip: {fileID: 8300000, guid: 7903a45ab0e210f4caa68ff46d37a2d8, type: 3}
 --- !u!1 &943461238
 GameObject:
   m_ObjectHideFlags: 0
