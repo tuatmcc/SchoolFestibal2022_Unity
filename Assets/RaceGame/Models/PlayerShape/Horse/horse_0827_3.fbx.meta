@@ -1,20 +1,11 @@
 fileFormatVersion: 2
-guid: 337ecaff5c439f44f8dbca040ee1cf4e
+guid: b157af2e3c985484891c9b4093a10ed7
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: 7382412904247806790
-    second: Animation_Horse_Walk
-  - first:
-      74: 7583080319782976921
-    second: Animation_Horse_Stop
-  - first:
-      74: -6140374235425719669
-    second: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action"
-  - first:
-      74: -4834216788075965445
-    second: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action.001"
+    second: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action.002"
   - first:
       74: 8125854857852294858
     second: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action.002"
@@ -48,11 +39,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Animation_Horse_Walk
+      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action.002"
       takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action.002"
       internalID: 0
-      firstFrame: 3
-      lastFrame: 45
+      firstFrame: 0
+      lastFrame: 140
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -60,7 +51,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -77,11 +68,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Animation_Horse_Stop
-      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|Action"
+      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action.002"
+      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2Action.002"
       internalID: 0
       firstFrame: 0
-      lastFrame: 0
+      lastFrame: 140
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
