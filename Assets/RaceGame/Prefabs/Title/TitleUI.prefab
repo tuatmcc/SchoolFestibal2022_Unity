@@ -595,8 +595,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eed359b511baf64ebc6fb2d1959e438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cpuCount: 4
+  qrCodeReader: {fileID: 3279861972354938320}
   soloStartButton: {fileID: 3036273348817530645}
   multiStartButton: {fileID: 3036273349212508536}
+  titleBackGround: {fileID: 6539190341599328500}
+  qrCodeBackGround: {fileID: 7306796286897858573}
 --- !u!1 &3036273348817530646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1401,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1465540369790171238}
   - component: {fileID: 3279861972354938320}
-  - component: {fileID: 8183579984869156440}
   m_Layer: 0
   m_Name: QRCodeBackGround
   m_TagString: Untagged
@@ -1433,25 +1436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb949f4c3b83bf42bbcfa73cfbd9d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam_target: {fileID: 984964257929120274}
-  cam_number: 0
-  result: 0
---- !u!114 &8183579984869156440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7306796286897858573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49fc87d06811443479d3f897fb3581d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  json_obj:
-    status: 
-    data: []
+  cameraImage: {fileID: 3271910890451235315}
+  cameraIndex: 0
 --- !u!1 &7477813870997974854
 GameObject:
   m_ObjectHideFlags: 0
