@@ -2131,6 +2131,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 476562183636694452, guid: 7feb222e9d760634e9f8d7884ea25765, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 476562183636694452, guid: 7feb222e9d760634e9f8d7884ea25765, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 476562183636694454, guid: 7feb222e9d760634e9f8d7884ea25765, type: 3}
       propertyPath: m_Name
       value: RaceUI
