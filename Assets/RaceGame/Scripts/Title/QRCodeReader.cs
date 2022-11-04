@@ -63,10 +63,10 @@ namespace RaceGame.Title
             var rawRGB = _webCamTexture.GetPixels32();
             
             _result = reader.Decode(rawRGB, width, height);
-            Debug.Log($"QRCode Read : {_result.Text}");
             
             if(_result != null)
             {
+                Debug.Log($"QRCode Read : {_result.Text}");
                 // 5回連続で同じ結果であれば終了
                 if (_currentSameValueCount < MaxSameValueCount)
                 {
