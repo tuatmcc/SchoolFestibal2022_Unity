@@ -1,8 +1,12 @@
 using System.Linq;
+using System.Threading;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using Mirror;
 using RaceGame.Core.Interface;
 using RaceGame.Race.Interface;
+using RaceGame.Race.View;
+using RaceGame.Title;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -18,6 +22,8 @@ namespace RaceGame.Race.Network
     [RequireComponent(typeof(Animator))]
     public class Player : NetworkBehaviour, IPlayer
     {
+        [SerializeField] private NamePlate namePlate;
+        
         public float Position => _position;
         
         [SyncVar]
@@ -56,13 +62,15 @@ namespace RaceGame.Race.Network
         private void OnPlayerIDChanged(int _, int newPlayerID)
         {
             Debug.Log($"{nameof(OnPlayerIDChanged)} : {_} -> {newPlayerID}");
-            // ここにテクスチャを取得する処理を書く
-            // ChangeTexture的なメソッドを作ってここで呼ぶのが良さそう
-            // 取得したテクスチャをSetCustomTextureに渡す
-            // playerLookManager.SetCustomTexture();
-            
-            // PlayerLookTypeを変更する処理を書く（ここはmkc担当）
-            // OnLookTypeChanged(LookType);
+            DownloadTextures(newPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
+        }
+        
+        private async UniTaskVoid DownloadTextures(int localPlayerID, CancellationToken cancellationToken)
+        {
+            var playerTexture = await TextureDownloader.DownloadPlayerTexture(localPlayerID, cancellationToken);
+            playerLookManager.SetCustomTexture(playerTexture.Texture);
+            OnLookTypeChanged(playerTexture.PlayerLookType);
+            namePlate.SetTexture(playerTexture.Texture);
         }
 
         [SerializeField] private Canvas statusPlate;

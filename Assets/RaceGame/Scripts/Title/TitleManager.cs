@@ -50,10 +50,6 @@ namespace RaceGame.Title
         {
             _gameSetting.LocalPlayerID = localPlayerID;
             
-            var downloader = new TextureDownloader();
-            PlayerTexture = await downloader.DownloadPlayerTexture(localPlayerID, cancellationToken);
-            CPUTextures = await downloader.DownloadCPUImageTextures(localPlayerID, cpuCount, cancellationToken);
-            
             qrCodeBackGround.SetActive(false);
             titleBackGround.SetActive(true);
         }
