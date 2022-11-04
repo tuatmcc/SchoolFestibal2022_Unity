@@ -7,17 +7,15 @@ namespace RaceGame.Race.Sounds
     public class BGMManager : MonoBehaviour
     {
         private RaceManager _raceManager;
-        [SerializeField] private GameObject _target;
+        [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AudioClip _bgmClip;
         [SerializeField] private AudioClip _startSeClip;
-        private AudioSource _audioSource;
         private bool _startedBGM = false;
         private bool _fadeOut = false;
         //private bool _localPlayerFinished = false;
         void Start()
         {
             _raceManager = GetComponent<RaceManager>();
-            _audioSource = _target.GetComponent<AudioSource>();
         }
 
         void Update()
