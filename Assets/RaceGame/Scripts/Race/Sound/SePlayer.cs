@@ -13,6 +13,7 @@ namespace RaceGame.Race.Sounds
 
         private void Start()
         {
+            _prevPosition = transform.position;
             _audioSource = GetComponent<AudioSource>();
             _raceManager = FindObjectOfType<RaceManager>();
         }
