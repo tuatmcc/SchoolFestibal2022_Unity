@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,11 @@ namespace RaceGame.Race.View
     {
         [SerializeField] private RawImage rawImage;
         [SerializeField] private RawImage maskImage;
+
+        private void Update()
+        {
+            transform.rotation = Quaternion.identity;
+        }
 
         public void SetTexture(Texture texture)
         {
