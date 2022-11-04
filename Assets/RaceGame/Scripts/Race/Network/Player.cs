@@ -1,9 +1,11 @@
 using System.Linq;
+using System.Threading;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using Mirror;
-using RaceGame.Core.Interface;
 using RaceGame.Race.Interface;
-using TMPro;
+using RaceGame.Race.View;
+using RaceGame.Title;
 using UnityEngine;
 using Zenject;
 
@@ -18,10 +20,11 @@ namespace RaceGame.Race.Network
     [RequireComponent(typeof(Animator))]
     public class Player : NetworkBehaviour, IPlayer
     {
-        public float Position => _position;
+        [SerializeField] private NamePlate namePlate;
+
+        public TextureData TextureData;
         
-        [SyncVar]
-        public string playerName = "CPU";
+        public float Position => _position;
 
         private PlayerLookType _lookType;
 
@@ -56,17 +59,18 @@ namespace RaceGame.Race.Network
         private void OnPlayerIDChanged(int _, int newPlayerID)
         {
             Debug.Log($"{nameof(OnPlayerIDChanged)} : {_} -> {newPlayerID}");
-            // ここにテクスチャを取得する処理を書く
-            // ChangeTexture的なメソッドを作ってここで呼ぶのが良さそう
-            // 取得したテクスチャをSetCustomTextureに渡す
-            // playerLookManager.SetCustomTexture();
-            
-            // PlayerLookTypeを変更する処理を書く（ここはmkc担当）
-            // OnLookTypeChanged(LookType);
+            DownloadTextures(newPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
+        }
+        
+        private async UniTaskVoid DownloadTextures(int localPlayerID, CancellationToken cancellationToken)
+        {
+            TextureData = await TextureDownloader.DownloadPlayerTexture(localPlayerID, cancellationToken);
+            playerLookManager.SetCustomTexture(TextureData.Texture);
+            OnLookTypeChanged(TextureData.PlayerLookType);
+            namePlate.SetTexture(TextureData.Texture);
         }
 
         [SerializeField] private Canvas statusPlate;
-        [SerializeField] private TMP_Text nameTextField;
 
         public CinemachineDollyCart Cart => _cart;
 
@@ -91,7 +95,6 @@ namespace RaceGame.Race.Network
 
             _mainCamera = Camera.main.transform;
             OnLookTypeChanged(_lookType);
-            nameTextField.text = playerName;
 
             // 急ぎで雑なやり方
             // 本来であればFactoryPattern等で対応する
@@ -111,7 +114,6 @@ namespace RaceGame.Race.Network
             }
 
             _raceManager.AddPlayer(this);
-            playerName = $"{playerName} ID : {netId}";
         }
 
         private void OnPositionChanged(float _, float newPosition)
@@ -137,7 +139,6 @@ namespace RaceGame.Race.Network
 
         private void SetStatusPlate()
         {
-            nameTextField.text = $"{rank}. {playerName}";
             statusPlate.transform.forward = _mainCamera.forward;
         }
 

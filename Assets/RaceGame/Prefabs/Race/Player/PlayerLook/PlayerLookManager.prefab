@@ -140,10 +140,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1439728066234142712}
     m_Modifications:
-    - target: {fileID: 7932726923723659905, guid: 3f0cfca45a34985439cc8de0d8679928, type: 3}
-      propertyPath: customTextureRenderer
-      value: 
-      objectReference: {fileID: 2744559602218663372}
     - target: {fileID: 8484123597468553109, guid: 3f0cfca45a34985439cc8de0d8679928, type: 3}
       propertyPath: m_Name
       value: Horse
@@ -210,11 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900ee3526a494c0ab3187e7ab73bf767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!137 &2744559602218663372 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 5971998061064135147, guid: 3f0cfca45a34985439cc8de0d8679928, type: 3}
-  m_PrefabInstance: {fileID: 8428045741790714919}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8498241310862599948
 PrefabInstance:
   m_ObjectHideFlags: 0
