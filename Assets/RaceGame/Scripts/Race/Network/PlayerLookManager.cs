@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using RaceGame.Race.View;
 using UnityEngine;
 
 namespace RaceGame.Race.Network
@@ -9,6 +10,7 @@ namespace RaceGame.Race.Network
     public class PlayerLookManager : MonoBehaviour
     {
         [SerializeField] private List<PlayerLook> playerLooks;
+        [SerializeField] private MapImage mapImage;
 
         public void ChangeLookType(PlayerLookType lookType)
         {
@@ -24,6 +26,8 @@ namespace RaceGame.Race.Network
             {
                 playerLook.SetCustomTexture(texture);
             }
+            
+            mapImage.SetTexture(texture);
         }
     }
 }

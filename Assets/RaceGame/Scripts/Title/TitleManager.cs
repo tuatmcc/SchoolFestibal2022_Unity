@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Mirror;
 using RaceGame.Core;
 using RaceGame.Core.Interface;
@@ -12,22 +15,43 @@ namespace RaceGame.Title
     /// </summary>
     public class TitleManager : MonoBehaviour
     {
+        public TextureData PlayerTexture { get; private set; }
+        public List<TextureData> CPUTextures { get; private set; }
+
+        [SerializeField] public int cpuCount = 4;
+        [SerializeField] private QRCodeReader qrCodeReader;
+        
         [SerializeField] private Button soloStartButton;
         [SerializeField] private Button multiStartButton;
+        [SerializeField] private GameObject titleBackGround;
+        [SerializeField] private GameObject qrCodeBackGround;
 
         [Inject] private IGameSetting _gameSetting;
-        
-        private CustomInputAction _customInput;
         
         private void Start()
         {
             _gameSetting.StartFromTitle = true;
             
-            _customInput = new CustomInputAction();
-            _customInput.Enable();
-            
             soloStartButton.onClick.AddListener(StartSolo);
             multiStartButton.onClick.AddListener(StartMulti);
+
+            titleBackGround.SetActive(false);
+            qrCodeBackGround.SetActive(true);
+
+            qrCodeReader.OnReadQRCode += OnReadQRCode;
+        }
+
+        private void OnReadQRCode(int result)
+        {
+            DownloadTextures(result, this.GetCancellationTokenOnDestroy()).Forget();
+        }
+
+        private async UniTaskVoid DownloadTextures(int localPlayerID, CancellationToken cancellationToken)
+        {
+            _gameSetting.LocalPlayerID = localPlayerID;
+            
+            qrCodeBackGround.SetActive(false);
+            titleBackGround.SetActive(true);
         }
 
         private void StartSolo()

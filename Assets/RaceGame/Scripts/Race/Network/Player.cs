@@ -1,8 +1,11 @@
 using System.Linq;
+using System.Threading;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using Mirror;
 using RaceGame.Race.Interface;
-using TMPro;
+using RaceGame.Race.View;
+using RaceGame.Title;
 using UnityEngine;
 using Zenject;
 
@@ -17,12 +20,12 @@ namespace RaceGame.Race.Network
     [RequireComponent(typeof(Animator))]
     public class Player : NetworkBehaviour, IPlayer
     {
-        public float Position => _position;
-        
-        [SyncVar]
-        public string playerName = "CPU";
+        [SerializeField] private NamePlate namePlate;
 
-        [SyncVar(hook = nameof(OnLookTypeChanged))]
+        public TextureData TextureData;
+        
+        public float Position => _position;
+
         private PlayerLookType _lookType;
 
         [SyncVar(hook = nameof(OnPositionChanged))]
@@ -30,6 +33,9 @@ namespace RaceGame.Race.Network
 
         [SyncVar]
         public int laneNumber;
+
+        [SyncVar(hook = nameof(OnPlayerIDChanged))]
+        public int playerID;
 
         public bool IsLocalPlayer => isLocalPlayer;
         public float Speed { get; private set; }
@@ -45,13 +51,26 @@ namespace RaceGame.Race.Network
         
         [Inject] private IRaceManager _raceManager;
 
-        private void OnLookTypeChanged(PlayerLookType _, PlayerLookType newLookType)
+        private void OnLookTypeChanged(PlayerLookType newLookType)
         {
             playerLookManager.ChangeLookType(newLookType);
         }
+        
+        private void OnPlayerIDChanged(int _, int newPlayerID)
+        {
+            Debug.Log($"{nameof(OnPlayerIDChanged)} : {_} -> {newPlayerID}");
+            DownloadTextures(newPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
+        }
+        
+        private async UniTaskVoid DownloadTextures(int localPlayerID, CancellationToken cancellationToken)
+        {
+            TextureData = await TextureDownloader.DownloadPlayerTexture(localPlayerID, cancellationToken);
+            playerLookManager.SetCustomTexture(TextureData.Texture);
+            OnLookTypeChanged(TextureData.PlayerLookType);
+            namePlate.SetTexture(TextureData.Texture);
+        }
 
         [SerializeField] private Canvas statusPlate;
-        [SerializeField] private TMP_Text nameTextField;
 
         public CinemachineDollyCart Cart => _cart;
 
@@ -75,8 +94,7 @@ namespace RaceGame.Race.Network
             _lookType = PlayerLookType.Horse;
 
             _mainCamera = Camera.main.transform;
-            OnLookTypeChanged(_lookType, _lookType);
-            nameTextField.text = playerName;
+            OnLookTypeChanged(_lookType);
 
             // 急ぎで雑なやり方
             // 本来であればFactoryPattern等で対応する
@@ -94,8 +112,8 @@ namespace RaceGame.Race.Network
             {
                 _raceManager = FindObjectOfType<RaceManager>();
             }
+
             _raceManager.AddPlayer(this);
-            playerName = $"{playerName} ID : {netId}";
         }
 
         private void OnPositionChanged(float _, float newPosition)
@@ -121,7 +139,6 @@ namespace RaceGame.Race.Network
 
         private void SetStatusPlate()
         {
-            nameTextField.text = $"{rank}. {playerName}";
             statusPlate.transform.forward = _mainCamera.forward;
         }
 

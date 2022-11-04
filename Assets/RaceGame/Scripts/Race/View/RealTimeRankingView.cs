@@ -1,41 +1,22 @@
-﻿using System.Collections.Generic;
-using RaceGame.Race.Interface;
-using RaceGame.Race.Network;
 using TMPro;
 using UnityEngine;
-using Zenject;
+using UnityEngine.UI;
 
 namespace RaceGame.Race.View
 {
-    /// <summary>
-    /// レース中にランキングUIを更新する。
-    /// </summary>
     public class RealTimeRankingView : MonoBehaviour
     {
-        [SerializeField] private TMP_Text[] rankingNameTexts;
-
-        [Inject] private IRaceManager _raceManager;
-
-        private void Start()
+        [SerializeField] private RawImage rawImage;
+        [SerializeField] private TMP_Text rank;
+        
+        public void SetText(string text)
         {
-            _raceManager.OnRaceFinished += OnRaceFinished;
-            _raceManager.OnPlayerOrderChanged += OnPlayerOrderChanged;
+            rank.text = text;
         }
-
-        private void OnPlayerOrderChanged(List<Player> orderedPlayers)
+        
+        public void SetTexture(Texture texture)
         {
-            for (var i = 0; i < orderedPlayers.Count; i++)
-            {
-                rankingNameTexts[i].text = $"{orderedPlayers[i].rank}. {orderedPlayers[i].playerName}";
-            }
-        }
-
-        private void OnRaceFinished()
-        {
-            foreach (var textField in rankingNameTexts)
-            {
-                textField.gameObject.SetActive(false);
-            }
+            rawImage.texture = texture;
         }
     }
 }
