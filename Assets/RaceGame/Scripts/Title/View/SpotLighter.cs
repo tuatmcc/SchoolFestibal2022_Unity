@@ -22,6 +22,7 @@ namespace RaceGame.Title.View
                 currentMode = value;
                 ChangeSpotLightDirection();
             }
+            get => currentMode;
         }
 
         private void OnValidate()
