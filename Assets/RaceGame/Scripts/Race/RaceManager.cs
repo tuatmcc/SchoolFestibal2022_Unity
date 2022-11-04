@@ -9,6 +9,7 @@ using RaceGame.Core;
 using RaceGame.Core.Interface;
 using RaceGame.Race.Interface;
 using RaceGame.Race.Network;
+using RaceGame.Title;
 using UnityEngine;
 using Zenject;
 
@@ -66,7 +67,18 @@ namespace RaceGame.Race
 
             if (_gameSetting.PlayType == PlayType.Solo || Players.Count >= 5)
             {
+                GetEnemiesList(_gameSetting.LocalPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
                 CmdGameStart();
+            }
+        }
+
+        private async UniTaskVoid GetEnemiesList(int localPlayerID, CancellationToken cancellationToken)
+        {
+            var enemies = Players.Where(player => player.GetComponent<EnemyPlayerController>() != null).ToList();
+            var list = await TextureDownloader.DownloadCPUList(localPlayerID, enemies.Count, cancellationToken);
+            for (var i = 0; i < list.Count; i++)
+            {
+                enemies[i].playerID = list[i];
             }
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -11,21 +12,20 @@ namespace RaceGame.Title
     /// <summary>
     /// テクスチャをダウンロードする
     /// </summary>
-    public class TextureDownloader
+    public static class TextureDownloader
     {
         private const string ImageGetURL = "http://158.101.138.60/player_image/";
         private const string ListGetURL = "http://158.101.138.60/random_image/"; 
         
         private const int NetworkRetryWaitSeconds = 5;
         
-        public JsonData JsonObj;
 
         /// <summary>
         /// 指定されたIDの画像をダウンロードして情報をtexturesに追加
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
-        public async UniTask<TextureData> DownloadPlayerTexture(int id, CancellationToken cancellationToken)
+        public static async UniTask<TextureData> DownloadPlayerTexture(int id, CancellationToken cancellationToken)
         {
             await WaitForOnline(cancellationToken);
 
@@ -47,13 +47,28 @@ namespace RaceGame.Title
 
             return null;
         }
-        
+
+        public static async UniTask<List<int>> DownloadCPUList(int localPlayerID, int enemyNum, CancellationToken cancellationToken)
+        {
+            await WaitForOnline(cancellationToken);
+
+            var request = new UnityWebRequest($"{ListGetURL}?player_id={localPlayerID}&num={enemyNum}");
+            request.downloadHandler = new DownloadHandlerBuffer();
+
+            await request.SendWebRequest().ToUniTask(cancellationToken: cancellationToken);
+
+            // json形式から構造体に変換
+            var jsonObj = JsonUtility.FromJson<JsonData>(request.downloadHandler.text);
+            return jsonObj.data.Select(x => x.id).ToList();
+        }
+
         /// <summary>
         /// CPUの画像を指定枚数分ダウンロードして情報をtexturesに追加
         /// </summary>
         /// <param name="id"></param>
         /// <param name="num"></param>
-        public async UniTask<List<TextureData>> DownloadCPUImageTextures(int id, int num, CancellationToken cancellationToken)
+        /// <param name="cancellationToken"></param>
+        public static async UniTask<List<TextureData>> DownloadCPUImageTextures(int id, int num, CancellationToken cancellationToken)
         {
             await WaitForOnline(cancellationToken);
 
@@ -76,7 +91,7 @@ namespace RaceGame.Title
             return textures;
         }
         
-        private async UniTask WaitForOnline(CancellationToken cancellationToken)
+        private static async UniTask WaitForOnline(CancellationToken cancellationToken)
         {
             while (Application.internetReachability == NetworkReachability.NotReachable)
             {
@@ -85,7 +100,7 @@ namespace RaceGame.Title
             }
         }
         
-        private PlayerLookType GetLookType(int id)
+        private static PlayerLookType GetLookType(int id)
         {
             switch (id % 10)
             {

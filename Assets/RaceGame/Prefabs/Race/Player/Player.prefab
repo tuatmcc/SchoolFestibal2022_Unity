@@ -108,8 +108,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0
+  namePlate: {fileID: 3997209712048242226}
   playerName: CPU
   laneNumber: 0
+  playerID: 0
   rank: 0
   playerLookManager: {fileID: 5353034891906465702}
   statusPlate: {fileID: 3499019505010596214}
@@ -395,11 +397,40 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4317823584968120151, guid: 140b886f62bea214cb6f20deea2602fe, type: 3}
   m_PrefabInstance: {fileID: 4046325001618799493}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1885590292095867131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2453785906218902398, guid: 140b886f62bea214cb6f20deea2602fe, type: 3}
+  m_PrefabInstance: {fileID: 4046325001618799493}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3997209712048242226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885590292095867131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 285c54976d9d0de4294771e1094814bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rawImage: {fileID: 3758895821339712404}
 --- !u!223 &3499019505010596214 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 623867935816213235, guid: 140b886f62bea214cb6f20deea2602fe, type: 3}
   m_PrefabInstance: {fileID: 4046325001618799493}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3758895821339712404 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 868395327527477265, guid: 140b886f62bea214cb6f20deea2602fe, type: 3}
+  m_PrefabInstance: {fileID: 4046325001618799493}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885590292095867131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3900472092117013949 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1010545285668056632, guid: 140b886f62bea214cb6f20deea2602fe, type: 3}
