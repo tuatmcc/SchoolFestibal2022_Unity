@@ -3,11 +3,9 @@ using System.Threading;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
 using Mirror;
-using RaceGame.Core.Interface;
 using RaceGame.Race.Interface;
 using RaceGame.Race.View;
 using RaceGame.Title;
-using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -23,11 +21,10 @@ namespace RaceGame.Race.Network
     public class Player : NetworkBehaviour, IPlayer
     {
         [SerializeField] private NamePlate namePlate;
+
+        public TextureData TextureData;
         
         public float Position => _position;
-        
-        [SyncVar]
-        public string playerName = "CPU";
 
         private PlayerLookType _lookType;
 
@@ -67,14 +64,13 @@ namespace RaceGame.Race.Network
         
         private async UniTaskVoid DownloadTextures(int localPlayerID, CancellationToken cancellationToken)
         {
-            var playerTexture = await TextureDownloader.DownloadPlayerTexture(localPlayerID, cancellationToken);
-            playerLookManager.SetCustomTexture(playerTexture.Texture);
-            OnLookTypeChanged(playerTexture.PlayerLookType);
-            namePlate.SetTexture(playerTexture.Texture);
+            TextureData = await TextureDownloader.DownloadPlayerTexture(localPlayerID, cancellationToken);
+            playerLookManager.SetCustomTexture(TextureData.Texture);
+            OnLookTypeChanged(TextureData.PlayerLookType);
+            namePlate.SetTexture(TextureData.Texture);
         }
 
         [SerializeField] private Canvas statusPlate;
-        [SerializeField] private TMP_Text nameTextField;
 
         public CinemachineDollyCart Cart => _cart;
 
@@ -99,7 +95,6 @@ namespace RaceGame.Race.Network
 
             _mainCamera = Camera.main.transform;
             OnLookTypeChanged(_lookType);
-            nameTextField.text = playerName;
 
             // 急ぎで雑なやり方
             // 本来であればFactoryPattern等で対応する
@@ -119,7 +114,6 @@ namespace RaceGame.Race.Network
             }
 
             _raceManager.AddPlayer(this);
-            playerName = $"{playerName} ID : {netId}";
         }
 
         private void OnPositionChanged(float _, float newPosition)
@@ -145,7 +139,6 @@ namespace RaceGame.Race.Network
 
         private void SetStatusPlate()
         {
-            nameTextField.text = $"{rank}. {playerName}";
             statusPlate.transform.forward = _mainCamera.forward;
         }
 

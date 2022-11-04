@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using RaceGame.Race.Interface;
 using RaceGame.Race.Network;
-using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -12,7 +11,7 @@ namespace RaceGame.Race.View
     /// </summary>
     public class ResultView : MonoBehaviour
     {
-        [SerializeField] private TMP_Text[] rankTexts;
+        [SerializeField] private ResultRankingView[] resultRankingViews;
         
         private IRaceManager _raceManager;
         
@@ -33,10 +32,11 @@ namespace RaceGame.Race.View
         {
             for (var i = 0; i < orderedPlayers.Count; i++)
             {
-                rankTexts[i].text = $"{i + 1}. {orderedPlayers[i].playerName}";
+                resultRankingViews[i].SetText($"{i + 1}");
+                resultRankingViews[i].SetTexture(orderedPlayers[i].TextureData?.Texture);
                 if (orderedPlayers[i].isLocalPlayer)
                 {
-                    rankTexts[i].color = Color.green;
+                    resultRankingViews[i].SetTextColor(Color.green);
                 }
             }
         }
