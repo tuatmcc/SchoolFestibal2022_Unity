@@ -1,4 +1,5 @@
 using RaceGame.Race.Interface;
+using RaceGame.Race.Sounds;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -25,6 +26,7 @@ namespace RaceGame.Race.Network
         [Inject] private IRaceManager _raceManager;
         [Inject] private IPlayer _player;
 
+        private SePlayer _sePlayer;
         private void Start()
         {
             // 急ぎで雑なやり方
@@ -38,6 +40,8 @@ namespace RaceGame.Race.Network
             {
                 _raceManager = FindObjectOfType<RaceManager>();
             }
+
+            _sePlayer = GetComponent<SePlayer>();
         }
 
         private void Update()
@@ -49,6 +53,7 @@ namespace RaceGame.Race.Network
                 if (rand < enemyTapFrequency && _player.Speed < maxSpeedLimit)
                 {
                     _player.CmdAccelerate();
+                    if(_player.Speed != 0) _sePlayer.PlayFootStep();
                 }
             }
         }
