@@ -11,8 +11,8 @@ namespace RaceGame.Title.UI.Pages
 {
     public class GameModeSelectPage : MonoBehaviour, IPage
     {
-        [SerializeField] private Button soloStartButton;
-        [SerializeField] private Button multiStartButton;
+        [SerializeField] private SelectableButton soloStartButton;
+        [SerializeField] private SelectableButton multiStartButton;
         
         [SerializeField] private TitleModelRenderer titleModelRenderer;
         
@@ -20,8 +20,8 @@ namespace RaceGame.Title.UI.Pages
 
         private void Start()
         {
-            soloStartButton.onClick.AddListener(StartSolo);
-            multiStartButton.onClick.AddListener(StartMulti);
+            soloStartButton.onClick += StartSolo;
+            multiStartButton.onClick += StartMulti;
         }
         
         private void StartSolo()
