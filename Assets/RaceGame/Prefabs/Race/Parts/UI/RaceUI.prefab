@@ -314,6 +314,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CountDownPage
       objectReference: {fileID: 0}
+    - target: {fileID: 5245833076101999416, guid: bf5f7254ddd65924d9bc5633c3cb6778, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5f7254ddd65924d9bc5633c3cb6778, type: 3}
 --- !u!114 &6472524093372579887 stripped
@@ -427,6 +431,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RacePage
       objectReference: {fileID: 0}
+    - target: {fileID: 8954257941752520797, guid: fe12d86797db96c408323df3e9354e6e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe12d86797db96c408323df3e9354e6e, type: 3}
 --- !u!114 &2905400835482260215 stripped
@@ -455,6 +463,10 @@ PrefabInstance:
     - target: {fileID: 5706189119500556015, guid: aa9fced5174aeef4cb87bdff2c16dadf, type: 3}
       propertyPath: m_Name
       value: ResultPage
+      objectReference: {fileID: 0}
+    - target: {fileID: 5706189119500556015, guid: aa9fced5174aeef4cb87bdff2c16dadf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8646521960680291985, guid: aa9fced5174aeef4cb87bdff2c16dadf, type: 3}
       propertyPath: m_Pivot.x
