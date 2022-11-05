@@ -27,7 +27,7 @@ namespace RaceGame.Title.UI.Pages
         private Result _result;
         private Result _preResult;
         
-        private const int MaxSameValueCount = 5;
+        private const int MaxSameValueCount = 2;
         private int _currentSameValueCount;
 
         private WebCamTexture _webCamTexture;
