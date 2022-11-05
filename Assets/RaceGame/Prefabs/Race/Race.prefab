@@ -30,7 +30,6 @@ Transform:
   m_Children:
   - {fileID: 5840585699547305528}
   - {fileID: 1413560108373490292}
-  - {fileID: 7931581887853832958}
   - {fileID: 422602125416484310}
   - {fileID: 7931581887972369667}
   m_Father: {fileID: 0}
@@ -69,6 +68,7 @@ Transform:
   - {fileID: 7931581887498279027}
   - {fileID: 7931581889171628169}
   - {fileID: 7931581888836195395}
+  - {fileID: 7931581887853832958}
   m_Father: {fileID: 4916651598178503830}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -210,7 +210,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4916651598178503830}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7931581887972369664
 MonoBehaviour:
@@ -263,7 +263,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4916651598178503830}
+    m_TransformParent: {fileID: 1413560108373490292}
     m_Modifications:
     - target: {fileID: 9096630980719882314, guid: 3a85b3a087b571e4894e37a1d1db2d97, type: 3}
       propertyPath: m_Name
@@ -271,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9096630980719882315, guid: 3a85b3a087b571e4894e37a1d1db2d97, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9096630980719882315, guid: 3a85b3a087b571e4894e37a1d1db2d97, type: 3}
       propertyPath: m_LocalPosition.x
@@ -336,6 +336,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1384023591290599632, guid: 2ccfe3f74ede34f438e831ec9fe103f9, type: 3}
+      propertyPath: m_AssetId
+      value: b436706cbc021c447b38f5412a0988e9
+      objectReference: {fileID: 0}
     - target: {fileID: 1396307041091535357, guid: 2ccfe3f74ede34f438e831ec9fe103f9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -388,13 +392,25 @@ PrefabInstance:
       propertyPath: sceneId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1912111709732789956, guid: 2ccfe3f74ede34f438e831ec9fe103f9, type: 3}
+      propertyPath: m_AssetId
+      value: b436706cbc021c447b38f5412a0988e9
+      objectReference: {fileID: 0}
     - target: {fileID: 1912111709926916949, guid: 2ccfe3f74ede34f438e831ec9fe103f9, type: 3}
       propertyPath: sceneId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1912111709926916949, guid: 2ccfe3f74ede34f438e831ec9fe103f9, type: 3}
+      propertyPath: m_AssetId
+      value: b436706cbc021c447b38f5412a0988e9
+      objectReference: {fileID: 0}
     - target: {fileID: 1912111710209203976, guid: 2ccfe3f74ede34f438e831ec9fe103f9, type: 3}
       propertyPath: sceneId
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912111710209203976, guid: 2ccfe3f74ede34f438e831ec9fe103f9, type: 3}
+      propertyPath: m_AssetId
+      value: b436706cbc021c447b38f5412a0988e9
       objectReference: {fileID: 0}
     - target: {fileID: 1935572283439278057, guid: 2ccfe3f74ede34f438e831ec9fe103f9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1465,7 +1481,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7768640984277820495, guid: 078e39106aeb7144e9832de8bed1f336, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7768640984277820495, guid: 078e39106aeb7144e9832de8bed1f336, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1572,6 +1588,10 @@ PrefabInstance:
     - target: {fileID: 2154285908494381577, guid: 65d27f1896dd2ea468fc44bf826f4fd1, type: 3}
       propertyPath: sceneId
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154285908494381577, guid: 65d27f1896dd2ea468fc44bf826f4fd1, type: 3}
+      propertyPath: m_AssetId
+      value: b436706cbc021c447b38f5412a0988e9
       objectReference: {fileID: 0}
     - target: {fileID: 2154285908494381578, guid: 65d27f1896dd2ea468fc44bf826f4fd1, type: 3}
       propertyPath: path
