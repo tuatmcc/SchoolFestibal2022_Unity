@@ -8,6 +8,9 @@ namespace RaceGame.Race.UI.Page
     /// </summary>
     public class ResultPage : MonoBehaviour, IPage
     {
+        [SerializeField] private SelectableButton retryButton;
+        [SerializeField] private SelectableButton backToTitleButton;
+        
         public void SetActive(bool value)
         {
             gameObject.SetActive(value);
