@@ -1,14 +1,15 @@
 using System;
+using RaceGame.Core.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
 
-namespace RaceGame.Title
+namespace RaceGame.Title.UI.Pages
 {
     /// <summary>
     /// QRコードの読み取りを行う
     /// </summary>
-    public class QRCodeReader : MonoBehaviour
+    public class QRCodeReaderPage : MonoBehaviour, IPage
     {
         [SerializeField] private RawImage cameraImage;
         [SerializeField] private int cameraIndex;
@@ -88,6 +89,11 @@ namespace RaceGame.Title
 
                 _preResult = _result;
             }
+        }
+
+        public void SetActive(bool value)
+        {
+            gameObject.SetActive(value);
         }
     }
 }

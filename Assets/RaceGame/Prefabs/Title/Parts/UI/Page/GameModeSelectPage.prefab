@@ -132,13 +132,14 @@ GameObject:
   - component: {fileID: 5994853260676034689}
   - component: {fileID: 5830252761080506866}
   - component: {fileID: 4490206034394504238}
+  - component: {fileID: 3130805708475756565}
   m_Layer: 5
-  m_Name: GameModePage
+  m_Name: GameModeSelectPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5994853260676034689
 RectTransform:
   m_ObjectHideFlags: 0
@@ -200,6 +201,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3130805708475756565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777761670698378619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c55b2b5670e164a949fea12fedcca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soloStartButton: {fileID: 3481248581978299967}
+  multiStartButton: {fileID: 3948837410184627556}
+  titleModelRenderer: {fileID: 0}
 --- !u!1 &8242624067106409040
 GameObject:
   m_ObjectHideFlags: 0

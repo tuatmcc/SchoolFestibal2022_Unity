@@ -212,8 +212,8 @@ GameObject:
   - component: {fileID: 3036273348813892326}
   - component: {fileID: 3036273348813892329}
   - component: {fileID: 3036273348813892328}
-  - component: {fileID: 3036273348813892324}
   - component: {fileID: 9048782371257789767}
+  - component: {fileID: 6128191130398268264}
   m_Layer: 5
   m_Name: TitleUI
   m_TagString: Untagged
@@ -305,25 +305,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3036273348813892324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3036273348813892331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eed359b511baf64ebc6fb2d1959e438, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cpuCount: 4
-  qrCodeReader: {fileID: 3279861972354938320}
-  titleModelRenderer: {fileID: 0}
-  soloStartButton: {fileID: 72082727175144368}
-  multiStartButton: {fileID: 541242622472444139}
-  titleBackGround: {fileID: 6539190341599328500}
-  qrCodeBackGround: {fileID: 7306796286897858573}
 --- !u!114 &9048782371257789767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +331,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6128191130398268264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3036273348813892331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eed359b511baf64ebc6fb2d1959e438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logoPage: {fileID: 3036273350407309016}
+  qrCodeReaderPage: {fileID: 3279861972354938320}
+  gameModeSelectPage: {fileID: 1890716671344586138}
 --- !u!1001 &3553331309031021967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -443,7 +439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7777761670698378619, guid: 6531bfcb2c8075a40b0fa652c47c832f, type: 3}
       propertyPath: m_Name
-      value: GameModePage
+      value: GameModeSelectPage
       objectReference: {fileID: 0}
     - target: {fileID: 7777761670698378619, guid: 6531bfcb2c8075a40b0fa652c47c832f, type: 3}
       propertyPath: m_IsActive
@@ -451,33 +447,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6531bfcb2c8075a40b0fa652c47c832f, type: 3}
---- !u!114 &72082727175144368 stripped
+--- !u!114 &1890716671344586138 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3481248581978299967, guid: 6531bfcb2c8075a40b0fa652c47c832f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3130805708475756565, guid: 6531bfcb2c8075a40b0fa652c47c832f, type: 3}
   m_PrefabInstance: {fileID: 3553331309031021967}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 29c55b2b5670e164a949fea12fedcca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &541242622472444139 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3948837410184627556, guid: 6531bfcb2c8075a40b0fa652c47c832f, type: 3}
-  m_PrefabInstance: {fileID: 3553331309031021967}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &6539190341599328500 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7777761670698378619, guid: 6531bfcb2c8075a40b0fa652c47c832f, type: 3}
-  m_PrefabInstance: {fileID: 3553331309031021967}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7097119651418516750 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5994853260676034689, guid: 6531bfcb2c8075a40b0fa652c47c832f, type: 3}
@@ -594,17 +574,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1235850915103736511, guid: e8468b8ef74220a448a3540300d98551, type: 3}
   m_PrefabInstance: {fileID: 4369325936359683951}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7306796286897858573}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eeb949f4c3b83bf42bbcfa73cfbd9d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &7306796286897858573 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6468297475725598562, guid: e8468b8ef74220a448a3540300d98551, type: 3}
-  m_PrefabInstance: {fileID: 4369325936359683951}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6103822338779124170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -615,6 +590,10 @@ PrefabInstance:
     - target: {fileID: 9121513922275661589, guid: 8723734b0cb9ef6408bf214e95dbd8ff, type: 3}
       propertyPath: m_Name
       value: LogoPage
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121513922275661589, guid: 8723734b0cb9ef6408bf214e95dbd8ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9121513922275661590, guid: 8723734b0cb9ef6408bf214e95dbd8ff, type: 3}
       propertyPath: m_Pivot.x
@@ -702,6 +681,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8723734b0cb9ef6408bf214e95dbd8ff, type: 3}
+--- !u!114 &3036273350407309016 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9121513922275661586, guid: 8723734b0cb9ef6408bf214e95dbd8ff, type: 3}
+  m_PrefabInstance: {fileID: 6103822338779124170}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c5dbc23a520e6f40b54098e91c1baef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3036273350407309020 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9121513922275661590, guid: 8723734b0cb9ef6408bf214e95dbd8ff, type: 3}

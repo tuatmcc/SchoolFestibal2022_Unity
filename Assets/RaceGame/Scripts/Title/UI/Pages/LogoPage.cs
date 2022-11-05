@@ -1,11 +1,12 @@
+using RaceGame.Core.UI;
 using UnityEngine;
 
-namespace RaceGame.Title.View
+namespace RaceGame.Title.UI.Pages
 {
     /// <summary>
     /// TitleSceneの最初にMCCロゴを表示する
     /// </summary>
-    public class LogoView : MonoBehaviour
+    public class LogoPage : MonoBehaviour, IPage
     {
         [SerializeField] private Animator logoAnimator;
         
@@ -16,6 +17,11 @@ namespace RaceGame.Title.View
             {
                 gameObject.SetActive(false);
             }
+        }
+
+        public void SetActive(bool value)
+        {
+            gameObject.SetActive(value);
         }
     }
 }
