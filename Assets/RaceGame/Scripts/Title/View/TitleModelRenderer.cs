@@ -11,9 +11,11 @@ namespace RaceGame.Title.View
         [SerializeField] private Transform targetSingle;
         [SerializeField] private Transform targetMultiple;
 
+        public float speed = 1f;
+
         public enum ModelType
         {
-            Single,
+            Solo,
             Multi
         }
 
@@ -36,7 +38,7 @@ namespace RaceGame.Title.View
         {
             switch (modelType)
             {
-                case ModelType.Single:
+                case ModelType.Solo:
                     spotLight.transform.rotation = Quaternion.Euler(30f, -25f, 0f);
                     break;
                 case ModelType.Multi:
@@ -50,11 +52,11 @@ namespace RaceGame.Title.View
         {
             switch (modelType)
             {
-                case ModelType.Single:
-                    targetSingle.transform.Rotate(0f, 0.2f, 0f);
+                case ModelType.Solo:
+                    targetSingle.transform.Rotate(0f, 0.2f * speed, 0f);
                     break;
                 case ModelType.Multi:
-                    targetMultiple.transform.Rotate(0f, 0.2f, 0f);
+                    targetMultiple.transform.Rotate(0f, 0.2f * speed, 0f);
                     break;
                 default: break;
             }

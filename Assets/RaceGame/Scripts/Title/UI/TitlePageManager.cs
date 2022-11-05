@@ -10,6 +10,8 @@ namespace RaceGame.Title.UI
     /// </summary>
     public class TitlePageManager : MonoBehaviour
     {
+        [SerializeField] private bool skipQRCode;
+        
         [SerializeField] private LogoPage logoPage;
         [SerializeField] private QRCodeReaderPage qrCodeReaderPage;
         [SerializeField] private GameModeSelectPage gameModeSelectPage;
@@ -21,6 +23,10 @@ namespace RaceGame.Title.UI
             _gameSetting.StartFromTitle = true;
 
             SetActivePages(false, true, false);
+            if (skipQRCode)
+            {
+                OnReadQRCode(_gameSetting.LocalPlayerID);
+            }
 
             qrCodeReaderPage.OnReadQRCode += OnReadQRCode;
         }

@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Mirror;
 using RaceGame.Core;
 using RaceGame.Core.Interface;
@@ -11,8 +13,8 @@ namespace RaceGame.Title.UI.Pages
 {
     public class GameModeSelectPage : MonoBehaviour, IPage
     {
-        [SerializeField] private Button soloStartButton;
-        [SerializeField] private Button multiStartButton;
+        [SerializeField] private SelectableButton soloStartButton;
+        [SerializeField] private SelectableButton multiStartButton;
         
         [SerializeField] private TitleModelRenderer titleModelRenderer;
         
@@ -20,18 +22,41 @@ namespace RaceGame.Title.UI.Pages
 
         private void Start()
         {
-            soloStartButton.onClick.AddListener(StartSolo);
-            multiStartButton.onClick.AddListener(StartMulti);
+            soloStartButton.OnClicked += () => StartSolo();
+            multiStartButton.OnClicked += () => StartMulti();
+            
+            soloStartButton.OnSelected += SoloStartButtonSelected;
+            multiStartButton.OnSelected += MultiStartButtonSelected;
         }
-        
-        private void StartSolo()
+
+        private void SoloStartButtonSelected()
         {
+            titleModelRenderer.CurrentModelType = TitleModelRenderer.ModelType.Solo;
+        }
+
+        private void MultiStartButtonSelected()
+        {
+            titleModelRenderer.CurrentModelType = TitleModelRenderer.ModelType.Multi;
+        }
+
+        private async Task StartSolo()
+        {
+            await Animation();
             _gameSetting.PlayType = PlayType.Solo;
             NetworkManager.singleton.StartHost();
         }
 
-        private void StartMulti()
+        private async UniTask Animation()
         {
+            titleModelRenderer.speed = 5f;
+            await UniTask.Delay(500);
+            titleModelRenderer.speed = 1f;
+            await UniTask.Delay(100);
+        }
+
+        private async Task StartMulti()
+        {
+            await Animation();
             _gameSetting.PlayType = PlayType.Multi;
             if (!ParrelSync.ClonesManager.IsClone())
             {
