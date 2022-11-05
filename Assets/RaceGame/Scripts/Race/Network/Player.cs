@@ -4,6 +4,7 @@ using Cinemachine;
 using Cysharp.Threading.Tasks;
 using Mirror;
 using RaceGame.Race.Interface;
+using RaceGame.Race.Misc;
 using RaceGame.Race.UI.Parts;
 using RaceGame.Title;
 using UnityEngine;
@@ -88,7 +89,7 @@ namespace RaceGame.Race.Network
 
             if (_cart.m_Path == null)
             {
-                _cart.m_Path = FindObjectOfType<CinemachineSmoothPath>();
+                _cart.m_Path = FindObjectOfType<LaneEdgeGenerator>().GetComponent<CinemachineSmoothPath>();
             }
 
             _lookType = PlayerLookType.Horse;
