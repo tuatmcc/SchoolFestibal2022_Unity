@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace RaceGame.Race.View
+namespace RaceGame.Race.UI.Page
 {
     /// <summary>
     /// レース開始前のカウントダウンを表示する。シーン内のCountDownImageオブジェクトにアタッチ

@@ -4,7 +4,7 @@ using RaceGame.Race.Network;
 using UnityEngine;
 using Zenject;
 
-namespace RaceGame.Race.View
+namespace RaceGame.Race.UI.Parts
 {
     /// <summary>
     /// レース中にランキングUIを更新する。

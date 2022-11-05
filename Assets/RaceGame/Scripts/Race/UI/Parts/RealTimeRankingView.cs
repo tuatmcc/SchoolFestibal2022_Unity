@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RaceGame.Race.View
+namespace RaceGame.Race.UI.Parts
 {
     public class RealTimeRankingView : MonoBehaviour
     {

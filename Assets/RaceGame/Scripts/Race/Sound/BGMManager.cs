@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace RaceGame.Race.Sounds
+namespace RaceGame.Race.Sound
 {
     public class BGMManager : MonoBehaviour
     {

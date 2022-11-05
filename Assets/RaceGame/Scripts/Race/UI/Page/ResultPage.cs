@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using RaceGame.Race.Interface;
 using RaceGame.Race.Network;
+using RaceGame.Race.UI.Parts;
 using UnityEngine;
 using Zenject;
 
-namespace RaceGame.Race.View
+namespace RaceGame.Race.UI.Page
 {
     /// <summary>
     /// ResultSceneのUIを動かす。RaceMangerから順位を取得する。
