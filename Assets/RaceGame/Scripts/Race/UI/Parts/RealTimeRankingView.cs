@@ -14,6 +14,11 @@ namespace RaceGame.Race.UI.Parts
             rank.text = text;
         }
         
+        public void SetTextColor(Color color)
+        {
+            rank.faceColor = color;
+        }
+        
         public void SetTexture(Texture texture)
         {
             rawImage.texture = texture;
