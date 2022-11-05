@@ -9,7 +9,7 @@ namespace RaceGame.Race.View
     /// <summary>
     /// ResultSceneのUIを動かす。RaceMangerから順位を取得する。
     /// </summary>
-    public class ResultView : MonoBehaviour
+    public class ResultPage : MonoBehaviour
     {
         [SerializeField] private ResultRankingView[] resultRankingViews;
         

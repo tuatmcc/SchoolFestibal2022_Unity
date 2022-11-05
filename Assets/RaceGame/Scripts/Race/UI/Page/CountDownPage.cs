@@ -8,18 +8,15 @@ namespace RaceGame.Race.View
     /// <summary>
     /// レース開始前のカウントダウンを表示する。シーン内のCountDownImageオブジェクトにアタッチ
     /// </summary>
-    public class CountDownView : MonoBehaviour
+    public class CountDownPage : MonoBehaviour
     {
+        [SerializeField] private Image countDownImage;
         [SerializeField] private Sprite[] numbers;
         
         [Inject] private IRaceManager _raceManager;
 
-        private Image _countDownImage;
-
         private void Start()
         {
-            _countDownImage = GetComponent<Image>();
-
             // RaceManagerからカウントダウンのイベントを受け取る
             _raceManager.OnCountDownTimerChanged += UpdateCountDown;
         }
@@ -33,7 +30,7 @@ namespace RaceGame.Race.View
             }
             else if (time <= numbers.Length)
             {
-                _countDownImage.sprite = numbers[time - 1];
+                countDownImage.sprite = numbers[time - 1];
             }
         }
     }
