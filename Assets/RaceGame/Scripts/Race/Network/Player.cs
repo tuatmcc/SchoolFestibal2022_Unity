@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using Cinemachine;
@@ -26,6 +27,24 @@ namespace RaceGame.Race.Network
         public TextureData TextureData;
         
         public float Position => _position;
+        public TimeSpan GoalTime => _goalTime - _startTime;
+        private DateTime _startTime;
+        private DateTime _goalTime;
+        public bool IsGoal { get; private set; }
+
+        public int ClickCount { get; private set; }
+
+        public void Goal()
+        {
+            if (IsGoal) return;
+            _goalTime = DateTime.Now;
+            IsGoal = true;
+        }
+
+        public void OnStart()
+        {
+            _startTime = DateTime.Now;
+        }
 
         private PlayerLookType _lookType;
 
@@ -103,6 +122,8 @@ namespace RaceGame.Race.Network
             {
                 _raceManager = FindObjectOfType<RaceManager>();
             }
+            
+            _raceManager.OnRaceStart += OnStart;
         }
 
         public override void OnStartClient()
@@ -160,6 +181,10 @@ namespace RaceGame.Race.Network
         private void RpcAccelerate()
         {
             Speed += _speedUpPerTap;
+            if (!IsGoal)
+            {
+                ClickCount++;
+            }
         }
 
         [Server]

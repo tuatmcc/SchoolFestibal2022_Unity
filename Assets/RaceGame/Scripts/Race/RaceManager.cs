@@ -136,11 +136,19 @@ namespace RaceGame.Race
             
             for (var i = 0; i < _orderedPlayers.Count; i++)
             {
-                _orderedPlayers[i].rank = i + 1;
+                var player = _orderedPlayers[i];
+                player.rank = i + 1;
+                if (!player.IsGoal)
+                {
+                    if(player.Position >= path.PathLength)
+                    {
+                        player.Goal();
+                    }
+                }
             }
 
             // 全員がゴールしたとき
-            if (_orderedPlayers.Last().Position >= path.PathLength)
+            if (_orderedPlayers.All(x=>x.IsGoal))
             {
                 RaceState = RaceState.Finished;
                 OnRaceFinish?.Invoke();
