@@ -41,9 +41,9 @@ namespace RaceGame.Race.UI
         
         private void SetActivePages(bool countDown, bool race, bool result)
         {
-            countDownPage.SetActive(countDownPage);
-            racePage.SetActive(racePage);
-            resultPage.SetActive(resultPage);
+            countDownPage.SetActive(countDown);
+            racePage.SetActive(race);
+            resultPage.SetActive(result);
         }
     }
 }

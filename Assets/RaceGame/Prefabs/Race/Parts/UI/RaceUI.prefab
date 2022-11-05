@@ -320,6 +320,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CountDownPage
       objectReference: {fileID: 0}
+    - target: {fileID: 5245833076221741228, guid: bf5f7254ddd65924d9bc5633c3cb6778, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245833076221741228, guid: bf5f7254ddd65924d9bc5633c3cb6778, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5f7254ddd65924d9bc5633c3cb6778, type: 3}
 --- !u!114 &6472524093372579887 stripped
