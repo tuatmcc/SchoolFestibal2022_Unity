@@ -68,12 +68,18 @@ namespace RaceGame.Race
 
             if (_gameSetting.PlayType == PlayType.Solo || Players.Count >= 5)
             {
-                GetEnemiesList(_gameSetting.LocalPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
-                CmdGameStart();
+                GameStart(_gameSetting.LocalPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
             }
         }
 
-        private async UniTaskVoid GetEnemiesList(int localPlayerID, CancellationToken cancellationToken)
+        private async UniTaskVoid GameStart(int localPlayerID, CancellationToken cancellationToken)
+        {
+            GetEnemiesList(localPlayerID, cancellationToken).Forget();
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+            CmdGameStart();
+        }
+
+        private async UniTask GetEnemiesList(int localPlayerID, CancellationToken cancellationToken)
         {
             var enemies = Players.Where(player => player.GetComponent<EnemyPlayerController>() != null).ToList();
             var list = await TextureDownloader.DownloadCPUList(localPlayerID, enemies.Count, cancellationToken);
