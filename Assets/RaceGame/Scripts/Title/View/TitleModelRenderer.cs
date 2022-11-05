@@ -1,28 +1,30 @@
 using System;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace RaceGame.Title.View
 {
-    public class SpotLighter : MonoBehaviour
+    public class TitleModelRenderer : MonoBehaviour
     {
-        [SerializeField] private Mode currentMode;
+        [SerializeField] private ModelType modelType;
+        [SerializeField] private Light spotLight;
         [SerializeField] private Transform targetSingle;
         [SerializeField] private Transform targetMultiple;
 
-        public enum Mode
+        public enum ModelType
         {
-            SingleMode,
-            MultipleMode
+            Single,
+            Multi
         }
 
-        public Mode CurrentMode
+        public ModelType CurrentModelType
         {
             set
             {
-                currentMode = value;
+                modelType = value;
                 ChangeSpotLightDirection();
             }
-            get => currentMode;
+            get => modelType;
         }
 
         private void OnValidate()
@@ -32,13 +34,13 @@ namespace RaceGame.Title.View
         
         private void ChangeSpotLightDirection()
         {
-            switch (currentMode)
+            switch (modelType)
             {
-                case Mode.SingleMode:
-                    transform.rotation = Quaternion.Euler(30f, -25f, 0f);
+                case ModelType.Single:
+                    spotLight.transform.rotation = Quaternion.Euler(30f, -25f, 0f);
                     break;
-                case Mode.MultipleMode:
-                    transform.rotation = Quaternion.Euler(30f, 25f, 0f);
+                case ModelType.Multi:
+                    spotLight.transform.rotation = Quaternion.Euler(30f, 25f, 0f);
                     break;
                 default: break;
             }
@@ -46,12 +48,12 @@ namespace RaceGame.Title.View
 
         private void Update()
         {
-            switch (currentMode)
+            switch (modelType)
             {
-                case Mode.SingleMode:
+                case ModelType.Single:
                     targetSingle.transform.Rotate(0f, 0.2f, 0f);
                     break;
-                case Mode.MultipleMode:
+                case ModelType.Multi:
                     targetMultiple.transform.Rotate(0f, 0.2f, 0f);
                     break;
                 default: break;

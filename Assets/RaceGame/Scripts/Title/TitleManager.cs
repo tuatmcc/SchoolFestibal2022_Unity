@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Mirror;
 using RaceGame.Core;
 using RaceGame.Core.Interface;
+using RaceGame.Title.View;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -20,6 +21,7 @@ namespace RaceGame.Title
 
         [SerializeField] public int cpuCount = 4;
         [SerializeField] private QRCodeReader qrCodeReader;
+        [SerializeField] private TitleModelRenderer titleModelRenderer;
         
         [SerializeField] private Button soloStartButton;
         [SerializeField] private Button multiStartButton;
