@@ -1,5 +1,5 @@
 using RaceGame.Race.Interface;
-using RaceGame.Race.Sounds;
+using RaceGame.Race.Sound;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;

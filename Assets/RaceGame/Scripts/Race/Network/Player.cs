@@ -4,7 +4,7 @@ using Cinemachine;
 using Cysharp.Threading.Tasks;
 using Mirror;
 using RaceGame.Race.Interface;
-using RaceGame.Race.View;
+using RaceGame.Race.UI.Parts;
 using RaceGame.Title;
 using UnityEngine;
 using Zenject;

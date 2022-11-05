@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using RaceGame.Race.View;
+using RaceGame.Race.UI.Parts;
 using UnityEngine;
 
 namespace RaceGame.Race.Network

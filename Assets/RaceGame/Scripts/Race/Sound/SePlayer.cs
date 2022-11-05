@@ -1,7 +1,6 @@
-using RaceGame.Race;
 using UnityEngine;
 
-namespace RaceGame.Race.Sounds
+namespace RaceGame.Race.Sound
 {
     public class SePlayer : MonoBehaviour
     {
