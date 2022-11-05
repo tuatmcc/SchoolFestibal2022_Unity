@@ -22,6 +22,9 @@ namespace RaceGame.Race.Misc
 
         private void OnRaceStandby()
         {
+            // このタイミングでカメラを最優先にする
+            _virtualCamera.Priority = 100;
+            
             // CinemachineTargetGroupにPlayersを追加する。VirtualCameraはこのTargetGroupを追う。
             // Players を全員確実に追加するための苦肉の策. 人数が揃うまで繰り返し呼ばれてしまう
             if (_targetGroup.m_Targets.Length < _raceManager.Players.Count)
