@@ -20,10 +20,23 @@ namespace RaceGame.Title.UI.Pages
 
         private void Start()
         {
-            soloStartButton.onClick += StartSolo;
-            multiStartButton.onClick += StartMulti;
+            soloStartButton.OnClicked += StartSolo;
+            multiStartButton.OnClicked += StartMulti;
+            
+            soloStartButton.OnSelected += SoloStartButtonSelected;
+            multiStartButton.OnSelected += MultiStartButtonSelected;
         }
-        
+
+        private void SoloStartButtonSelected()
+        {
+            titleModelRenderer.CurrentModelType = TitleModelRenderer.ModelType.Solo;
+        }
+
+        private void MultiStartButtonSelected()
+        {
+            titleModelRenderer.CurrentModelType = TitleModelRenderer.ModelType.Multi;
+        }
+
         private void StartSolo()
         {
             _gameSetting.PlayType = PlayType.Solo;

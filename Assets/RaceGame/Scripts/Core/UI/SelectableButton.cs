@@ -14,7 +14,8 @@ namespace RaceGame.Core.UI
         [SerializeField] private Button button;
         [SerializeField] private Image selectedImage;
 
-        public event Action onClick;
+        public event Action OnClicked;
+        public event Action OnSelected;
 
         private bool _isSelected;
 
@@ -46,7 +47,7 @@ namespace RaceGame.Core.UI
             }
             selectedImage.gameObject.SetActive(false);
 
-            onClick?.Invoke();
+            OnClicked?.Invoke();
         }
 
         private void Update()
@@ -57,6 +58,7 @@ namespace RaceGame.Core.UI
         public void OnSelect(BaseEventData eventData)
         {
             _isSelected = true;
+            OnSelected?.Invoke();
         }
 
         public void OnDeselect(BaseEventData eventData)

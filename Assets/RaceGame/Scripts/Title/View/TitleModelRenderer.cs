@@ -13,7 +13,7 @@ namespace RaceGame.Title.View
 
         public enum ModelType
         {
-            Single,
+            Solo,
             Multi
         }
 
@@ -36,7 +36,7 @@ namespace RaceGame.Title.View
         {
             switch (modelType)
             {
-                case ModelType.Single:
+                case ModelType.Solo:
                     spotLight.transform.rotation = Quaternion.Euler(30f, -25f, 0f);
                     break;
                 case ModelType.Multi:
@@ -50,7 +50,7 @@ namespace RaceGame.Title.View
         {
             switch (modelType)
             {
-                case ModelType.Single:
+                case ModelType.Solo:
                     targetSingle.transform.Rotate(0f, 0.2f, 0f);
                     break;
                 case ModelType.Multi:
