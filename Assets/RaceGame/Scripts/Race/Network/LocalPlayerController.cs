@@ -11,7 +11,7 @@ namespace RaceGame.Race.Network
     /// </summary>
     public class LocalPlayerController : MonoBehaviour
     {
-        [SerializeReference] private IPlayer _player;
+        private IPlayer _player;
         
         [Inject] private IRaceManager _raceManager;
         

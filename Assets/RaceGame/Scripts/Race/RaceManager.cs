@@ -18,9 +18,10 @@ namespace RaceGame.Race
     public class RaceManager : NetworkBehaviour, IRaceManager
     {
         public bool StartFromTitle { get; set; }
-        
-        public event Action OnRaceFinished;
-        public event Action OnRaceStarted;
+
+        public event Action OnRaceStandby;
+        public event Action OnRaceStart;
+        public event Action OnRaceFinish;
         public event Action<int> OnCountDownTimerChanged;
         public event Action<List<Player>> OnPlayerOrderChanged;
 
@@ -58,7 +59,6 @@ namespace RaceGame.Race
 
         public void AddPlayer(Player player)
         {
-            RaceState = RaceState.Finished;
             Players.Add(player);
             if (player.isLocalPlayer)
             {
@@ -104,6 +104,7 @@ namespace RaceGame.Race
         private async UniTask RaceLogic(CancellationToken token)
         {
             RaceState = RaceState.StandingBy;
+            OnRaceStandby?.Invoke();
 
             // レース開始までのカウントダウン
             for (var i = 5; i > 0; i--)
@@ -113,7 +114,7 @@ namespace RaceGame.Race
             }
 
             RaceState = RaceState.Racing;
-            OnRaceStarted?.Invoke();
+            OnRaceStart?.Invoke();
 
             while (RaceState == RaceState.Racing)
             {
@@ -136,7 +137,7 @@ namespace RaceGame.Race
             if (_orderedPlayers.Last().Position >= path.PathLength)
             {
                 RaceState = RaceState.Finished;
-                OnRaceFinished?.Invoke();
+                OnRaceFinish?.Invoke();
             }
         }
     }

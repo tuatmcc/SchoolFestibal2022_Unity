@@ -20,8 +20,8 @@ namespace RaceGame.Race.UI
         private void Construct(IRaceManager raceManager)
         {
             _raceManager = raceManager;
-            _raceManager.OnRaceStarted += OnRaceStarted;
-            _raceManager.OnRaceFinished += OnRaceFinished;
+            _raceManager.OnRaceStart += OnRaceStart;
+            _raceManager.OnRaceFinish += OnRaceFinish;
         }
 
         private void Start()
@@ -29,21 +29,21 @@ namespace RaceGame.Race.UI
             SetActivePages(true, true, false);
         }
 
-        private void OnRaceStarted()
+        private void OnRaceStart()
         {
             SetActivePages(false, true, false);
         }
 
-        private void OnRaceFinished()
+        private void OnRaceFinish()
         {
             SetActivePages(false, false, true);
         }
         
         private void SetActivePages(bool countDown, bool race, bool result)
         {
-            countDownPage.SetActive(countDownPage);
-            racePage.SetActive(racePage);
-            resultPage.SetActive(resultPage);
+            countDownPage.SetActive(countDown);
+            racePage.SetActive(race);
+            resultPage.SetActive(result);
         }
     }
 }

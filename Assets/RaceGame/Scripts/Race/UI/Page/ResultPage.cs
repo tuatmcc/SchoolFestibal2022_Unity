@@ -28,6 +28,7 @@ namespace RaceGame.Race.UI.Page
         {
             for (var i = 0; i < orderedPlayers.Count; i++)
             {
+                if (resultRankingViews.Length <= i) continue;
                 if (resultRankingViews[i] == null) continue;
                 
                 resultRankingViews[i].SetText($"{i + 1}");

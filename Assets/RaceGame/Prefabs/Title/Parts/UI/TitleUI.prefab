@@ -344,7 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logoPage: {fileID: 3036273350407309016}
-  qrCodeReaderPage: {fileID: 3279861972354938320}
+  qrCodeReaderPage: {fileID: 2624563064658061085}
   gameModeSelectPage: {fileID: 1890716671344586138}
 --- !u!1001 &3553331309031021967
 PrefabInstance:
@@ -569,9 +569,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2405498485265509999, guid: e8468b8ef74220a448a3540300d98551, type: 3}
   m_PrefabInstance: {fileID: 4369325936359683951}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3279861972354938320 stripped
+--- !u!114 &2624563064658061085 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1235850915103736511, guid: e8468b8ef74220a448a3540300d98551, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1787547494672191602, guid: e8468b8ef74220a448a3540300d98551, type: 3}
   m_PrefabInstance: {fileID: 4369325936359683951}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
