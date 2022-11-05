@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RaceGame.Core.UI;
 using RaceGame.Race.Interface;
 using RaceGame.Race.Network;
 using RaceGame.Race.UI.Parts;
@@ -10,7 +11,7 @@ namespace RaceGame.Race.UI.Page
     /// <summary>
     /// ResultSceneのUIを動かす。RaceMangerから順位を取得する。
     /// </summary>
-    public class ResultPage : MonoBehaviour
+    public class ResultPage : MonoBehaviour, IPage
     {
         [SerializeField] private ResultRankingView[] resultRankingViews;
         
@@ -21,18 +22,14 @@ namespace RaceGame.Race.UI.Page
         {
             _raceManager = raceManager;
             _raceManager.OnPlayerOrderChanged += OnPlayerOrderChanged;
-            _raceManager.OnRaceFinished += OnRaceFinished;
-        }
-
-        private void OnRaceFinished()
-        {
-            gameObject.SetActive(true);
         }
 
         private void OnPlayerOrderChanged(List<Player> orderedPlayers)
         {
             for (var i = 0; i < orderedPlayers.Count; i++)
             {
+                if (resultRankingViews[i] == null) continue;
+                
                 resultRankingViews[i].SetText($"{i + 1}");
                 resultRankingViews[i].SetTexture(orderedPlayers[i].TextureData?.Texture);
                 if (orderedPlayers[i].isLocalPlayer)
@@ -40,6 +37,11 @@ namespace RaceGame.Race.UI.Page
                     resultRankingViews[i].SetTextColor(Color.green);
                 }
             }
+        }
+
+        public void SetActive(bool value)
+        {
+            gameObject.SetActive(value);
         }
     }
 }

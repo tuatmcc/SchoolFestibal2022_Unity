@@ -1,3 +1,4 @@
+using RaceGame.Core.UI;
 using RaceGame.Race.Interface;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ namespace RaceGame.Race.UI.Page
     /// <summary>
     /// レース開始前のカウントダウンを表示する。シーン内のCountDownImageオブジェクトにアタッチ
     /// </summary>
-    public class CountDownPage : MonoBehaviour
+    public class CountDownPage : MonoBehaviour, IPage
     {
         [SerializeField] private Image countDownImage;
         [SerializeField] private Sprite[] numbers;
@@ -23,15 +24,15 @@ namespace RaceGame.Race.UI.Page
 
         private void UpdateCountDown(int time)
         {
-            if (time == 0)
-            {
-                // 非アクティブになった時点でこのスクリプトが止まる
-                gameObject.SetActive(false);
-            }
-            else if (time <= numbers.Length)
+            if (time <= numbers.Length)
             {
                 countDownImage.sprite = numbers[time - 1];
             }
+        }
+
+        public void SetActive(bool value)
+        {
+            gameObject.SetActive(value);
         }
     }
 }

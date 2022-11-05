@@ -10,7 +10,7 @@ namespace RaceGame.Race.Interface
     public interface IRaceManager
     {
         public event Action OnRaceFinished;
-        public event Action OnRaceStart;
+        public event Action OnRaceStarted;
         public event Action<int> OnCountDownTimerChanged;
         public event Action<List<Player>> OnPlayerOrderChanged;
         

@@ -1,19 +1,13 @@
+using RaceGame.Core.UI;
 using UnityEngine;
 
 namespace RaceGame.Race.UI.Page
 {
-    public class RacePage : MonoBehaviour
+    public class RacePage : MonoBehaviour, IPage
     {
-        // Start is called before the first frame update
-        void Start()
+        public void SetActive(bool value)
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            gameObject.SetActive(value);
         }
     }
 }
