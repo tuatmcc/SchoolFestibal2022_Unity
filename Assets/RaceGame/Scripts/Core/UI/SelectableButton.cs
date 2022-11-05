@@ -13,11 +13,17 @@ namespace RaceGame.Core.UI
         
         [SerializeField] private Button button;
         [SerializeField] private Image selectedImage;
+        
+        [Header("Audio")]
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip selectSound;
+        [SerializeField] private AudioClip clickSound;
 
         public event Action OnClicked;
         public event Action OnSelected;
 
         private bool _isSelected;
+        private bool _isFirstSelect = true;
 
         private void Awake()
         {
@@ -32,6 +38,7 @@ namespace RaceGame.Core.UI
         private void OnClick()
         {
             OnClicked?.Invoke();
+            audioSource.PlayOneShot(clickSound);
             OnClickAnimation(this.GetCancellationTokenOnDestroy()).Forget();
         }
         
@@ -57,6 +64,11 @@ namespace RaceGame.Core.UI
         public void OnSelect(BaseEventData eventData)
         {
             _isSelected = true;
+            if (!_isFirstSelect)
+            {
+                audioSource.PlayOneShot(selectSound);
+            }
+            _isFirstSelect = false;
             OnSelected?.Invoke();
         }
 
