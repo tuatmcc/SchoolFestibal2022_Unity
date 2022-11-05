@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Mirror;
 using RaceGame.Core;
 using RaceGame.Core.Interface;
@@ -20,8 +22,8 @@ namespace RaceGame.Title.UI.Pages
 
         private void Start()
         {
-            soloStartButton.OnClicked += StartSolo;
-            multiStartButton.OnClicked += StartMulti;
+            soloStartButton.OnClicked += () => StartSolo();
+            multiStartButton.OnClicked += () => StartMulti();
             
             soloStartButton.OnSelected += SoloStartButtonSelected;
             multiStartButton.OnSelected += MultiStartButtonSelected;
@@ -37,14 +39,24 @@ namespace RaceGame.Title.UI.Pages
             titleModelRenderer.CurrentModelType = TitleModelRenderer.ModelType.Multi;
         }
 
-        private void StartSolo()
+        private async Task StartSolo()
         {
+            await Animation();
             _gameSetting.PlayType = PlayType.Solo;
             NetworkManager.singleton.StartHost();
         }
 
-        private void StartMulti()
+        private async UniTask Animation()
         {
+            titleModelRenderer.speed = 5f;
+            await UniTask.Delay(500);
+            titleModelRenderer.speed = 1f;
+            await UniTask.Delay(100);
+        }
+
+        private async Task StartMulti()
+        {
+            await Animation();
             _gameSetting.PlayType = PlayType.Multi;
             if (!ParrelSync.ClonesManager.IsClone())
             {

@@ -11,6 +11,8 @@ namespace RaceGame.Title.View
         [SerializeField] private Transform targetSingle;
         [SerializeField] private Transform targetMultiple;
 
+        public float speed = 1f;
+
         public enum ModelType
         {
             Solo,
@@ -51,10 +53,10 @@ namespace RaceGame.Title.View
             switch (modelType)
             {
                 case ModelType.Solo:
-                    targetSingle.transform.Rotate(0f, 0.2f, 0f);
+                    targetSingle.transform.Rotate(0f, 0.2f * speed, 0f);
                     break;
                 case ModelType.Multi:
-                    targetMultiple.transform.Rotate(0f, 0.2f, 0f);
+                    targetMultiple.transform.Rotate(0f, 0.2f * speed, 0f);
                     break;
                 default: break;
             }

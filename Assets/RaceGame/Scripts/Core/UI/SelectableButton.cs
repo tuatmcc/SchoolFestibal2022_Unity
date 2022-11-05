@@ -31,6 +31,7 @@ namespace RaceGame.Core.UI
 
         private void OnClick()
         {
+            OnClicked?.Invoke();
             OnClickAnimation(this.GetCancellationTokenOnDestroy()).Forget();
         }
         
@@ -46,8 +47,6 @@ namespace RaceGame.Core.UI
                 selectedImage.transform.localScale = Vector3.one * Mathf.Lerp(minSize, maxSize, i / 10f);
             }
             selectedImage.gameObject.SetActive(false);
-
-            OnClicked?.Invoke();
         }
 
         private void Update()
