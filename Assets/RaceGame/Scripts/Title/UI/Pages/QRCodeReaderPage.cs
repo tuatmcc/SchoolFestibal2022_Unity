@@ -68,7 +68,7 @@ namespace RaceGame.Title.UI.Pages
             if(_result != null)
             {
                 Debug.Log($"QRCode Read : {_result.Text}");
-                // 5回連続で同じ結果であれば終了
+                // 指定回数連続で同じ結果であれば終了
                 if (_currentSameValueCount < MaxSameValueCount)
                 {
                     if (_currentSameValueCount == 0 || _preResult.Text == _result.Text)
