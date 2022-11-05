@@ -1,4 +1,5 @@
 using RaceGame.Race.Interface;
+using RaceGame.Race.Sounds;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -15,6 +16,7 @@ namespace RaceGame.Race.Network
         [Inject] private IRaceManager _raceManager;
         
         private CustomInputAction _customInput;
+        private SePlayer _sePlayer;
 
         private void Start()
         {
@@ -33,6 +35,8 @@ namespace RaceGame.Race.Network
             {
                 _raceManager = FindObjectOfType<RaceManager>();
             }
+
+            _sePlayer = GetComponent<SePlayer>();
         }
 
         private void AcceleratePlayer(InputAction.CallbackContext context)
@@ -43,6 +47,7 @@ namespace RaceGame.Race.Network
             {
                 case RaceState.Racing:
                     _player.CmdAccelerate();
+                    _sePlayer.PlayFootStep();
                     break;
             }
         }
