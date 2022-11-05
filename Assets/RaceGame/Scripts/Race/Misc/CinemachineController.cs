@@ -17,24 +17,12 @@ namespace RaceGame.Race.Misc
         private void Start()
         {
             _virtualCamera = GetComponent<CinemachineVirtualCamera>();
-            _raceManager.OnRaceStarted += OnRaceStarted;
+            _raceManager.OnRaceStandby += OnRaceStandby;
         }
 
-        private void OnRaceStarted()
+        private void OnRaceStandby()
         {
-            // Startだと早すぎる
-            // 下のlocalPlayerが常にnullを返しているっぽいのでとりあえずそれより前に書いておく
-            AddTargets();
-
-            var localPlayer = _raceManager.LocalPlayer;
-            if (localPlayer == null) return;
-        }
-
-        /// <summary>
-        /// CinemachineTargetGroupにPlayersを追加する。VirtualCameraはこのTargetGroupを追う。
-        /// </summary>
-        private void AddTargets()
-        {
+            // CinemachineTargetGroupにPlayersを追加する。VirtualCameraはこのTargetGroupを追う。
             // Players を全員確実に追加するための苦肉の策. 人数が揃うまで繰り返し呼ばれてしまう
             if (_targetGroup.m_Targets.Length < _raceManager.Players.Count)
             {
