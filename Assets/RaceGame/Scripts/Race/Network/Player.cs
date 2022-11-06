@@ -97,7 +97,7 @@ namespace RaceGame.Race.Network
         private CinemachineDollyCart _cart;
         private Transform _mainCamera;
 
-        private readonly float _speedUpPerTap = 3f;
+        private readonly float _speedUpPerTap = 2f;
         private readonly float _slowDownMultiplier = 0.99f;
         
         public int xPosition;
