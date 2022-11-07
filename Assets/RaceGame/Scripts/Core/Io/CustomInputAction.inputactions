@@ -59,6 +59,28 @@
                     "action": "Accelerate",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42ca4296-3677-443a-a821-569d0c5b18eb",
+                    "path": "<HID::WiseGroup.,Ltd JC-AS01 series>/button5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Accelerate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0232fa32-4f08-4450-b24e-455225430b33",
+                    "path": "<HID::WiseGroup.,Ltd JC-AS01 series>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Accelerate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
