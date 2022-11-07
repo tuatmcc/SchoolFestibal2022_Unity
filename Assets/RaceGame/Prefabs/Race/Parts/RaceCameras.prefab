@@ -775,6 +775,8 @@ GameObject:
   - component: {fileID: 9096630981122409453}
   - component: {fileID: 9096630981122409452}
   - component: {fileID: 9096630981122409455}
+  - component: {fileID: 2558556503627858981}
+  - component: {fileID: 8288792066469941617}
   m_Layer: 0
   m_Name: FollowPlayer
   m_TagString: Untagged
@@ -849,3 +851,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetGroup: {fileID: 9096630980333537135}
+--- !u!114 &2558556503627858981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096630981122409459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23cd6c4fab501ec46bf8b6961e19941d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cinemachinePostProcessing: {fileID: 8288792066469941617}
+--- !u!114 &8288792066469941617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096630981122409459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729aad4491e915a41bda2b8325cf757a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 3
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 11400000, guid: 5d31c5e14a7a9d44980d82b61ab3b9d6, type: 2}
