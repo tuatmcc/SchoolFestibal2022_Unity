@@ -7,6 +7,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1337158125560904769, guid: 435754c8d786bc245b5e053322395044, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1337158125560904769, guid: 435754c8d786bc245b5e053322395044, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1337158125560904769, guid: 435754c8d786bc245b5e053322395044, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1337158125560904769, guid: 435754c8d786bc245b5e053322395044, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1337158125560904769, guid: 435754c8d786bc245b5e053322395044, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1337158125560904769, guid: 435754c8d786bc245b5e053322395044, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7073432507421373730, guid: 435754c8d786bc245b5e053322395044, type: 3}
       propertyPath: sceneId
       value: 0
@@ -130,5 +154,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b3abcf35da95b4b9aca1299a39d356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTapFrequency: 0.01
-  maxSpeedLimit: 30
+  enemyTapFrequency: 0.1
+  maxSpeedLimit: 29

@@ -97,8 +97,8 @@ namespace RaceGame.Race.Network
         private CinemachineDollyCart _cart;
         private Transform _mainCamera;
 
-        private readonly float _speedUpPerTap = 3f;
-        private readonly float _slowDownMultiplier = 0.99f;
+        private readonly float _speedUpPerTap = 2f;
+        private readonly float _slowDownMultiplier = 1 - 3 / 100f;
         
         public int xPosition;
 
@@ -153,6 +153,11 @@ namespace RaceGame.Race.Network
             }
         }
 
+        private void FixedUpdate()
+        {
+            UpdateSpeed();
+        }
+
         private void LateUpdate()
         {
             _raceManager.Players.OrderBy(x => x.netId).Select((x, index) => x.xPosition = index).ToArray();
@@ -190,9 +195,14 @@ namespace RaceGame.Race.Network
         [Server]
         private void UpdatePosition()
         {
+            _position += Speed * Time.deltaTime;
+        }
+
+        [Server]
+        private void UpdateSpeed()
+        {
             // 毎フレーム一定割合で減速する
             Speed *= _slowDownMultiplier;
-            _position += Speed * Time.deltaTime;
         }
     }
 }
