@@ -44,7 +44,7 @@ namespace RaceGame.Race.Network
             _sePlayer = GetComponent<SePlayer>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (_raceManager.RaceState == RaceState.Racing)
             {

@@ -154,5 +154,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b3abcf35da95b4b9aca1299a39d356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTapFrequency: 0.048
+  enemyTapFrequency: 0.1
   maxSpeedLimit: 29
