@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,22 +5,20 @@ namespace RaceGame.Race.UI.Parts
 {
     public class RealTimeRankingView : MonoBehaviour
     {
+        [SerializeField] private RawImage rankImage;
         [SerializeField] private RawImage rawImage;
-        [SerializeField] private TMP_Text rank;
         
-        public void SetText(string text)
+        [SerializeField] private Texture[] rankTextures;
+        
+        public void SetRank(int rank)
         {
-            rank.text = text;
+            if (rank == 0) rank = 1;
+            rankImage.texture = rankTextures[rank - 1];
         }
         
-        public void SetTextColor(Color color)
+        public void SetNamePlateTexture(Texture texture)
         {
-            rank.faceColor = color;
-        }
-        
-        public void SetTexture(Texture texture)
-        {
-            rawImage.texture = texture;
+            // rawImage.texture = texture;
         }
     }
 }
