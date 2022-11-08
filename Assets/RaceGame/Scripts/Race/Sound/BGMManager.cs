@@ -36,7 +36,7 @@ namespace RaceGame.Race.Sound
         {
             while(audioSource.volume > 0)
             {
-                audioSource.volume -= 0.02f;
+                audioSource.volume -= 0.2f;
                 yield return new WaitForSeconds(0.1f);
             }
             audioSource.Stop();
