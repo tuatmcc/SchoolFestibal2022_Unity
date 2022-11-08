@@ -35,7 +35,7 @@ namespace RaceGame.Race.Misc
                     var target = new CinemachineTargetGroup.Target();
                     target.target = player.transform;
                     // localPlayerのウェイトを大きくする
-                    target.weight = player.IsLocalPlayer ? 4f : 1f;
+                    target.weight = player.IsLocalPlayer ? 15f : 1f;
                     target.radius = 3f;
                     targets.Add(target);
                 }
