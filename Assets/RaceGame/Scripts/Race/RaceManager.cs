@@ -15,6 +15,9 @@ using Zenject;
 
 namespace RaceGame.Race
 {
+    /// <summary>
+    /// 順位や位置などは全てサーバー側で管理する
+    /// </summary>
     public class RaceManager : NetworkBehaviour, IRaceManager
     {
         public bool StartFromTitle { get; set; }
@@ -140,17 +143,20 @@ namespace RaceGame.Race
             }
         }
 
+        [Server]
         private void UpdateCurrentRanking()
         {
             // 降順に並び替え
-            SetOrderedPlayers(Players.OrderByDescending(x => x.Position).ToList());
+            var orderedPlayers = Players.Where(x => x.IsGoal)
+                .Concat(Players.Where(x => !x.IsGoal).OrderByDescending(x => x.Position)).ToList();
+            SetOrderedPlayers(orderedPlayers);
             
             for (var i = 0; i < _orderedPlayers.Count; i++)
             {
                 var player = _orderedPlayers[i];
-                player.rank = i + 1;
                 if (!player.IsGoal)
                 {
+                    player.rank = i + 1;
                     if(player.Position >= path.PathLength)
                     {
                         player.Goal();
