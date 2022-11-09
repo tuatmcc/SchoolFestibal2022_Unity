@@ -49,7 +49,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: 65d27f1896dd2ea468fc44bf826f4fd1
   hasSpawned: 0
 --- !u!114 &2154285908494381578
 MonoBehaviour:
@@ -79,5 +79,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 0}
-  _bgmClip: {fileID: 8300000, guid: e422917ae7d336847b72797a21d7e992, type: 3}
+  _bgmClip: {fileID: 8300000, guid: 23bc8d8efadbe7c4a851ff8939ba4cdd, type: 3}
   _startSeClip: {fileID: 8300000, guid: 7903a45ab0e210f4caa68ff46d37a2d8, type: 3}
