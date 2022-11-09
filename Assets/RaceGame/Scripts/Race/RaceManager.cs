@@ -113,7 +113,7 @@ namespace RaceGame.Race
             OnRaceStandby?.Invoke();
 
             // レース開始までのカウントダウン
-            for (var i = 5; i > 0; i--)
+            for (var i = 3; i > 0; i--)
             {
                 OnCountDownTimerChanged?.Invoke(i);
                 await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
