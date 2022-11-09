@@ -22,6 +22,7 @@ namespace RaceGame.Race.Sound
             if( _raceManager.RaceState == RaceState.Racing && !_startedBGM)
             {
                 _audioSource.PlayOneShot(_startSeClip);
+                _audioSource.volume = 1.0f;
                 StartCoroutine(StartBGMAfterSconds(_audioSource, _bgmClip, 0.5f));
                 _startedBGM = true;
             }
@@ -35,7 +36,7 @@ namespace RaceGame.Race.Sound
         {
             while(audioSource.volume > 0)
             {
-                audioSource.volume -= 0.02f;
+                audioSource.volume -= 0.2f;
                 yield return new WaitForSeconds(0.1f);
             }
             audioSource.Stop();
