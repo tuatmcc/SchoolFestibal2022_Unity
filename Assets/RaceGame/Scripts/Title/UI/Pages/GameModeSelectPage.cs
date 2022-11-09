@@ -1,3 +1,4 @@
+using System.Net;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Mirror;
@@ -58,14 +59,35 @@ namespace RaceGame.Title.UI.Pages
         {
             await Animation();
             _gameSetting.PlayType = PlayType.Multi;
-            if (!ParrelSync.ClonesManager.IsClone())
+
+            if (IsHostComputer())
             {
-                NetworkManager.singleton.StartHost();
+                if (!ParrelSync.ClonesManager.IsClone())
+                {
+                    NetworkManager.singleton.StartHost();
+                }
+                else
+                {
+                    NetworkManager.singleton.StartClient();
+                }
             }
             else
             {
                 NetworkManager.singleton.StartClient();
             }
+        }
+
+        private bool IsHostComputer()
+        {
+            var hostname = Dns.GetHostName();
+
+            var adrList = Dns.GetHostAddresses(hostname);
+            foreach (var address in adrList)
+            {
+                if (address.ToString() == NetworkManager.singleton.networkAddress) return true;
+            }
+
+            return false;
         }
 
         public void SetActive(bool value)
