@@ -27,7 +27,7 @@ namespace RaceGame.Race.Misc
             
             // CinemachineTargetGroupにPlayersを追加する。VirtualCameraはこのTargetGroupを追う。
             // Players を全員確実に追加するための苦肉の策. 人数が揃うまで繰り返し呼ばれてしまう
-            if (_targetGroup.m_Targets.Length < _raceManager.Players.Count)
+            if (_targetGroup.m_Targets.Length < _raceManager.Players.Length)
             {
                 var targets = new List<CinemachineTargetGroup.Target>();
                 foreach (var player in _raceManager.Players)

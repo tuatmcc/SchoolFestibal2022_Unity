@@ -18,7 +18,6 @@ namespace RaceGame.Race
     public class RaceManager : NetworkBehaviour, IRaceManager
     {
         public bool StartFromTitle { get; set; }
-
         public event Action OnRaceStandby;
         public event Action OnRaceStart;
         public event Action OnRaceFinish;
@@ -26,12 +25,14 @@ namespace RaceGame.Race
         public event Action<List<Player>> OnPlayerOrderChanged;
 
         public RaceState RaceState { get; private set; } = RaceState.StandingBy;
-        public List<Player> Players { get; private set; } = new();
+        public Player[] Players => enemies.Concat(_playersWithoutEnemies).ToArray();
+        private List<Player> _playersWithoutEnemies = new();
 
         public Player LocalPlayer { get; private set; }
         
         [SerializeField] private CinemachineSmoothPath path;
-        
+        [SerializeField] private List<Player> enemies;
+
         [Inject] private IGameSetting _gameSetting;
         
         private List<Player> _orderedPlayers;
@@ -59,14 +60,18 @@ namespace RaceGame.Race
 
         public void AddPlayer(Player player)
         {
-            Players.Add(player);
             if (player.isLocalPlayer)
             {
                 LocalPlayer = player;
                 player.playerID = _gameSetting.LocalPlayerID;
             }
 
-            if (_gameSetting.PlayType == PlayType.Solo || Players.Count >= 5)
+            if (player.GetComponent<EnemyPlayerController>() == null)
+            {
+                _playersWithoutEnemies.Add(player);
+            }
+
+            if (_gameSetting.PlayType == PlayType.Solo || _playersWithoutEnemies.Count >= 2)
             {
                 GameStart(_gameSetting.LocalPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
             }
@@ -92,6 +97,12 @@ namespace RaceGame.Race
         private void Start()
         {
             _orderedPlayers = Players.ToList();
+            if (isServer && _gameSetting.PlayType == PlayType.Multi)
+            {
+                var lastEnemy = enemies.Last();
+                enemies.Remove(lastEnemy);
+                Destroy(lastEnemy);
+            }
         }
         
         [Server]

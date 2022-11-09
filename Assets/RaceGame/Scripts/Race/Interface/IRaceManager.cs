@@ -17,7 +17,7 @@ namespace RaceGame.Race.Interface
         
         public RaceState RaceState { get; }
         
-        public List<Player> Players { get; }
+        public Player[] Players { get; }
         public Player LocalPlayer { get; }
         
         public void AddPlayer(Player player);
