@@ -11,7 +11,14 @@ namespace RaceGame.Race.Sound
         
         private void Start()
         {
-            audioSource.PlayOneShot(bgmSound);
+            audioSource.PlayOneShot(jingleClip);
+        }
+        private void Update()
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(bgmSound);
+            }
         }
 
         private void Reset()
