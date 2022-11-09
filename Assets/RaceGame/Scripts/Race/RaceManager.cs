@@ -101,7 +101,7 @@ namespace RaceGame.Race
             {
                 var lastEnemy = enemies.Last();
                 enemies.Remove(lastEnemy);
-                Destroy(lastEnemy);
+                Destroy(lastEnemy.gameObject);
             }
         }
         
