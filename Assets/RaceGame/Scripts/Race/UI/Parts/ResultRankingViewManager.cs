@@ -34,9 +34,9 @@ namespace RaceGame.Race.UI.Parts
                 var rankingView = rankingViews[i];
                 rankingView.SetTexture(player.TextureData.Texture);
                 var time = player.GoalTime;
-                var timeString = $"{time.Minutes:00}:{time.Seconds:00}.{time.Milliseconds:00}";
+                var timeString = $"{time.Minutes:00}:{time.Seconds:00}.{time.Milliseconds:000}";
                 rankingView.SetTimeText(timeString);
-                rankingView.SetClickCountText(player.ClickCount.ToString());
+                rankingView.SetClickCountText($"{player.ClickCount}回");
             }
         }
     }
