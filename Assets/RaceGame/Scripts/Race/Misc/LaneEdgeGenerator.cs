@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
@@ -14,18 +15,18 @@ namespace RaceGame.Race.Misc
 		[SerializeField] private Material meshMaterial;
 
 		[SerializeField] private bool onValidate;
+
+		[SerializeField] private GameObject lane1;
+		[SerializeField] private GameObject lane2;
 		
 		private const CinemachinePathBase.PositionUnits Units
 			= CinemachinePathBase.PositionUnits.PathUnits;
 
-		private GameObject lane1;
-		private GameObject lane2;
+		private MeshFilter _lane1Filter;
+		private MeshFilter _lane2Filter;
 
-		private MeshFilter lane1Filter;
-		private MeshFilter lane2Filter;
-
-		private MeshRenderer lane1Renderer;
-		private MeshRenderer lane2Renderer;
+		private MeshRenderer _lane1Renderer;
+		private MeshRenderer _lane2Renderer;
 		
 		private void OnValidate()
 		{
@@ -33,25 +34,18 @@ namespace RaceGame.Race.Misc
 				Generate();
 		}
 
+		private void Start()
+		{
+			Generate();
+		}
+
 		[ContextMenu(nameof(Generate))]
 		private void Generate()
 		{
-			if(lane1 != null && lane2 != null && !onValidate)
-				return;
-
-			if (lane1 == null)
-			{
-				lane1 = new GameObject("lane1");
-				lane1Filter = lane1.AddComponent<MeshFilter>();
-				lane1Renderer = lane1.AddComponent<MeshRenderer>();
-			}
-
-			if (lane2 == null)
-			{
-				lane2 = new GameObject("lane2");
-				lane2Filter = lane2.AddComponent<MeshFilter>();
-				lane2Renderer = lane2.AddComponent<MeshRenderer>();
-			}
+			_lane1Filter = lane1.GetComponent<MeshFilter>();
+			_lane1Renderer = lane1.GetComponent<MeshRenderer>();
+			_lane2Filter = lane2.GetComponent<MeshFilter>();
+			_lane2Renderer = lane2.GetComponent<MeshRenderer>();
 
 			lane1.transform.parent = gameObject.transform;
 			lane2.transform.parent = gameObject.transform;
@@ -70,11 +64,11 @@ namespace RaceGame.Race.Misc
 			lane1Mesh.RecalculateNormals();
 			lane2Mesh.RecalculateNormals();
 
-			lane1Filter.mesh = lane1Mesh;
-			lane2Filter.mesh = lane2Mesh;
+			_lane1Filter.mesh = lane1Mesh;
+			_lane2Filter.mesh = lane2Mesh;
 
-			lane1Renderer.material = meshMaterial;
-			lane2Renderer.material = meshMaterial;
+			_lane1Renderer.material = meshMaterial;
+			_lane2Renderer.material = meshMaterial;
 		}
 
 		private (Vector3[], Vector3[]) CalcAllVertices()
