@@ -55,7 +55,8 @@ namespace RaceGame.Race.Network
         public int laneNumber;
 
         [SyncVar(hook = nameof(OnPlayerIDChanged))]
-        public int playerID;
+        [NonSerialized]
+        public long PlayerID = -1;
 
         public bool IsLocalPlayer => isLocalPlayer;
         public float Speed { get; private set; }
@@ -76,13 +77,13 @@ namespace RaceGame.Race.Network
             playerLookManager.ChangeLookType(newLookType);
         }
         
-        private void OnPlayerIDChanged(int _, int newPlayerID)
+        private void OnPlayerIDChanged(long _, long newPlayerID)
         {
             Debug.Log($"{nameof(OnPlayerIDChanged)} : {_} -> {newPlayerID}");
             DownloadTextures(newPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
         }
         
-        private async UniTaskVoid DownloadTextures(int localPlayerID, CancellationToken cancellationToken)
+        private async UniTaskVoid DownloadTextures(long localPlayerID, CancellationToken cancellationToken)
         {
             TextureData = await TextureDownloader.DownloadPlayerTexture(localPlayerID, cancellationToken);
             playerLookManager.SetCustomTexture(TextureData.Texture);

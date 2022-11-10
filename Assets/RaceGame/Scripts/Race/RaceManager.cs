@@ -27,7 +27,7 @@ namespace RaceGame.Race
         public event Action<int> OnCountDownTimerChanged;
         public event Action<List<Player>> OnPlayerOrderChanged;
 
-        public RaceState RaceState { get; private set; } = RaceState.StandingBy;
+        public RaceState RaceState { get; private set; } = RaceState.NonInitialized;
         public Player[] Players => enemies.Concat(_playersWithoutEnemies).ToArray();
         private List<Player> _playersWithoutEnemies = new();
 
@@ -66,7 +66,7 @@ namespace RaceGame.Race
             if (player.isLocalPlayer)
             {
                 LocalPlayer = player;
-                player.playerID = _gameSetting.LocalPlayerID;
+                player.PlayerID = _gameSetting.LocalPlayerID;
             }
 
             if (player.GetComponent<EnemyPlayerController>() == null)
@@ -76,24 +76,27 @@ namespace RaceGame.Race
 
             if (_gameSetting.PlayType == PlayType.Solo || _playersWithoutEnemies.Count >= 2)
             {
-                GameStart(_gameSetting.LocalPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
+                if (RaceState == RaceState.NonInitialized)
+                {
+                    GameStart(this.GetCancellationTokenOnDestroy()).Forget();
+                    RaceState = RaceState.StandingBy;
+                }
             }
         }
 
-        private async UniTaskVoid GameStart(int localPlayerID, CancellationToken cancellationToken)
+        private async UniTaskVoid GameStart(CancellationToken cancellationToken)
         {
-            GetEnemiesList(localPlayerID, cancellationToken).Forget();
+            GetEnemiesList(cancellationToken).Forget();
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
             CmdGameStart();
         }
 
-        private async UniTask GetEnemiesList(int localPlayerID, CancellationToken cancellationToken)
+        private async UniTask GetEnemiesList(CancellationToken cancellationToken)
         {
-            var enemies = Players.Where(player => player.GetComponent<EnemyPlayerController>() != null).ToList();
-            var list = await TextureDownloader.DownloadCPUList(localPlayerID, enemies.Count, cancellationToken);
-            for (var i = 0; i < list.Count; i++)
+            var list = await TextureDownloader.DownloadCPUList(_playersWithoutEnemies.Select(x=>x.PlayerID).ToList(), cancellationToken);
+            for (var i = 0; i < enemies.Count; i++)
             {
-                enemies[i].playerID = list[i];
+                enemies[i].PlayerID = list[i];
             }
         }
 
@@ -102,10 +105,22 @@ namespace RaceGame.Race
             _orderedPlayers = Players.ToList();
             if (isServer && _gameSetting.PlayType == PlayType.Multi)
             {
-                var lastEnemy = enemies.Last();
-                enemies.Remove(lastEnemy);
-                Destroy(lastEnemy.gameObject);
+                CmdDestroyEnemy();
             }
+        }
+        
+        [Command]
+        private void CmdDestroyEnemy()
+        {
+            RpcDestroyEnemy();
+        }
+
+        [ClientRpc]
+        private void RpcDestroyEnemy()
+        {
+            var lastEnemy = enemies.Last();
+            enemies.Remove(lastEnemy);
+            NetworkServer.Destroy(lastEnemy.gameObject);
         }
         
         [Server]
@@ -168,8 +183,22 @@ namespace RaceGame.Race
             if (_orderedPlayers.All(x=>x.IsGoal))
             {
                 RaceState = RaceState.Finished;
-                OnRaceFinish?.Invoke();
+                CmdRaceFinish();
             }
+        }
+        
+        [Server]
+        [Command(requiresAuthority = false)]
+        private void CmdRaceFinish()
+        {
+            RpcRaceFinish();
+        }
+
+        [ClientRpc]
+        private void RpcRaceFinish()
+        {
+            RaceState = RaceState.Finished;
+            OnRaceFinish?.Invoke();
         }
     }
 }

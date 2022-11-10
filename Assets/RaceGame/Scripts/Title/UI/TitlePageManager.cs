@@ -31,7 +31,7 @@ namespace RaceGame.Title.UI
             qrCodeReaderPage.OnReadQRCode += OnReadQRCode;
         }
 
-        private void OnReadQRCode(int result)
+        private void OnReadQRCode(long result)
         {
             _gameSetting.LocalPlayerID = result;
             SetActivePages(false, false, true);

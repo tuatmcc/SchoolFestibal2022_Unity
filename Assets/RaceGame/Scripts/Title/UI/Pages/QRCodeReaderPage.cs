@@ -17,7 +17,7 @@ namespace RaceGame.Title.UI.Pages
         /// <summary>
         /// QRコードが読み終えたら読み取った値を返す
         /// </summary>
-        public event Action<int> OnReadQRCode;
+        public event Action<long> OnReadQRCode;
         
         private int _width = 1920;
         private int _height = 1080;
@@ -84,7 +84,7 @@ namespace RaceGame.Title.UI.Pages
                 {
                     // カメラを停止して結果を保存
                     _webCamTexture.Stop();
-                    OnReadQRCode?.Invoke(int.Parse(_result.Text));
+                    OnReadQRCode?.Invoke(long.Parse(_result.Text));
                 }
 
                 _preResult = _result;

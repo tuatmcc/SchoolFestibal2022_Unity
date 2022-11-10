@@ -9,7 +9,7 @@ namespace RaceGame.Title
         [System.Serializable]
         public struct ImageData
         {
-            public int id;
+            public long id;
             public string URL;
         }
     }

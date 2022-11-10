@@ -5,7 +5,7 @@ namespace RaceGame.Title
 {
     public class TextureData
     {
-        public int ID;
+        public long ID;
         public Texture Texture;
         public PlayerLookType PlayerLookType;
     }
