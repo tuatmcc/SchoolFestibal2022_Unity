@@ -12,6 +12,7 @@ namespace RaceGame.Race.Interface
         public event Action OnRaceStandby;
         public event Action OnRaceStart;
         public event Action OnRaceFinish;
+        public event Action OnCountDownStart;
         public event Action<int> OnCountDownTimerChanged;
         public event Action<List<Player>> OnPlayerOrderChanged;
         

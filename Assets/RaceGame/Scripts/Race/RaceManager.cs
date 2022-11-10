@@ -24,6 +24,7 @@ namespace RaceGame.Race
         public event Action OnRaceStandby;
         public event Action OnRaceStart;
         public event Action OnRaceFinish;
+        public event Action OnCountDownStart;
         public event Action<int> OnCountDownTimerChanged;
         public event Action<List<Player>> OnPlayerOrderChanged;
 
@@ -141,9 +142,11 @@ namespace RaceGame.Race
             RaceState = RaceState.StandingBy;
             OnRaceStandby?.Invoke();
 
+            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
             // レース開始までのカウントダウン
             for (var i = 3; i > 0; i--)
             {
+                OnCountDownStart?.Invoke();
                 OnCountDownTimerChanged?.Invoke(i);
                 await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
             }
