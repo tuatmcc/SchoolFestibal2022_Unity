@@ -62,6 +62,7 @@ namespace RaceGame.Title.UI.Pages
 
             if (IsHostComputer())
             {
+                #if UNITY_EDITOR
                 if (!ParrelSync.ClonesManager.IsClone())
                 {
                     NetworkManager.singleton.StartHost();
@@ -70,6 +71,7 @@ namespace RaceGame.Title.UI.Pages
                 {
                     NetworkManager.singleton.StartClient();
                 }
+                #endif
             }
             else
             {

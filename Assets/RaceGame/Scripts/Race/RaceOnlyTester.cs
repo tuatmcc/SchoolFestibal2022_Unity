@@ -18,6 +18,7 @@ namespace RaceGame.Race
             if (_gameSetting.StartFromTitle) return;
             _gameSetting.LocalPlayerID = localPlayerID;
             
+            #if UNITY_EDITOR
             if (!ParrelSync.ClonesManager.IsClone())
             {
                 NetworkManager.singleton.StartHost();
@@ -26,6 +27,7 @@ namespace RaceGame.Race
             {
                 NetworkManager.singleton.StartClient();
             }
+            #endif
         }
     }
 }
