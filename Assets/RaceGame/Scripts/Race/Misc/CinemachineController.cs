@@ -25,24 +25,10 @@ namespace RaceGame.Race.Misc
             // このタイミングでカメラを最優先にする
             _virtualCamera.Priority = 100;
             
-            // CinemachineTargetGroupにPlayersを追加する。VirtualCameraはこのTargetGroupを追う。
-            // Players を全員確実に追加するための苦肉の策. 人数が揃うまで繰り返し呼ばれてしまう
-            if (_targetGroup.m_Targets.Length < _raceManager.Players.Count)
-            {
-                var targets = new List<CinemachineTargetGroup.Target>();
-                foreach (var player in _raceManager.Players)
-                {
-                    var target = new CinemachineTargetGroup.Target();
-                    target.target = player.transform;
-                    // localPlayerのウェイトを大きくする
-                    target.weight = player.IsLocalPlayer ? 4f : 1f;
-                    target.radius = 3f;
-                    targets.Add(target);
-                }
+            var localPlayer = _raceManager.LocalPlayer.transform;
+            _virtualCamera.LookAt = localPlayer;
+            _virtualCamera.Follow = localPlayer;
 
-                _targetGroup.m_Targets = targets.ToArray();
-                _virtualCamera.LookAt = _targetGroup.transform;
-            }
         }
     }
 }
