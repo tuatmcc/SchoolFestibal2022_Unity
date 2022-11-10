@@ -68,7 +68,7 @@ namespace RaceGame.Race.Network
         public int rank;
 
         [SerializeField]
-        private PlayerLookManager playerLookManager;
+        public PlayerLookManager playerLookManager;
         
         [Inject] private IRaceManager _raceManager;
 
@@ -162,7 +162,7 @@ namespace RaceGame.Race.Network
         private void LateUpdate()
         {
             _raceManager.Players.OrderBy(x => x.netId).Select((x, index) => x.xPosition = index).ToArray();
-            transform.position += transform.right * xPosition;
+            playerLookManager.transform.localPosition = playerLookManager.transform.right * xPosition;
         }
 
         private void SetStatusPlate()

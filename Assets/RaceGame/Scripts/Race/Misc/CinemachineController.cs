@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Cinemachine;
 using RaceGame.Race.Interface;
 using UnityEngine;
@@ -25,7 +24,7 @@ namespace RaceGame.Race.Misc
             // このタイミングでカメラを最優先にする
             _virtualCamera.Priority = 100;
             
-            var localPlayer = _raceManager.LocalPlayer.transform;
+            var localPlayer = _raceManager.LocalPlayer.playerLookManager.transform;
             _virtualCamera.LookAt = localPlayer;
             _virtualCamera.Follow = localPlayer;
 
