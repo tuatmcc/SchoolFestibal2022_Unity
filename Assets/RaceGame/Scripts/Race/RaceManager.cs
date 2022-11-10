@@ -63,12 +63,18 @@ namespace RaceGame.Race
             _orderedPlayers = orderedPlayers;
         }
 
+        [Command(requiresAuthority = false)]
+        private void CmdSetLocalPlayerID(Player localPlayer, long id)
+        {
+            localPlayer.PlayerID = id;
+        }
+
         public void AddPlayer(Player player)
         {
             if (player.isLocalPlayer)
             {
                 LocalPlayer = player;
-                player.PlayerID = _gameSetting.LocalPlayerID;
+                CmdSetLocalPlayerID(player, _gameSetting.LocalPlayerID);
             }
 
             if (player.GetComponent<EnemyPlayerController>() == null)
