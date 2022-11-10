@@ -144,7 +144,7 @@ namespace RaceGame.Race.Network
                 UpdatePosition();
             }
             _raceManager.Players.OrderBy(x => x.netId).Select((x, index) => x.xPosition = index).ToArray();
-            transform.position += transform.right * xPosition;
+            transform.position += transform.right * (xPosition * 1.5f + 0.5f);
         }
 
         private void FixedUpdate()
