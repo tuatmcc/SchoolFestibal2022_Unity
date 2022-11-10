@@ -20,6 +20,8 @@ namespace RaceGame.Race.Network
     /// </summary>
     [RequireComponent(typeof(CinemachineDollyCart))]
     [RequireComponent(typeof(Animator))]
+    // CinemachineDollyCartより後に実行したい
+    [DefaultExecutionOrder(1)]
     public class Player : NetworkBehaviour, IPlayer
     {
         [SerializeField] private NamePlate namePlate;
@@ -152,17 +154,13 @@ namespace RaceGame.Race.Network
             {
                 UpdatePosition();
             }
+            _raceManager.Players.OrderBy(x => x.netId).Select((x, index) => x.xPosition = index).ToArray();
+            transform.position += transform.right * xPosition;
         }
 
         private void FixedUpdate()
         {
             UpdateSpeed();
-        }
-
-        private void LateUpdate()
-        {
-            _raceManager.Players.OrderBy(x => x.netId).Select((x, index) => x.xPosition = index).ToArray();
-            playerLookManager.transform.localPosition = playerLookManager.transform.right * xPosition;
         }
 
         private void SetStatusPlate()
