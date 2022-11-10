@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
@@ -6,6 +5,7 @@ using UnityEngine;
 
 namespace RaceGame.Race.Misc
 {
+	[ExecuteAlways]
 	public class LaneEdgeGenerator : MonoBehaviour
 	{
 		[SerializeField] private CinemachineSmoothPath smoothPath;
