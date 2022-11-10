@@ -15,13 +15,9 @@ namespace RaceGame.Race.UI.Parts
 
         [Inject] private IRaceManager _raceManager;
 
-        private void Start()
+        private void Update()
         {
-            _raceManager.OnPlayerOrderChanged += OnPlayerOrderChanged;
-        }
-
-        private void OnPlayerOrderChanged(List<Player> orderedPlayers)
-        {
+            if (_raceManager.RaceState != RaceState.Racing) return;
             if (_raceManager.LocalPlayer == null) return;
             rankingViews.SetRank(_raceManager.LocalPlayer.rank);
             rankingViews.SetNamePlateTexture(_raceManager.LocalPlayer.TextureData?.Texture);

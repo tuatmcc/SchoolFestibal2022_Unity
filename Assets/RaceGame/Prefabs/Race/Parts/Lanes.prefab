@@ -136,6 +136,8 @@ MonoBehaviour:
   offset: 1.63
   meshMaterial: {fileID: 2100000, guid: ad404e1e5ec5a4349bf8c7f3c08b5e11, type: 2}
   onValidate: 0
+  lane1: {fileID: 2045359131322367687}
+  lane2: {fileID: 8752548296956655027}
 --- !u!114 &2436664729355100943
 MonoBehaviour:
   m_ObjectHideFlags: 0

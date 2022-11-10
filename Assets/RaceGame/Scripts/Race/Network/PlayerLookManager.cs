@@ -11,23 +11,18 @@ namespace RaceGame.Race.Network
     {
         [SerializeField] private List<PlayerLook> playerLooks;
         [SerializeField] private MapImage mapImage;
+        [SerializeField] private Texture[] maskTextures;
 
-        public void ChangeLookType(PlayerLookType lookType)
+        public void SetCustomTexture(Texture texture, PlayerLookType lookType)
         {
             foreach (var playerLook in playerLooks)
             {
                 playerLook.gameObject.SetActive(playerLook.PlayerLookType == lookType);
-            }
-        }
-
-        public void SetCustomTexture(Texture texture)
-        {
-            foreach (var playerLook in playerLooks)
-            {
                 playerLook.SetCustomTexture(texture);
             }
             
             mapImage.SetTexture(texture);
+            mapImage.SetMaskTexture(maskTextures[(int)lookType]);
         }
     }
 }

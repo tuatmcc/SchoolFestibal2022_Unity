@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using RaceGame.Race.Network;
+using Random = UnityEngine.Random;
 
 namespace RaceGame.Title
 {
@@ -15,7 +16,7 @@ namespace RaceGame.Title
     public static class TextureDownloader
     {
         private const string ImageGetURL = "http://158.101.138.60/player_image/";
-        private const string ListGetURL = "http://158.101.138.60/random_image/"; 
+        private const string ListGetURL = "http://158.101.138.60/image_list/"; 
         
         private const int NetworkRetryWaitSeconds = 5;
         
@@ -25,15 +26,22 @@ namespace RaceGame.Title
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
-        public static async UniTask<TextureData> DownloadPlayerTexture(int id, CancellationToken cancellationToken)
+        public static async UniTask<TextureData> DownloadPlayerTexture(long id, CancellationToken cancellationToken)
         {
             await WaitForOnline(cancellationToken);
 
             var request = new UnityWebRequest($"{ImageGetURL}{id}");
             var handler = new DownloadHandlerTexture(true);
             request.downloadHandler = handler;
-            
-            await request.SendWebRequest().ToUniTask(cancellationToken: cancellationToken);
+
+            try
+            {
+                await request.SendWebRequest().ToUniTask(cancellationToken: cancellationToken);
+            }
+            catch
+            {
+                Debug.LogError(id);
+            }
 
             if (request.result == UnityWebRequest.Result.Success)
             {
@@ -48,18 +56,23 @@ namespace RaceGame.Title
             return null;
         }
 
-        public static async UniTask<List<int>> DownloadCPUList(int localPlayerID, int enemyNum, CancellationToken cancellationToken)
+        public static async UniTask<List<long>> DownloadCPUList(List<long> playerIDs, CancellationToken cancellationToken)
         {
             await WaitForOnline(cancellationToken);
 
-            var request = new UnityWebRequest($"{ListGetURL}?player_id={localPlayerID}&num={enemyNum}");
+            var request = new UnityWebRequest($"{ListGetURL}");
             request.downloadHandler = new DownloadHandlerBuffer();
 
             await request.SendWebRequest().ToUniTask(cancellationToken: cancellationToken);
 
             // json形式から構造体に変換
             var jsonObj = JsonUtility.FromJson<JsonData>(request.downloadHandler.text);
-            return jsonObj.data.Select(x => x.id).ToList();
+            var list = jsonObj.data
+                .Select(x => x.id)
+                .Where(x => !playerIDs.Contains(x))
+                .OrderBy(x => Random.value)
+                .ToList();
+            return list;
         }
 
         /// <summary>
@@ -100,7 +113,7 @@ namespace RaceGame.Title
             }
         }
         
-        private static PlayerLookType GetLookType(int id)
+        private static PlayerLookType GetLookType(long id)
         {
             switch (id % 10)
             {

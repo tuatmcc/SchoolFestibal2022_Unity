@@ -37,7 +37,7 @@ namespace RaceGame.Title.UI
             titleBGMPlayer.PlayTitleBGM();
         }
 
-        private void OnReadQRCode(int result)
+        private void OnReadQRCode(long result)
         {
             _gameSetting.LocalPlayerID = result;
             SetActivePages(false, false, true);

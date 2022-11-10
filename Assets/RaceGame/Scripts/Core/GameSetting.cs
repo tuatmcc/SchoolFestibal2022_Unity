@@ -6,6 +6,6 @@ namespace RaceGame.Core
     {
         public bool StartFromTitle { get; set; }
         public PlayType PlayType { get; set; }
-        public int LocalPlayerID { get; set; }
+        public long LocalPlayerID { get; set; }
     }
 }

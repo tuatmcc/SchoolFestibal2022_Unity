@@ -17,7 +17,7 @@ namespace RaceGame.Title.UI.Pages
         /// <summary>
         /// QRコードが読み終えたら読み取った値を返す
         /// </summary>
-        public event Action<int> OnReadQRCode;
+        public event Action<long> OnReadQRCode;
         
         private int _width = 1920;
         private int _height = 1080;
@@ -67,7 +67,8 @@ namespace RaceGame.Title.UI.Pages
             
             if(_result != null)
             {
-                Debug.Log($"QRCode Read : {_result.Text}");
+                var result = _result.Text.Remove(0, 3);
+                Debug.Log($"QRCode Read : {result}");
                 // 指定回数連続で同じ結果であれば終了
                 if (_currentSameValueCount < MaxSameValueCount)
                 {
@@ -84,7 +85,7 @@ namespace RaceGame.Title.UI.Pages
                 {
                     // カメラを停止して結果を保存
                     _webCamTexture.Stop();
-                    OnReadQRCode?.Invoke(int.Parse(_result.Text));
+                    OnReadQRCode?.Invoke(long.Parse(result));
                 }
 
                 _preResult = _result;

@@ -51,6 +51,11 @@ MonoBehaviour:
   - {fileID: 1936789635062826662}
   - {fileID: 7462276206037393701}
   - {fileID: 5467352033341607844}
+  mapImage: {fileID: 0}
+  maskTextures:
+  - {fileID: 2800000, guid: 20dd5e8d943b89e4ebe0001a91294298, type: 3}
+  - {fileID: 2800000, guid: 4d1772cfa52f72348b7e6ddb34583a62, type: 3}
+  - {fileID: 2800000, guid: 736b3a0e58a601b488d5140e5c6408c0, type: 3}
 --- !u!1001 &7177089875171715115
 PrefabInstance:
   m_ObjectHideFlags: 0

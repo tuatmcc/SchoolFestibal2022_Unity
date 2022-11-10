@@ -15,23 +15,29 @@ using Zenject;
 
 namespace RaceGame.Race
 {
+    /// <summary>
+    /// 順位や位置などは全てサーバー側で管理する
+    /// </summary>
     public class RaceManager : NetworkBehaviour, IRaceManager
     {
         public bool StartFromTitle { get; set; }
-
         public event Action OnRaceStandby;
         public event Action OnRaceStart;
         public event Action OnRaceFinish;
+        public event Action OnCountDownStart;
         public event Action<int> OnCountDownTimerChanged;
         public event Action<List<Player>> OnPlayerOrderChanged;
 
-        public RaceState RaceState { get; private set; } = RaceState.StandingBy;
-        public List<Player> Players { get; private set; } = new();
+        public RaceState RaceState { get; private set; } = RaceState.NonInitialized;
+        public Player[] Players => Enemies.Concat(_playersWithoutEnemies).ToArray();
+        private List<Player> _playersWithoutEnemies = new();
 
         public Player LocalPlayer { get; private set; }
         
         [SerializeField] private CinemachineSmoothPath path;
-        
+        [SerializeField] private List<Player> enemies;
+        private List<Player> Enemies => enemies.Where(x => x.gameObject.activeSelf).ToList();
+
         [Inject] private IGameSetting _gameSetting;
         
         private List<Player> _orderedPlayers;
@@ -57,43 +63,68 @@ namespace RaceGame.Race
             _orderedPlayers = orderedPlayers;
         }
 
+        [Command(requiresAuthority = false)]
+        private void CmdSetLocalPlayerID(Player localPlayer, long id)
+        {
+            localPlayer.PlayerID = id;
+        }
+
         public void AddPlayer(Player player)
         {
-            Players.Add(player);
             if (player.isLocalPlayer)
             {
                 LocalPlayer = player;
-                player.playerID = _gameSetting.LocalPlayerID;
+                CmdSetLocalPlayerID(player, _gameSetting.LocalPlayerID);
             }
 
-            if (_gameSetting.PlayType == PlayType.Solo || Players.Count >= 5)
+            if (player.GetComponent<EnemyPlayerController>() == null)
             {
-                GameStart(_gameSetting.LocalPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
+                _playersWithoutEnemies.Add(player);
+            }
+
+            if (_gameSetting.PlayType == PlayType.Solo || _playersWithoutEnemies.Count >= 2)
+            {
+                if (RaceState == RaceState.NonInitialized)
+                {
+                    GameStart(this.GetCancellationTokenOnDestroy()).Forget();
+                    RaceState = RaceState.StandingBy;
+                }
             }
         }
 
-        private async UniTaskVoid GameStart(int localPlayerID, CancellationToken cancellationToken)
+        private async UniTaskVoid GameStart(CancellationToken cancellationToken)
         {
-            GetEnemiesList(localPlayerID, cancellationToken).Forget();
+            GetEnemiesList(cancellationToken).Forget();
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
             CmdGameStart();
         }
 
-        private async UniTask GetEnemiesList(int localPlayerID, CancellationToken cancellationToken)
+        private async UniTask GetEnemiesList(CancellationToken cancellationToken)
         {
-            var enemies = Players.Where(player => player.GetComponent<EnemyPlayerController>() != null).ToList();
-            var list = await TextureDownloader.DownloadCPUList(localPlayerID, enemies.Count, cancellationToken);
-            for (var i = 0; i < list.Count; i++)
+            var list = await TextureDownloader.DownloadCPUList(_playersWithoutEnemies.Select(x=>x.PlayerID).ToList(), cancellationToken);
+            for (var i = 0; i < Enemies.Count; i++)
             {
-                enemies[i].playerID = list[i];
+                Enemies[i].PlayerID = list[i];
             }
         }
 
         private void Start()
         {
             _orderedPlayers = Players.ToList();
+            if (_gameSetting.PlayType == PlayType.Multi)
+            {
+                var lastEnemy = enemies.Last();
+                lastEnemy.gameObject.SetActive(false);
+            }
+            else
+            {
+                foreach (var enemy in enemies)
+                {
+                    enemy.gameObject.SetActive(true);
+                }
+            }
         }
-        
+
         [Server]
         [Command(requiresAuthority = false)]
         private void CmdGameStart()
@@ -112,9 +143,11 @@ namespace RaceGame.Race
             RaceState = RaceState.StandingBy;
             OnRaceStandby?.Invoke();
 
+            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
             // レース開始までのカウントダウン
-            for (var i = 5; i > 0; i--)
+            for (var i = 3; i > 0; i--)
             {
+                OnCountDownStart?.Invoke();
                 OnCountDownTimerChanged?.Invoke(i);
                 await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
             }
@@ -129,17 +162,20 @@ namespace RaceGame.Race
             }
         }
 
+        [Server]
         private void UpdateCurrentRanking()
         {
             // 降順に並び替え
-            SetOrderedPlayers(Players.OrderByDescending(x => x.Position).ToList());
+            var orderedPlayers = Players.Where(x => x.IsGoal)
+                .Concat(Players.Where(x => !x.IsGoal).OrderByDescending(x => x.Position)).ToList();
+            SetOrderedPlayers(orderedPlayers);
             
             for (var i = 0; i < _orderedPlayers.Count; i++)
             {
                 var player = _orderedPlayers[i];
-                player.rank = i + 1;
                 if (!player.IsGoal)
                 {
+                    player.rank = i + 1;
                     if(player.Position >= path.PathLength)
                     {
                         player.Goal();
@@ -151,8 +187,22 @@ namespace RaceGame.Race
             if (_orderedPlayers.All(x=>x.IsGoal))
             {
                 RaceState = RaceState.Finished;
-                OnRaceFinish?.Invoke();
+                CmdRaceFinish();
             }
+        }
+        
+        [Server]
+        [Command(requiresAuthority = false)]
+        private void CmdRaceFinish()
+        {
+            RpcRaceFinish();
+        }
+
+        [ClientRpc]
+        private void RpcRaceFinish()
+        {
+            RaceState = RaceState.Finished;
+            OnRaceFinish?.Invoke();
         }
     }
 }

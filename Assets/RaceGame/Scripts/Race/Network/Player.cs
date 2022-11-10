@@ -20,6 +20,8 @@ namespace RaceGame.Race.Network
     /// </summary>
     [RequireComponent(typeof(CinemachineDollyCart))]
     [RequireComponent(typeof(Animator))]
+    // CinemachineDollyCartより後に実行したい
+    [DefaultExecutionOrder(1)]
     public class Player : NetworkBehaviour, IPlayer
     {
         [SerializeField] private NamePlate namePlate;
@@ -27,26 +29,27 @@ namespace RaceGame.Race.Network
         public TextureData TextureData;
         
         public float Position => _position;
-        public TimeSpan GoalTime => _goalTime - _startTime;
-        private DateTime _startTime;
-        private DateTime _goalTime;
-        public bool IsGoal { get; private set; }
+        public TimeSpan GoalTime => new(_goalTime - _startTime);
+        
+        [SyncVar] [NonSerialized]
+        private long _startTime;
+        [SyncVar] [NonSerialized]
+        private long _goalTime;
+        [SyncVar] [NonSerialized] public bool IsGoal;
 
         public int ClickCount { get; private set; }
 
         public void Goal()
         {
             if (IsGoal) return;
-            _goalTime = DateTime.Now;
+            _goalTime = DateTime.Now.Ticks;
             IsGoal = true;
         }
 
         public void OnStart()
         {
-            _startTime = DateTime.Now;
+            _startTime = DateTime.Now.Ticks;
         }
-
-        private PlayerLookType _lookType;
 
         [SyncVar(hook = nameof(OnPositionChanged))]
         private float _position;
@@ -55,7 +58,8 @@ namespace RaceGame.Race.Network
         public int laneNumber;
 
         [SyncVar(hook = nameof(OnPlayerIDChanged))]
-        public int playerID;
+        [NonSerialized]
+        public long PlayerID = -1;
 
         public bool IsLocalPlayer => isLocalPlayer;
         public float Speed { get; private set; }
@@ -67,26 +71,20 @@ namespace RaceGame.Race.Network
         public int rank;
 
         [SerializeField]
-        private PlayerLookManager playerLookManager;
+        public PlayerLookManager playerLookManager;
         
         [Inject] private IRaceManager _raceManager;
-
-        private void OnLookTypeChanged(PlayerLookType newLookType)
-        {
-            playerLookManager.ChangeLookType(newLookType);
-        }
         
-        private void OnPlayerIDChanged(int _, int newPlayerID)
+        private void OnPlayerIDChanged(long _, long newPlayerID)
         {
             Debug.Log($"{nameof(OnPlayerIDChanged)} : {_} -> {newPlayerID}");
             DownloadTextures(newPlayerID, this.GetCancellationTokenOnDestroy()).Forget();
         }
         
-        private async UniTaskVoid DownloadTextures(int localPlayerID, CancellationToken cancellationToken)
+        private async UniTaskVoid DownloadTextures(long localPlayerID, CancellationToken cancellationToken)
         {
             TextureData = await TextureDownloader.DownloadPlayerTexture(localPlayerID, cancellationToken);
-            playerLookManager.SetCustomTexture(TextureData.Texture);
-            OnLookTypeChanged(TextureData.PlayerLookType);
+            playerLookManager.SetCustomTexture(TextureData.Texture, TextureData.PlayerLookType);
             namePlate.SetTexture(TextureData.Texture);
         }
 
@@ -111,10 +109,7 @@ namespace RaceGame.Race.Network
                 _cart.m_Path = FindObjectOfType<LaneEdgeGenerator>().GetComponent<CinemachineSmoothPath>();
             }
 
-            _lookType = PlayerLookType.Horse;
-
             _mainCamera = Camera.main.transform;
-            OnLookTypeChanged(_lookType);
 
             // 急ぎで雑なやり方
             // 本来であればFactoryPattern等で対応する
@@ -151,17 +146,13 @@ namespace RaceGame.Race.Network
             {
                 UpdatePosition();
             }
+            _raceManager.Players.OrderBy(x => x.netId).Select((x, index) => x.xPosition = index).ToArray();
+            transform.position += transform.right * (xPosition * 1.5f + 0.5f);
         }
 
         private void FixedUpdate()
         {
             UpdateSpeed();
-        }
-
-        private void LateUpdate()
-        {
-            _raceManager.Players.OrderBy(x => x.netId).Select((x, index) => x.xPosition = index).ToArray();
-            transform.position += transform.right * xPosition;
         }
 
         private void SetStatusPlate()

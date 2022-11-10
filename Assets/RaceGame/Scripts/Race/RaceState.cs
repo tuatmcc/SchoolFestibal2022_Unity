@@ -2,6 +2,7 @@
 {
     public enum RaceState
     {
+        NonInitialized,
         StandingBy,
         Racing,
         Finished

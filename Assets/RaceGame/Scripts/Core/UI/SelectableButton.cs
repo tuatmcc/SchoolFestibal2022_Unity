@@ -40,6 +40,7 @@ namespace RaceGame.Core.UI
             OnClicked?.Invoke();
             audioSource.PlayOneShot(clickSound);
             OnClickAnimation(this.GetCancellationTokenOnDestroy()).Forget();
+            button.interactable = false;
         }
         
         private async UniTaskVoid OnClickAnimation(CancellationToken cancellationToken)
