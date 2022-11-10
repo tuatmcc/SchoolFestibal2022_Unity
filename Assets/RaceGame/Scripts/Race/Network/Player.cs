@@ -29,23 +29,26 @@ namespace RaceGame.Race.Network
         public TextureData TextureData;
         
         public float Position => _position;
-        public TimeSpan GoalTime => _goalTime - _startTime;
-        private DateTime _startTime;
-        private DateTime _goalTime;
-        public bool IsGoal { get; private set; }
+        public TimeSpan GoalTime => new(_goalTime - _startTime);
+        
+        [SyncVar] [NonSerialized]
+        private long _startTime;
+        [SyncVar] [NonSerialized]
+        private long _goalTime;
+        [SyncVar] [NonSerialized] public bool IsGoal;
 
         public int ClickCount { get; private set; }
 
         public void Goal()
         {
             if (IsGoal) return;
-            _goalTime = DateTime.Now;
+            _goalTime = DateTime.Now.Ticks;
             IsGoal = true;
         }
 
         public void OnStart()
         {
-            _startTime = DateTime.Now;
+            _startTime = DateTime.Now.Ticks;
         }
 
         [SyncVar(hook = nameof(OnPositionChanged))]

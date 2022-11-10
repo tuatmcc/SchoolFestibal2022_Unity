@@ -27,12 +27,17 @@ namespace RaceGame.Race.UI.Parts
         {
             if (_raceManager.LocalPlayer == null) return;
 
-            var orderedPlayers = _raceManager.Players.OrderBy(x => x.rank).ToList();
+            // TODO : Where(x=>x.rank != 6)は本来書かなくて良い
+            var orderedPlayers = _raceManager.Players.OrderBy(x => x.rank).Where(x=>x.rank != 6).ToList();
             for (var i = 0; i < orderedPlayers.Count; i++)
             {
                 var player = orderedPlayers[i];
                 var rankingView = rankingViews[i];
-                rankingView.SetTexture(player.TextureData.Texture);
+                if (player.TextureData == null)
+                {
+                    Debug.LogWarning(player.PlayerID);
+                }
+                rankingView.SetTexture(player.TextureData?.Texture);
                 var time = player.GoalTime;
                 var timeString = $"{time.Minutes:00}:{time.Seconds:00}.{time.Milliseconds:000}";
                 rankingView.SetTimeText(timeString);

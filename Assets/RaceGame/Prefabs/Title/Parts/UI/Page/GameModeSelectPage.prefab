@@ -288,6 +288,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5994853260676034689}
     m_Modifications:
+    - target: {fileID: 49225561780435092, guid: 53d9aa494313e9746923b1e08fc9413e, type: 3}
+      propertyPath: selectOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 369784690932901482, guid: 53d9aa494313e9746923b1e08fc9413e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -29,13 +29,14 @@ namespace RaceGame.Race
         public event Action<List<Player>> OnPlayerOrderChanged;
 
         public RaceState RaceState { get; private set; } = RaceState.NonInitialized;
-        public Player[] Players => enemies.Concat(_playersWithoutEnemies).ToArray();
+        public Player[] Players => Enemies.Concat(_playersWithoutEnemies).ToArray();
         private List<Player> _playersWithoutEnemies = new();
 
         public Player LocalPlayer { get; private set; }
         
         [SerializeField] private CinemachineSmoothPath path;
         [SerializeField] private List<Player> enemies;
+        private List<Player> Enemies => enemies.Where(x => x.gameObject.activeSelf).ToList();
 
         [Inject] private IGameSetting _gameSetting;
         
@@ -95,35 +96,29 @@ namespace RaceGame.Race
         private async UniTask GetEnemiesList(CancellationToken cancellationToken)
         {
             var list = await TextureDownloader.DownloadCPUList(_playersWithoutEnemies.Select(x=>x.PlayerID).ToList(), cancellationToken);
-            for (var i = 0; i < enemies.Count; i++)
+            for (var i = 0; i < Enemies.Count; i++)
             {
-                enemies[i].PlayerID = list[i];
+                Enemies[i].PlayerID = list[i];
             }
         }
 
         private void Start()
         {
             _orderedPlayers = Players.ToList();
-            if (isServer && _gameSetting.PlayType == PlayType.Multi)
+            if (_gameSetting.PlayType == PlayType.Multi)
             {
-                CmdDestroyEnemy();
+                var lastEnemy = enemies.Last();
+                lastEnemy.gameObject.SetActive(false);
+            }
+            else
+            {
+                foreach (var enemy in enemies)
+                {
+                    enemy.gameObject.SetActive(true);
+                }
             }
         }
-        
-        [Command]
-        private void CmdDestroyEnemy()
-        {
-            RpcDestroyEnemy();
-        }
 
-        [ClientRpc]
-        private void RpcDestroyEnemy()
-        {
-            var lastEnemy = enemies.Last();
-            enemies.Remove(lastEnemy);
-            NetworkServer.Destroy(lastEnemy.gameObject);
-        }
-        
         [Server]
         [Command(requiresAuthority = false)]
         private void CmdGameStart()

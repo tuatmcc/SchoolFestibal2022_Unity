@@ -13,6 +13,11 @@ namespace RaceGame.Race.UI.Parts
         public void SetRank(int rank)
         {
             if (rank == 0) rank = 1;
+            if (rankTextures.Length < rank)
+            {
+                Debug.LogWarning($"多分人数がおかしい rank = {rank}");
+                rank = rankTextures.Length;
+            }
             rankImage.texture = rankTextures[rank - 1];
         }
         
