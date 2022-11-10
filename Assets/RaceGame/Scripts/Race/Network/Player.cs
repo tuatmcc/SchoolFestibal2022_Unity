@@ -48,8 +48,6 @@ namespace RaceGame.Race.Network
             _startTime = DateTime.Now;
         }
 
-        private PlayerLookType _lookType;
-
         [SyncVar(hook = nameof(OnPositionChanged))]
         private float _position;
 
@@ -73,11 +71,6 @@ namespace RaceGame.Race.Network
         public PlayerLookManager playerLookManager;
         
         [Inject] private IRaceManager _raceManager;
-
-        private void OnLookTypeChanged(PlayerLookType newLookType)
-        {
-            playerLookManager.ChangeLookType(newLookType);
-        }
         
         private void OnPlayerIDChanged(long _, long newPlayerID)
         {
@@ -88,8 +81,7 @@ namespace RaceGame.Race.Network
         private async UniTaskVoid DownloadTextures(long localPlayerID, CancellationToken cancellationToken)
         {
             TextureData = await TextureDownloader.DownloadPlayerTexture(localPlayerID, cancellationToken);
-            playerLookManager.SetCustomTexture(TextureData.Texture);
-            OnLookTypeChanged(TextureData.PlayerLookType);
+            playerLookManager.SetCustomTexture(TextureData.Texture, TextureData.PlayerLookType);
             namePlate.SetTexture(TextureData.Texture);
         }
 
@@ -114,10 +106,7 @@ namespace RaceGame.Race.Network
                 _cart.m_Path = FindObjectOfType<LaneEdgeGenerator>().GetComponent<CinemachineSmoothPath>();
             }
 
-            _lookType = PlayerLookType.Horse;
-
             _mainCamera = Camera.main.transform;
-            OnLookTypeChanged(_lookType);
 
             // 急ぎで雑なやり方
             // 本来であればFactoryPattern等で対応する

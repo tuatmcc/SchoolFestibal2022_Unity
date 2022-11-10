@@ -70,9 +70,9 @@ MonoBehaviour:
   m_UVRect:
     serializedVersion: 2
     x: 0.07
-    y: 0.5
-    width: 0.3
-    height: 0.5
+    y: 0
+    width: 0.6
+    height: 1
 --- !u!1 &7073432507421373743
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,10 +338,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7073432507421373740}
     m_Modifications:
-    - target: {fileID: 1846941701035778514, guid: b605dacdf05dea94385adc098ed5cd6d, type: 3}
-      propertyPath: m_Texture
-      value: 
-      objectReference: {fileID: 2800000, guid: 3150ea8bef2c6524392c3e2429f8ff4c, type: 3}
     - target: {fileID: 3055133509569879295, guid: b605dacdf05dea94385adc098ed5cd6d, type: 3}
       propertyPath: m_RootOrder
       value: 2
