@@ -24,6 +24,8 @@ namespace RaceGame.Race.Sound
                 _prevPosition = transform.position;
                 return;
             }
+            // Šù‚É‚È‚Á‚Ä‚¢‚é‚Æ‚«‚ÍŠm—¦‚Å–Â‚ç‚·
+            if (_audioSource.isPlaying) return;
             _audioSource.PlayOneShot(audioClip);
             _prevPosition = transform.position;
         }

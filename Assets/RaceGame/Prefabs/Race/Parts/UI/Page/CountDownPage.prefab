@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3815460942311015833}
   - component: {fileID: 1694164876917698527}
+  - component: {fileID: 1920572704815179464}
   m_Layer: 0
   m_Name: CountDownPage
   m_TagString: Untagged
@@ -57,6 +58,21 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ecb232fd7e7f4154c817379d1c1b3fbe, type: 3}
   - {fileID: 21300000, guid: e9b6fddd4de569e4ca7c2d61217bd69c, type: 3}
   - {fileID: 21300000, guid: f722417629799b94eae0f405a2f5b845, type: 3}
+--- !u!114 &1920572704815179464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5245833076101999416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68c5b75a5c015147a6a92ed9142e09d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AudioSource: {fileID: 0}
+  firstClip: {fileID: 8300000, guid: 1987242da69e6554c9367516d5d933f5, type: 3}
+  finalClip: {fileID: 8300000, guid: 2b6d13dfe94d36d4190ecbfdedf0aa39, type: 3}
 --- !u!1 &5245833076221741231
 GameObject:
   m_ObjectHideFlags: 0

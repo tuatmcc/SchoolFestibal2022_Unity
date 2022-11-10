@@ -1,5 +1,6 @@
 using RaceGame.Core.UI;
 using RaceGame.Race.Interface;
+using RaceGame.Race.Sound;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -16,10 +17,14 @@ namespace RaceGame.Race.UI.Page
         
         [Inject] private IRaceManager _raceManager;
 
+        private CountDownSePlayer _sePlayer;
+
         private void Start()
         {
             // RaceManagerからカウントダウンのイベントを受け取る
             _raceManager.OnCountDownTimerChanged += UpdateCountDown;
+
+            _sePlayer = GetComponent<CountDownSePlayer>();
         }
 
         private void UpdateCountDown(int time)
@@ -27,6 +32,7 @@ namespace RaceGame.Race.UI.Page
             if (time <= numbers.Length)
             {
                 countDownImage.sprite = numbers[time - 1];
+                _sePlayer.PlayFirstSE();
             }
         }
 
