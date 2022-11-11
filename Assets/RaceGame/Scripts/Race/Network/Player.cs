@@ -30,11 +30,14 @@ namespace RaceGame.Race.Network
         
         public float Position => _position;
         public TimeSpan GoalTime => new(_goalTime - _startTime);
+        public TimeSpan CurrentTime => new(_currentTime - _startTime);
         
         [SyncVar] [NonSerialized]
         private long _startTime;
         [SyncVar] [NonSerialized]
         private long _goalTime;
+        [SyncVar] [NonSerialized]
+        private long _currentTime;
         [SyncVar] [NonSerialized] public bool IsGoal;
 
         public int ClickCount { get; private set; }
@@ -148,6 +151,7 @@ namespace RaceGame.Race.Network
             }
             _raceManager.Players.OrderBy(x => x.netId).Select((x, index) => x.xPosition = index).ToArray();
             transform.position += transform.right * (xPosition * 1.5f + 0.5f);
+            _currentTime = DateTime.Now.Ticks;
         }
 
         private void FixedUpdate()
