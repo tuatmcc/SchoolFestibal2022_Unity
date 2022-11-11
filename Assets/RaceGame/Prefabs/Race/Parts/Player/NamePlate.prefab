@@ -85,7 +85,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8847227871243983886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,10 +198,10 @@ MonoBehaviour:
   m_Texture: {fileID: 2800000, guid: 350f4a2e868d771439b703813f45b6e2, type: 3}
   m_UVRect:
     serializedVersion: 2
-    x: 0.68
-    y: 0.474
-    width: 0.2
-    height: 0.13
+    x: 0.676
+    y: 0.468
+    width: 0.24
+    height: 0.14
 --- !u!1 &3595086948466988956
 GameObject:
   m_ObjectHideFlags: 0
