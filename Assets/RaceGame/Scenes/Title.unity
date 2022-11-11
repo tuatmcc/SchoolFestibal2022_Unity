@@ -202,9 +202,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Title
       objectReference: {fileID: 0}
-    - target: {fileID: 9041180138472595654, guid: f69d050ce29460741b10c1237b609cf8, type: 3}
-      propertyPath: skipQRCode
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f69d050ce29460741b10c1237b609cf8, type: 3}
