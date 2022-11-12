@@ -82,6 +82,7 @@ namespace RaceGame.Race
                 _playersWithoutEnemies.Add(player);
             }
 
+            if (LocalPlayer == null) return;
             if (_gameSetting.PlayType == PlayType.Solo || _playersWithoutEnemies.Count >= 2)
             {
                 if (RaceState == RaceState.NonInitialized)

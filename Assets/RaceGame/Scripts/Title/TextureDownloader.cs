@@ -67,6 +67,7 @@ namespace RaceGame.Title
 
             // json形式から構造体に変換
             var jsonObj = JsonUtility.FromJson<JsonData>(request.downloadHandler.text);
+            var listAll = jsonObj.data.Select(x => x.id).ToList();
             var list = jsonObj.data
                 .Select(x => x.id)
                 .Where(x => !playerIDs.Contains(x))
