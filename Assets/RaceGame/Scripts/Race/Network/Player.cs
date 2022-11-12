@@ -31,6 +31,8 @@ namespace RaceGame.Race.Network
         public float Position => _position;
         public TimeSpan GoalTime => new(_goalTime - _startTime);
         public TimeSpan CurrentTime => new(_currentTime - _startTime);
+        public event Action OnGoaled;
+
         
         [SyncVar] [NonSerialized]
         private long _startTime;
@@ -45,6 +47,7 @@ namespace RaceGame.Race.Network
         public void Goal()
         {
             if (IsGoal) return;
+            OnGoaled?.Invoke(); 
             _goalTime = DateTime.Now.Ticks;
             IsGoal = true;
         }
