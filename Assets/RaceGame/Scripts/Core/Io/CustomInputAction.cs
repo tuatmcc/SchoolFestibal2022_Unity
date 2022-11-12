@@ -164,7 +164,7 @@ public partial class @CustomInputAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ec7b6431-8c08-4cd3-b987-cb850101e37e"",
-                    ""path"": ""<Keyboard>/numpad3"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
