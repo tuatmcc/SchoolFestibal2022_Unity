@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: 476562183636694452}
   - component: {fileID: 476562183636694455}
   - component: {fileID: 5377863217193233067}
+  - component: {fileID: 2443286184142828980}
   m_Layer: 5
   m_Name: RaceUI
   m_TagString: Untagged
@@ -157,6 +158,18 @@ MonoBehaviour:
   countDownPage: {fileID: 6472524093372579887}
   racePage: {fileID: 2905400835482260215}
   resultPage: {fileID: 5227521219509211049}
+--- !u!114 &2443286184142828980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476562183636694454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458bf7769b564240bc6c14b4d2e6169b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5445644369479818395
 PrefabInstance:
   m_ObjectHideFlags: 0
