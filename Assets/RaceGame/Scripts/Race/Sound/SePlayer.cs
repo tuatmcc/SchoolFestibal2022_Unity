@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 namespace RaceGame.Race.Sound
@@ -19,12 +20,13 @@ namespace RaceGame.Race.Sound
         public void PlayFootStep()
         {
             if (_raceManager.RaceState != RaceState.Racing) return;
+            if (!NetworkClient.isConnected) return;
             if (_prevPosition == transform.position)
             {
                 _prevPosition = transform.position;
                 return;
             }
-            // Šù‚É‚È‚Á‚Ä‚¢‚é‚Æ‚«‚ÍŠm—¦‚Å–Â‚ç‚·
+            // ï¿½ï¿½ï¿½É‚È‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÍŠmï¿½ï¿½ï¿½Å–Â‚ç‚·
             if (_audioSource.isPlaying) return;
             _audioSource.PlayOneShot(audioClip);
             _prevPosition = transform.position;

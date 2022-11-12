@@ -1,3 +1,4 @@
+using Mirror;
 using RaceGame.Race.Interface;
 using RaceGame.Race.Sound;
 using UnityEngine;
@@ -18,6 +19,20 @@ namespace RaceGame.Race.Network
         private CustomInputAction _customInput;
         private SePlayer _sePlayer;
 
+        // TODO : 雑な処理ですみません…
+        private SePlayer SePlayer
+        {
+            get
+            {
+                if (_sePlayer == null)
+                {
+                    _sePlayer = GetComponent<SePlayer>();
+                }
+
+                return _sePlayer;
+            }
+        }
+
         private void Start()
         {
             _customInput = new CustomInputAction();
@@ -35,19 +50,26 @@ namespace RaceGame.Race.Network
             {
                 _raceManager = FindObjectOfType<RaceManager>();
             }
-
-            _sePlayer = GetComponent<SePlayer>();
         }
 
         private void AcceleratePlayer(InputAction.CallbackContext context)
         {
             if (!_player.IsLocalPlayer) return;
-            
+
+            // TODO : 雑な処理ですみません…
+            if (!NetworkClient.isConnected) return;
+            // TODO : 雑な処理ですみません…
+            if (this == null)
+            {
+                Debug.LogWarning("悲しい");
+                return;
+            }
+
             switch (_raceManager.RaceState)
             {
                 case RaceState.Racing:
                     _player.CmdAccelerate();
-                    _sePlayer.PlayFootStep();
+                    SePlayer.PlayFootStep();
                     break;
             }
         }
