@@ -127,6 +127,15 @@ public partial class @CustomInputAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ForceCancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""05d4fa33-32c7-40ee-8f5c-40b3cdeff117"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -151,6 +160,17 @@ public partial class @CustomInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""Confirm"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec7b6431-8c08-4cd3-b987-cb850101e37e"",
+                    ""path"": ""<Keyboard>/numpad3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ForceCancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @CustomInputAction : IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_ToMainScene = m_UI.FindAction("ToMainScene", throwIfNotFound: true);
         m_UI_Confirm = m_UI.FindAction("Confirm", throwIfNotFound: true);
+        m_UI_ForceCancel = m_UI.FindAction("ForceCancel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -258,12 +279,14 @@ public partial class @CustomInputAction : IInputActionCollection2, IDisposable
     private IUIActions m_UIActionsCallbackInterface;
     private readonly InputAction m_UI_ToMainScene;
     private readonly InputAction m_UI_Confirm;
+    private readonly InputAction m_UI_ForceCancel;
     public struct UIActions
     {
         private @CustomInputAction m_Wrapper;
         public UIActions(@CustomInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @ToMainScene => m_Wrapper.m_UI_ToMainScene;
         public InputAction @Confirm => m_Wrapper.m_UI_Confirm;
+        public InputAction @ForceCancel => m_Wrapper.m_UI_ForceCancel;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -279,6 +302,9 @@ public partial class @CustomInputAction : IInputActionCollection2, IDisposable
                 @Confirm.started -= m_Wrapper.m_UIActionsCallbackInterface.OnConfirm;
                 @Confirm.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnConfirm;
                 @Confirm.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnConfirm;
+                @ForceCancel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnForceCancel;
+                @ForceCancel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnForceCancel;
+                @ForceCancel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnForceCancel;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -289,6 +315,9 @@ public partial class @CustomInputAction : IInputActionCollection2, IDisposable
                 @Confirm.started += instance.OnConfirm;
                 @Confirm.performed += instance.OnConfirm;
                 @Confirm.canceled += instance.OnConfirm;
+                @ForceCancel.started += instance.OnForceCancel;
+                @ForceCancel.performed += instance.OnForceCancel;
+                @ForceCancel.canceled += instance.OnForceCancel;
             }
         }
     }
@@ -301,5 +330,6 @@ public partial class @CustomInputAction : IInputActionCollection2, IDisposable
     {
         void OnToMainScene(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
+        void OnForceCancel(InputAction.CallbackContext context);
     }
 }
