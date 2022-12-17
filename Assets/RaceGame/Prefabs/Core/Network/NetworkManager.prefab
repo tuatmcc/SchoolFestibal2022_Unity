@@ -52,7 +52,7 @@ MonoBehaviour:
   offlineScene: Assets/RaceGame/Scenes/Title.unity
   onlineScene: Assets/RaceGame/Scenes/Race.unity
   transport: {fileID: 7768640984277820497}
-  networkAddress: 192.168.2.103
+  networkAddress: 192.168.1.129
   maxConnections: 100
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 3834963309910568864, guid: 8379db99789f6f2408c2635816e26f64, type: 3}
