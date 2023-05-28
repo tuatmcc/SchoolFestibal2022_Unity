@@ -1269,9 +1269,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6071926100341865942, guid: 8cee3360a0b50e547b0dd73f6fbf5a2f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: -6071926100341865942, guid: 8cee3360a0b50e547b0dd73f6fbf5a2f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6071926100341865942, guid: 8cee3360a0b50e547b0dd73f6fbf5a2f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.73
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8cee3360a0b50e547b0dd73f6fbf5a2f, type: 3}
       propertyPath: m_Name
       value: Wooden_Toy_World (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588654756156084758, guid: 8cee3360a0b50e547b0dd73f6fbf5a2f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588654756156084758, guid: 8cee3360a0b50e547b0dd73f6fbf5a2f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7849651375995580369, guid: 8cee3360a0b50e547b0dd73f6fbf5a2f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.28
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cee3360a0b50e547b0dd73f6fbf5a2f, type: 3}
