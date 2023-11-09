@@ -14,7 +14,8 @@ namespace RaceGame.Race.Network
 
         public void SetCustomTexture(Texture texture)
         {
-            customTextureRenderer.material.mainTexture = texture;
+            //customTextureRenderer.material.mainTexture = texture;
+            customTextureRenderer.material.SetTexture("_EmissionMap", texture);
         }
     }
 }
