@@ -10,14 +10,14 @@ namespace RaceGame.Title.Sound
         [SerializeField] AudioClip m_AudioClip;
         private void Start()
         {
-            m_AudioSource = FindObjectOfType<AudioSource>();
+            //m_AudioSource = FindObjectOfType<AudioSource>();
         }
         public void PlayTitleBGM()
         {
-            if (m_AudioSource != null)
-            {
-                m_AudioSource.PlayOneShot(m_AudioClip);
-            }
+            // if (m_AudioSource != null)
+            // {
+            //     m_AudioSource.PlayOneShot(m_AudioClip);
+            // }
         }
     }
 }

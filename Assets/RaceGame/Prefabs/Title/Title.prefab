@@ -224,6 +224,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6814717876251715320, guid: 50354807bb2fa4d478da009d3ee8bce7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6814717876251715320, guid: 50354807bb2fa4d478da009d3ee8bce7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 228b07e95f1f83647b8ccf757343318d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50354807bb2fa4d478da009d3ee8bce7, type: 3}
 --- !u!224 &166649353709474121 stripped
