@@ -15,7 +15,7 @@ namespace RaceGame.Title
     /// </summary>
     public static class TextureDownloader
     {
-        private const string ServerAddress = "35.221.72.74";
+        private const string ServerAddress = "104.198.125.126";
         private static readonly string ImageGetURL = $"http://{ServerAddress}/player_image/";
         private static readonly string ListGetURL = $"http://{ServerAddress}/image_list/";
 
